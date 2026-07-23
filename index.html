@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>Costa Rica · Nov 4–25, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E1F1C; --panel:#152A26; --panel2:#1C3833;
+  --bone:#F4EDDF; --yellow:#F5B921; --red:#D8412E; --jade:#38C793; --blue:#2E86C8;
+  --line:rgba(244,237,223,.13);
+  --display:"Anton",Impact,"Arial Narrow",sans-serif;
+  --body:"Karla","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:400;margin:0;text-transform:uppercase;letter-spacing:.01em}
+a{color:var(--yellow)}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase}
+
+header{border-bottom:3px solid var(--yellow);overflow:hidden}
+.hero{display:grid;grid-template-columns:1.4fr .6fr;gap:28px;align-items:center;padding:44px 0 30px}
+.eyebrow{color:var(--jade)}
+h1{font-size:clamp(40px,8vw,88px);line-height:.9;margin:10px 0 14px}
+h1 .hl{color:var(--yellow)}
+h1 .out{color:transparent;-webkit-text-stroke:2px var(--bone)}
+.lede{max-width:48ch;color:rgba(244,237,223,.78);margin:0}
+.wheel{width:100%;max-width:220px;margin-left:auto;display:block;animation:spin 100s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.wheel{animation:none}}
+.manifest{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.mf{background:var(--ink);padding:14px 16px}
+.mf .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,237,223,.5)}
+.mf .v{font-family:var(--display);font-size:19px;margin-top:3px;color:var(--bone)}
+.mf .s{font-size:12.5px;color:rgba(244,237,223,.6)}
+.mf.hot .v{color:var(--yellow)}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(14,31,28,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.navin{display:flex;gap:2px;overflow-x:auto;padding:0 18px;max-width:1000px;margin:0 auto;-ms-overflow-style:none;scrollbar-width:none}
+.navin::-webkit-scrollbar{display:none}
+.navin a{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:rgba(244,237,223,.62);
+  text-decoration:none;padding:15px 12px;white-space:nowrap;border-bottom:2px solid transparent}
+.navin a:hover{color:var(--bone)}
+.navin a.on{color:var(--yellow);border-bottom-color:var(--yellow)}
+
+section{padding:44px 0;border-bottom:1px solid var(--line)}
+.shead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.shead h2{font-size:clamp(23px,3.2vw,32px)}
+.shead .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--jade);text-transform:uppercase}
+.sintro{color:rgba(244,237,223,.72);max-width:72ch;margin:0 0 22px}
+
+.ov{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px}
+.ovc{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--jade);border-radius:2px;padding:11px 12px}
+.ovc.sea{border-left-color:var(--blue)} .ovc.fire{border-left-color:var(--red)} .ovc.work{border-left-color:var(--yellow)}
+.ovc .dt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:rgba(244,237,223,.5);text-transform:uppercase}
+.ovc .tt{font-family:var(--display);font-size:15px;margin-top:3px;line-height:1.15}
+.ovc .nn{font-size:12px;color:rgba(244,237,223,.6);margin-top:4px}
+
+.day{margin-bottom:34px}
+.dayhead{border-top:2px solid var(--yellow);padding-top:12px;margin-bottom:4px}
+.dayhead h3{font-size:22px}
+.dayhead .sub{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--jade);margin-top:4px}
+.dayhead .note{font-size:14px;color:rgba(244,237,223,.72);margin-top:8px;max-width:70ch}
+.slot{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:13px 0;border-top:1px solid var(--line)}
+.slot .t{font-family:var(--mono);font-size:11.5px;color:var(--yellow);letter-spacing:.02em;padding-top:3px}
+.slot h4{font-size:16.5px;margin-bottom:5px}
+.slot p{margin:0;font-size:14.5px;color:rgba(244,237,223,.76)}
+.links{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+.links a{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-decoration:none;color:rgba(244,237,223,.72);
+  border:1px solid var(--line);padding:3px 7px;border-radius:2px}
+.links a:hover{border-color:var(--jade);color:var(--jade)}
+.tg{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle;border:1px solid var(--line);color:rgba(244,237,223,.65)}
+.tg.must{border-color:var(--red);color:var(--red)}
+.tg.book{border-color:var(--yellow);color:var(--yellow)}
+.tg.free{border-color:var(--jade);color:var(--jade)}
+.tg.eat{border-color:var(--blue);color:var(--blue)}
+.warnbox{background:rgba(216,65,46,.1);border:1px solid rgba(216,65,46,.4);border-radius:2px;padding:13px 15px;margin:14px 0;font-size:14.5px}
+.warnbox b{color:var(--red)}
+.tipbox{background:rgba(56,199,147,.08);border:1px solid rgba(56,199,147,.3);border-radius:2px;padding:13px 15px;margin:14px 0;font-size:14.5px}
+
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(106px,1fr));gap:7px;margin-top:16px}
+.slat{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:2px;padding:9px;text-align:left;
+  cursor:pointer;color:inherit;font:inherit;transition:transform .12s,border-color .12s}
+.slat:hover{transform:translateY(-2px);border-color:var(--yellow)}
+.slat:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+.slat .d{font-family:var(--display);font-size:22px;line-height:1}
+.slat .dw{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:rgba(244,237,223,.5);text-transform:uppercase}
+.slat .who{font-size:12px;margin-top:7px;color:var(--yellow);line-height:1.3;min-height:1.3em}
+.slat .who.e{color:rgba(244,237,223,.32)}
+.slat.taken{background:linear-gradient(180deg,var(--panel2),rgba(245,185,33,.1));border-color:rgba(245,185,33,.45)}
+.slat.work::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:repeating-linear-gradient(90deg,var(--blue) 0 6px,transparent 6px 12px)}
+.slat.wknd .d{color:var(--yellow)}
+.rowbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
+button.act{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--bone);
+  border:1px solid var(--line);padding:9px 13px;border-radius:2px;cursor:pointer}
+button.act:hover{border-color:var(--jade);color:var(--jade)}
+button.prim{background:var(--yellow);border-color:var(--yellow);color:var(--ink);font-weight:700}
+button.prim:hover{background:var(--bone);border-color:var(--bone);color:var(--ink)}
+button.dang:hover{border-color:var(--red);color:var(--red)}
+.legend{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:rgba(244,237,223,.45);text-transform:uppercase}
+dialog{border:1px solid var(--yellow);background:var(--panel);color:var(--bone);border-radius:3px;padding:20px;max-width:370px;width:92%}
+dialog::backdrop{background:rgba(6,14,12,.75)}
+dialog label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,237,223,.6);margin:13px 0 5px}
+dialog input,dialog textarea{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--bone);padding:9px;font:inherit;font-size:14px;border-radius:2px}
+dialog textarea{min-height:60px;resize:vertical}
+.dlgbar{display:flex;gap:7px;margin-top:16px}.dlgbar button{flex:1}
+
+.console{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.readout{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:20px}
+.curtog{display:flex;gap:4px;margin-bottom:10px}
+.curtog button{font-family:var(--mono);font-size:10px;letter-spacing:.1em;background:transparent;border:1px solid var(--line);
+  color:rgba(244,237,223,.6);padding:4px 10px;border-radius:2px;cursor:pointer}
+.curtog button.on{border-color:var(--yellow);color:var(--yellow)}
+.big{font-family:var(--display);font-size:clamp(38px,7vw,60px);line-height:1;color:var(--yellow)}
+.delta{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;margin-top:8px}
+.delta.under{color:var(--jade)}.delta.over{color:var(--red)}
+.gauge{height:8px;background:var(--panel2);border-radius:4px;margin:16px 0 6px;position:relative;overflow:hidden}
+.gauge i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--jade),var(--yellow));border-radius:4px;transition:width .2s}
+.gscale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:rgba(244,237,223,.4)}
+.lever{margin-bottom:15px}
+.lever .lh{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;gap:10px}
+.lever .lv{font-family:var(--mono);font-size:12px;color:var(--yellow);white-space:nowrap}
+input[type=range]{width:100%;margin-top:6px;accent-color:var(--yellow);height:20px}
+.lines{margin-top:14px;font-size:13.5px}
+.lines div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.lines span:last-child{font-family:var(--mono);font-size:12.5px;white-space:nowrap;color:rgba(244,237,223,.85)}
+.lines div.fixed span:last-child{color:var(--jade)}
+.fx{font-family:var(--mono);font-size:10px;color:rgba(244,237,223,.45);margin-top:10px;letter-spacing:.05em}
+
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:17px}
+.pcard h3{font-size:16px;margin-bottom:9px}
+.pcard p,.pcard li{font-size:14px;color:rgba(244,237,223,.78)}
+.pcard ul{margin:0;padding-left:17px}.pcard li{margin-bottom:5px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.kv:last-child{border-bottom:none}
+.kv b{font-weight:500;color:rgba(244,237,223,.65);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+
+.crew{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px}
+.person{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--jade);border-radius:3px;padding:15px}
+.person.ask{border-left-color:var(--red)}.person.offer{border-left-color:var(--yellow)}
+.person h4{font-size:16px}
+.person .role{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,237,223,.5);margin-top:2px}
+.person p{font-size:13.5px;margin:8px 0 0;color:rgba(244,237,223,.78)}
+
+.progress{display:flex;gap:20px;align-items:center;margin:4px 0 16px;flex-wrap:wrap}
+.progress .pn{font-family:var(--display);font-size:30px;color:var(--jade);line-height:1}
+.progress .pl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,237,223,.5)}
+.pbar{flex:1;min-width:120px;height:6px;background:var(--panel2);border-radius:3px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--jade);width:0;transition:width .25s}
+.catt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin:20px 0 8px}
+ul.todo{list-style:none;padding:0;margin:0;display:grid;gap:2px}
+ul.todo li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:2px}
+ul.todo input{margin-top:4px;accent-color:var(--jade);width:16px;height:16px;flex:none;cursor:pointer}
+ul.todo label{cursor:pointer;font-size:14.5px}
+ul.todo .m{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244,237,223,.45);margin-top:3px}
+ul.todo li.done label{text-decoration:line-through;color:rgba(244,237,223,.35)}
+.req{font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;border:1px solid var(--red);color:var(--red);padding:1px 5px;border-radius:2px;margin-left:6px}
+.req.rec{border-color:var(--jade);color:var(--jade)}
+
+footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align:center}
+
+@media(max-width:760px){
+  .hero{grid-template-columns:1fr;padding:30px 0 22px;gap:14px}
+  .wheel{max-width:120px;margin:0}
+  .slot{grid-template-columns:1fr;gap:3px}
+  .slot .t{padding-top:0}
+  .console{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hero">
+    <div>
+      <div class="mono eyebrow">Trip manifest · Pachanga Enablement Tracker</div>
+      <h1>Costa <span class="hl">Rica</span><br><span class="out">Nov 4–25</span> 2026</h1>
+      <p class="lede">Two weeks off, one week working remotely. Home base in Heredia, a Suzuki Jimny 4×4 for the whole stay, and a local crew already lining up to claim the weekends.</p>
+    </div>
+    <svg class="wheel" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="96" fill="none" stroke="#F5B921" stroke-width="6"/>
+      <circle cx="100" cy="100" r="82" fill="#152A26" stroke="#D8412E" stroke-width="3"/>
+      <g stroke="#F4EDDF" stroke-width="1.5" opacity=".8" fill="none">
+        <circle cx="100" cy="100" r="66"/><circle cx="100" cy="100" r="40"/><circle cx="100" cy="100" r="20"/>
+      </g>
+      <g id="spokes"></g><g id="petals"></g>
+      <circle cx="100" cy="100" r="9" fill="#F5B921"/>
+    </svg>
+  </div>
+  <div class="wrap"><div class="manifest">
+    <div class="mf hot"><div class="k">Until departure</div><div class="v" id="cd">—</div><div class="s">Nov 4 · WAW → SJO</div></div>
+    <div class="mf"><div class="k">On the ground</div><div class="v">21 nights</div><div class="s">14 vacation · 7 working</div></div>
+    <div class="mf"><div class="k">Base</div><div class="v">Heredia</div><div class="s">Calle 9 · HM2TWBHX8Q</div></div>
+    <div class="mf"><div class="k">Vehicle</div><div class="v">Jimny 4×4</div><div class="s">Jumbo Car · 21 days</div></div>
+    <div class="mf"><div class="k">Check-in / out</div><div class="v">15:00 / 11:00</div><div class="s">Nov 4 / Nov 25</div></div>
+    <div class="mf hot"><div class="k">Budget target</div><div class="v" id="mf-budget">12,000 zł</div><div class="s">flights still open</div></div>
+  </div></div>
+</header>
+
+<nav><div class="navin" id="nav">
+  <a href="#overview">Overview</a>
+  <a href="#w1">Week 1</a>
+  <a href="#w2">Week 2</a>
+  <a href="#w3">Week 3</a>
+  <a href="#pachanga">Pachanga</a>
+  <a href="#budget">Budget</a>
+  <a href="#practical">Practical</a>
+  <a href="#checklist">✓ Checklist</a>
+  <a href="#packing">🧳 Packing</a>
+</div></nav>
+
+<main>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="wrap">
+    <div class="shead"><h2>Route overview</h2><span class="tag">21 days, one base, three trips out</span></div>
+    <p class="sintro">The one decision that shapes everything: <b>Caribbean on the first weekend, Pacific on the second</b>. The southern Caribbean coast gets an extension of its October dry window in early November, then turns wet from mid-month. The Pacific side does the opposite — it dries out steadily all November. Flipping the order costs nothing and buys better weather on both coasts. <b>Ticos: if this contradicts what you know from living here, say so — you win that argument.</b></p>
+    <div class="ov">
+      <div class="ovc"><div class="dt">Wed Nov 4</div><div class="tt">Arrival</div><div class="nn">SJO → Heredia</div></div>
+      <div class="ovc"><div class="dt">Thu Nov 5</div><div class="tt">Poás + Sarchí</div><div class="nn">volcano and carretas</div></div>
+      <div class="ovc sea"><div class="dt">Fri Nov 6</div><div class="tt">Ruta 32 → Limón</div><div class="nn">transfer, ~4.5 h</div></div>
+      <div class="ovc sea"><div class="dt">Sat Nov 7</div><div class="tt">Cahuita + Puerto Viejo</div><div class="nn">reef, sloths, beaches</div></div>
+      <div class="ovc sea"><div class="dt">Sun Nov 8</div><div class="tt">Manzanillo</div><div class="nn">back to Heredia</div></div>
+      <div class="ovc"><div class="dt">Mon Nov 9</div><div class="tt">Zarcero → La Fortuna</div><div class="nn">hot springs</div></div>
+      <div class="ovc fire"><div class="dt">Tue Nov 10</div><div class="tt">Arenal</div><div class="nn">bridges + waterfall</div></div>
+      <div class="ovc fire"><div class="dt">Wed Nov 11</div><div class="tt">Río Celeste</div><div class="nn">the blue river</div></div>
+      <div class="ovc"><div class="dt">Thu Nov 12</div><div class="tt">→ Monteverde</div><div class="nn">around the lake</div></div>
+      <div class="ovc"><div class="dt">Fri Nov 13</div><div class="tt">Cloud forest</div><div class="nn">7:00 with a guide</div></div>
+      <div class="ovc sea"><div class="dt">Sat Nov 14</div><div class="tt">→ Manuel Antonio</div><div class="nn">via Tárcoles</div></div>
+      <div class="ovc sea"><div class="dt">Sun Nov 15</div><div class="tt">Manuel Antonio</div><div class="nn">park + beach</div></div>
+      <div class="ovc"><div class="dt">Mon Nov 16</div><div class="tt">Back to base</div><div class="nn">~3.5 h</div></div>
+      <div class="ovc"><div class="dt">Tue Nov 17</div><div class="tt">Buffer day</div><div class="nn">reset before work</div></div>
+      <div class="ovc work"><div class="dt">Wed 18 – Fri 20</div><div class="tt">Working from Heredia</div><div class="nn">evenings free</div></div>
+      <div class="ovc work"><div class="dt">Sat Nov 21</div><div class="tt">Pachanga at Antonio's</div><div class="nn">the main event</div></div>
+      <div class="ovc work"><div class="dt">Sun Nov 22</div><div class="tt">Barrio Escalante</div><div class="nn">easy day in San José</div></div>
+      <div class="ovc work"><div class="dt">Mon 23 – Tue 24</div><div class="tt">Work + packing</div><div class="nn">wrapping up</div></div>
+      <div class="ovc"><div class="dt">Wed Nov 25</div><div class="tt">Departure</div><div class="nn">return car, fly SJO</div></div>
+    </div>
+    <div class="warnbox"><b>Biggest risk on this route:</b> Ruta 32 through Braulio Carrillo is the only sensible road to the Caribbean, and it closes for landslides, fog and roadworks. Check its status on the morning of Nov 6 before setting off. The detour via Turrialba exists but adds 2–3 hours.</div>
+  </div>
+</section>
+
+<!-- WEEK 1 -->
+<section id="w1">
+  <div class="wrap">
+    <div class="shead"><h2>Week 1 — vacation</h2><span class="tag">Wed Nov 4 → Tue Nov 10</span></div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Wednesday, Nov 4 · arrival</h3>
+        <div class="sub">SJO → Heredia · ~30 min · check-in from 15:00</div>
+        <div class="note">Landing time depends on which flight gets booked — the British Airways option via London puts arrival in the afternoon. No ambition on day one: car, check-in, groceries, dinner.</div></div>
+      <div class="slot"><div class="t">on landing</div><div>
+        <h4>Pick up the Jimny · Jumbo Car</h4>
+        <p>Jumbo Car runs a shuttle from the terminal. <b>Film the whole car before leaving the lot</b> — every panel, the roof, the wheels, the interior, the fuel gauge. That video is the only real protection in a damage dispute at drop-off. The card needs roughly $1,200 free for the deposit hold.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Juan+Santamaria+International+Airport+Costa+Rica" target="_blank" rel="noopener">📍 SJO</a></div></div></div>
+      <div class="slot"><div class="t">~1 h later</div><div>
+        <h4>Heredia · check-in<span class="tg">Calle 9</span></h4>
+        <p>25–30 minutes from the airport via General Cañas and Ruta 3. Loft in downtown Heredia, booking code HM2TWBHX8Q. Ask the host about parking — downtown it is not a given.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Calle+9+Heredia+Costa+Rica" target="_blank" rel="noopener">📍 Base</a><a href="https://waze.com/ul?q=Heredia+centro+Costa+Rica&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+      <div class="slot"><div class="t">evening</div><div>
+        <h4>Mercado Central Heredia + first dinner<span class="tg eat">food</span></h4>
+        <p>The market is two blocks from the base — fruit, coffee, basics. Dinner: <b>casado</b> at any soda on the square. Rice, beans, salad, fried plantain and a protein, usually 3,500–5,000 colones. It is the default Costa Rican lunch and it will not get old in three weeks.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Mercado+Central+Heredia+Costa+Rica" target="_blank" rel="noopener">📍 Mercado Central</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Thursday, Nov 5 · volcano</h3>
+        <div class="sub">Poás + Sarchí · ~1.5 h each way · leave 6:30</div>
+        <div class="note">Poás is the closest volcano to base and the only one in the country where you drive almost to the crater rim. The catch: clouds usually roll in before 10:00 and hide everything. First in, best view.</div></div>
+      <div class="slot"><div class="t">6:30</div><div>
+        <h4>Leave Heredia</h4>
+        <p>Through Alajuela and Poasito — switchbacks through coffee and strawberry fields. Dress in layers: at 2,700 m it can be 10–12°C with wind.</p></div></div>
+      <div class="slot"><div class="t">8:00 – 9:30</div><div>
+        <h4>Parque Nacional Volcán Poás<span class="tg book">reserve ahead</span><span class="tg must">must</span></h4>
+        <p>Entry is <b>online-only through the SINAC system</b> — nothing is sold at the gate. Timed entry slots, and time at the crater rim may be capped for gas-safety reasons. The crater is 1.3 km across with an acid lake at the bottom.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Parque+Nacional+Volcan+Poas+Costa+Rica" target="_blank" rel="noopener">📍 Poás</a><a href="https://waze.com/ul?q=Volcan+Poas+National+Park&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a><a href="https://serviciosenlinea.sinac.go.cr/" target="_blank" rel="noopener">🎟️ SINAC tickets</a></div></div></div>
+      <div class="slot"><div class="t">10:00 – 12:00</div><div>
+        <h4>La Paz Waterfall Gardens<span class="tg">optional</span></h4>
+        <p>20 minutes downhill from Poás. Five waterfalls, a toucan aviary, hummingbirds, rescued animals. Pricey (~$48) and touristy, but if Poás is buried in cloud this is the plan B that saves the day.</p>
+        <div class="links"><a href="https://maps.google.com/?q=La+Paz+Waterfall+Gardens+Costa+Rica" target="_blank" rel="noopener">📍 La Paz</a></div></div></div>
+      <div class="slot"><div class="t">13:00 – 15:00</div><div>
+        <h4>Sarchí · home of the carreta<span class="tg">crafts</span></h4>
+        <p>The town where the painted oxcarts come from — a national symbol and UNESCO heritage. The world's largest carreta sits on the main square. <b>Fábrica de Carretas Eloy Alfaro</b> has been running since 1923 and still uses a water wheel. This is where souvenirs come from, not the airport.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Fabrica+de+Carretas+Eloy+Alfaro+Sarchi+Costa+Rica" target="_blank" rel="noopener">📍 Eloy Alfaro</a><a href="https://waze.com/ul?q=Sarchi+Costa+Rica&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+      <div class="slot"><div class="t">15:30 – 17:00</div><div>
+        <h4>Coffee: Doka Estate or Café Britt<span class="tg eat">coffee</span></h4>
+        <p>Doka in Alajuela is a working plantation with the oldest wet mill in the country. Café Britt is basically in Heredia, so it can move to any other day. Buy beans <b>here, not at the airport</b> — the price and freshness gap is absurd.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Doka+Estate+Coffee+Tour+Costa+Rica" target="_blank" rel="noopener">📍 Doka Estate</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Friday, Nov 6 · transfer to the Caribbean</h3>
+        <div class="sub">Ruta 32 · ~4.5 h to Puerto Viejo · leave 7:00</div>
+        <div class="note">Longest drive of the week and the only one that can genuinely fail. Check Ruta 32 before leaving.</div></div>
+      <div class="slot"><div class="t">7:00 – 9:00</div><div>
+        <h4>Ruta 32 through Braulio Carrillo</h4>
+        <p>The road climbs into cloud and drops to the Caribbean lowlands through primary rainforest. Fog, trucks, no shoulder. Take it slow and do not overtake on curves. The views on the right are worth stopping at a marked mirador.</p>
+        <div class="links"><a href="https://waze.com/ul?q=Ruta+32+Braulio+Carrillo+Costa+Rica&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+      <div class="slot"><div class="t">11:00 – 12:30</div><div>
+        <h4>Puerto Limón · lunch<span class="tg eat">food</span></h4>
+        <p>Jonathan's line was: you probably won't go back to Poland after seeing Limón. A port city with an Afro-Caribbean soul — different music, different Spanish, different food. Order <b>rice and beans</b> (not the same as gallo pinto — this one's cooked in coconut milk), <b>rondón</b> or <b>patí</b>. Parque Vargas downtown has sloths in the trees.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Parque+Vargas+Puerto+Limon+Costa+Rica" target="_blank" rel="noopener">📍 Parque Vargas</a></div></div></div>
+      <div class="slot"><div class="t">14:00</div><div>
+        <h4>Puerto Viejo de Talamanca · check-in</h4>
+        <p>Heimar and Mario were unanimous: "Puerto Viejo es toda." Lodging is either sorted by friends or booked around Cocles. The main street comes alive in the evening — reggae, jerk chicken, people from everywhere.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Puerto+Viejo+de+Talamanca+Costa+Rica" target="_blank" rel="noopener">📍 Puerto Viejo</a><a href="https://waze.com/ul?q=Puerto+Viejo+de+Talamanca&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Saturday, Nov 7 · reef and beaches</h3>
+        <div class="sub">Cahuita in the morning · Punta Uva in the afternoon</div></div>
+      <div class="slot"><div class="t">7:00 – 11:00</div><div>
+        <h4>Parque Nacional Cahuita<span class="tg free">donation</span><span class="tg must">must</span></h4>
+        <p>Entry from the Kelly Creek side is by voluntary donation — one of the few parks in the country without a fixed ticket. Flat trail along the beach, 8 km one way. Sloths, capuchins, raccoons, eyelash vipers (admire from a distance). <b>Snorkeling on the reef only with a licensed guide</b> — that rule protects the reef and isn't one to work around.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Parque+Nacional+Cahuita+Costa+Rica" target="_blank" rel="noopener">📍 Cahuita NP</a><a href="https://waze.com/ul?q=Cahuita+National+Park&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+      <div class="slot"><div class="t">12:00 – 13:30</div><div>
+        <h4>Lunch in Cahuita or Puerto Viejo<span class="tg eat">food</span></h4>
+        <p>Caribbean cooking is the best food in Costa Rica and that is not a controversial claim. Look for <b>pollo caribeño</b>, <b>rondón</b>, <b>patacones</b> with guacamole. To drink: agua de sapo — ginger, lime, tapa de dulce.</p></div></div>
+      <div class="slot"><div class="t">14:00 – 18:00</div><div>
+        <h4>Playa Cocles → Punta Uva → Manzanillo<span class="tg">views</span></h4>
+        <p>The road south from Puerto Viejo runs 13 km along the best beaches in the country. <b>Punta Uva</b> is the one that makes other beaches look ordinary — calm water, a jungle-covered headland. Cocles has the surf. At Manzanillo the pavement ends and the refuge begins.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Punta+Uva+Beach+Costa+Rica" target="_blank" rel="noopener">📍 Punta Uva</a><a href="https://maps.google.com/?q=Playa+Cocles+Costa+Rica" target="_blank" rel="noopener">📍 Cocles</a></div></div></div>
+      <div class="slot"><div class="t">evening</div><div>
+        <h4>Puerto Viejo after dark</h4>
+        <p>Bars along the main street, live music, zero pretension. <b>Leave nothing in the car</b>, not even in the trunk — that is the only real safety note for this stretch.</p></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Sunday, Nov 8 · Manzanillo + return</h3>
+        <div class="sub">Gandoca-Manzanillo refuge · ~4.5 h back</div></div>
+      <div class="slot"><div class="t">7:00 – 10:00</div><div>
+        <h4>Refugio Nacional Gandoca-Manzanillo<span class="tg">lesser known</span></h4>
+        <p>A refuge at the very end of the road, near the Panamanian border. The coastal trail to Punta Mona runs past wild beaches and mangroves with almost nobody on it. Take a guide at the entrance if you want to actually see wildlife rather than just leaves.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Refugio+Nacional+Gandoca+Manzanillo+Costa+Rica" target="_blank" rel="noopener">📍 Manzanillo</a></div></div></div>
+      <div class="slot"><div class="t">11:00</div><div>
+        <h4>Last Caribbean lunch, then drive</h4>
+        <p>Leave by 13:00 at the latest. <b>Do not drive Ruta 32 after dark</b> — fog in Braulio Carrillo plus trucks plus no lighting is the worst combination on any Costa Rican road.</p>
+        <div class="links"><a href="https://waze.com/ul?q=Heredia+Costa+Rica&navigate=yes" target="_blank" rel="noopener">🚗 Waze to base</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Monday, Nov 9 · transfer to Arenal</h3>
+        <div class="sub">Heredia → Zarcero → La Fortuna · ~3.5 h</div></div>
+      <div class="slot"><div class="t">9:00 – 10:30</div><div>
+        <h4>Zarcero · Parque Francisco Alvarado<span class="tg free">free</span><span class="tg">lesser known</span></h4>
+        <p>Directly on the way, so it costs almost nothing in time. A park full of cypress trees clipped into arches, elephants, monkeys and figures — the work of one gardener who has been at it since the 1960s. Absurd in the best way. The church next door has a painted interior worth ten minutes.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Parque+Francisco+Alvarado+Zarcero+Costa+Rica" target="_blank" rel="noopener">📍 Zarcero</a></div></div></div>
+      <div class="slot"><div class="t">13:00</div><div>
+        <h4>La Fortuna · base for 3 nights</h4>
+        <p>The town runs on the volcano and does it well. Arenal shows its summit early in the morning or not at all — do not count on a postcard at 15:00.</p>
+        <div class="links"><a href="https://maps.google.com/?q=La+Fortuna+Costa+Rica" target="_blank" rel="noopener">📍 La Fortuna</a></div></div></div>
+      <div class="slot"><div class="t">16:00 – 19:00</div><div>
+        <h4>Hot springs<span class="tg free">free option</span></h4>
+        <p>The resorts (Tabacón, Baldi, Ecotermales) run $40–90. There is also <b>Río Chollín</b> — the free hot river under the bridge on the road to Tabacón, where locals soak. Leave valuables at the hotel, bring sandals, get in. Better story than the resort.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Rio+Chollin+hot+springs+La+Fortuna+Costa+Rica" target="_blank" rel="noopener">📍 Río Chollín</a><a href="https://maps.google.com/?q=Tabacon+Thermal+Resort+Costa+Rica" target="_blank" rel="noopener">📍 Tabacón</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Tuesday, Nov 10 · Arenal</h3>
+        <div class="sub">Hanging bridges in the morning · waterfall after lunch</div></div>
+      <div class="slot"><div class="t">7:30 – 10:30</div><div>
+        <h4>Mistico Arenal Hanging Bridges<span class="tg book">book online</span><span class="tg must">must</span></h4>
+        <p>~$32, a 3.2 km loop with sixteen bridges, six of them suspended. Mornings are cooler, emptier and better for wildlife. Walk slowly and look up — sloths do not move enough to catch your eye.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Mistico+Arenal+Hanging+Bridges+Park+Costa+Rica" target="_blank" rel="noopener">📍 Mistico</a><a href="https://waze.com/ul?q=Mistico+Hanging+Bridges&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+      <div class="slot"><div class="t">12:00 – 15:00</div><div>
+        <h4>Catarata Río Fortuna</h4>
+        <p>A 70-metre waterfall in a jungle bowl. Entry ~$18, and <b>about 500 concrete steps</b> lead down — the descent is easy, the return is a workout. Swimming is allowed but the current near the falls is strong; stay to the sides.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Catarata+Rio+Fortuna+Costa+Rica" target="_blank" rel="noopener">📍 Catarata</a></div></div></div>
+      <div class="slot"><div class="t">16:00</div><div>
+        <h4>El Salto rope swing<span class="tg free">free</span><span class="tg">lesser known</span></h4>
+        <p>A rope over the river right by town, where local kids jump. No infrastructure, no ticket. If the mood is right, this is the version of Costa Rica that isn't in any brochure.</p>
+        <div class="links"><a href="https://maps.google.com/?q=El+Salto+rope+swing+La+Fortuna+Costa+Rica" target="_blank" rel="noopener">📍 El Salto</a></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEK 2 -->
+<section id="w2">
+  <div class="wrap">
+    <div class="shead"><h2>Week 2 — vacation</h2><span class="tag">Wed Nov 11 → Tue Nov 17</span></div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Wednesday, Nov 11 · Río Celeste</h3>
+        <div class="sub">Tenorio National Park · ~2 h each way · leave 6:30</div>
+        <div class="note">The longest day trip of the week and the one place in the plan where the 4×4 actually earns its keep — the last stretch of road turns to rutted gravel.</div></div>
+      <div class="slot"><div class="t">8:30 – 13:00</div><div>
+        <h4>Río Celeste · Parque Nacional Volcán Tenorio<span class="tg must">must</span></h4>
+        <p>A river in a colour nobody believes until they see it — silica particles scattering light where two streams meet at <b>Los Teñideros</b>. The trail is ~6 km round trip and muddy; rubber boots rent for a few dollars at the entrance and are worth it. The waterfall is 250 steps down.</p>
+        <p style="margin-top:8px"><b>Honestly:</b> after heavy rain the river turns cloudy and loses the colour. If the previous day was a washout, consider swapping this day with another.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Rio+Celeste+Tenorio+Volcano+National+Park+Costa+Rica" target="_blank" rel="noopener">📍 Río Celeste</a><a href="https://waze.com/ul?q=Parque+Nacional+Volcan+Tenorio&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+      <div class="slot"><div class="t">15:00 – 17:00</div><div>
+        <h4>Back along Lake Arenal</h4>
+        <p>The lakeside road looks across at the volcano. Stop in <b>Nuevo Arenal</b> — a German bakery in the middle of Costa Rica is exactly as strange as it sounds, and the cake is excellent.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Nuevo+Arenal+Costa+Rica" target="_blank" rel="noopener">📍 Nuevo Arenal</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Thursday, Nov 12 · transfer to Monteverde</h3>
+        <div class="sub">Around Lake Arenal · ~3–3.5 h · gravel at the end</div></div>
+      <div class="slot"><div class="t">9:00 – 12:30</div><div>
+        <h4>Around the lake → Tilarán → Monteverde</h4>
+        <p>The last 30 km is the famously rough gravel road that local authorities keep rough on purpose, to limit mass tourism. This is the Jimny's natural habitat. Drive 30–40 km/h and stop fighting the road.</p>
+        <div class="links"><a href="https://waze.com/ul?q=Monteverde+Costa+Rica&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+      <div class="slot"><div class="t">14:00 – 17:00</div><div>
+        <h4>Santa Elena · settling in<span class="tg eat">coffee</span></h4>
+        <p>Monteverde is not a town but a scattered settlement founded by Quakers who arrived in the 1950s and started a cheese factory. The <b>Monteverde Cheese Factory</b> still runs and sells ice cream. Evenings are cold by Costa Rican standards — 14–16°C — and damp.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Monteverde+Cheese+Factory+Costa+Rica" target="_blank" rel="noopener">📍 Cheese Factory</a><a href="https://maps.google.com/?q=Santa+Elena+Monteverde+Costa+Rica" target="_blank" rel="noopener">📍 Santa Elena</a></div></div></div>
+      <div class="slot"><div class="t">19:00 – 21:00</div><div>
+        <h4>Night walk in the forest<span class="tg">lesser known</span></h4>
+        <p>The cloud forest after dark is a different animal: tarantulas, frogs, kinkajous, snakes. A guide with a torch will find things you would walk past ten times. ~$25, same-day booking usually works.</p></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Friday, Nov 13 · cloud forest</h3>
+        <div class="sub">Reserve at 7:00 · afternoon is a choice</div>
+        <div class="note">No sugar-coating: November in Monteverde can rain all day, and the cloud can cut visibility to a few metres. That is not a flaw, it is the definition of a cloud forest — but better to know beforehand.</div></div>
+      <div class="slot"><div class="t">7:00 – 11:00</div><div>
+        <h4>Reserva Biológica Bosque Nuboso Monteverde<span class="tg book">take a guide</span><span class="tg must">must</span></h4>
+        <p>Entry ~$25, guide ~$25–30, and <b>here the guide is worth it</b> — without one you see green, with one you see quetzals, hummingbirds, kinkajous and epiphytes you would never spot. Entry is capped by visitor numbers, so arrive early. Bring a rain jacket, not an umbrella.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Monteverde+Cloud+Forest+Biological+Preserve+Costa+Rica" target="_blank" rel="noopener">📍 Reserve</a><a href="https://waze.com/ul?q=Monteverde+Cloud+Forest+Reserve&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
+      <div class="slot"><div class="t">12:30 – 16:00</div><div>
+        <h4>Curi-Cancha or Selvatura<span class="tg">pick one</span></h4>
+        <p><b>Curi-Cancha</b> — smaller private reserve with a better quetzal hit rate than the main park and fewer people. <b>Selvatura</b> — hanging bridges plus the longest zipline around, if adrenaline beats binoculars. Choose one, not both.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Curi+Cancha+Reserve+Monteverde+Costa+Rica" target="_blank" rel="noopener">📍 Curi-Cancha</a><a href="https://maps.google.com/?q=Selvatura+Park+Monteverde+Costa+Rica" target="_blank" rel="noopener">📍 Selvatura</a></div></div></div>
+      <div class="slot"><div class="t">17:00</div><div>
+        <h4>Café Monteverde<span class="tg eat">coffee</span></h4>
+        <p>A cooperative of local growers, coffee from the same slope you are standing on. This is where the beans for the Warsaw team get bought.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Cafe+Monteverde+Costa+Rica" target="_blank" rel="noopener">📍 Café Monteverde</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Saturday, Nov 14 · transfer to the Pacific</h3>
+        <div class="sub">Monteverde → Manuel Antonio · ~4 h · leave 8:00</div></div>
+      <div class="slot"><div class="t">10:30</div><div>
+        <h4>Tárcoles river bridge · crocodiles<span class="tg free">free</span></h4>
+        <p>You stop on the bridge on the Costanera, look down, and there are a dozen American crocodiles, some over 4 metres. A classic roadside stop with no ticket. Parking on both sides — keep an eye on the car.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Tarcoles+River+Crocodile+Bridge+Costa+Rica" target="_blank" rel="noopener">📍 Tárcoles bridge</a></div></div></div>
+      <div class="slot"><div class="t">13:00</div><div>
+        <h4>Manuel Antonio / Quepos · check-in</h4>
+        <p>Jonathan's recommendation. The road between Quepos and the park is one long hillside strip of hotels and restaurants with ocean views.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Manuel+Antonio+Quepos+Costa+Rica" target="_blank" rel="noopener">📍 Manuel Antonio</a></div></div></div>
+      <div class="slot"><div class="t">17:30</div><div>
+        <h4>Sunset at El Avión<span class="tg eat">food</span></h4>
+        <p>A restaurant built around the fuselage of a Fairchild C-123 from the Iran-Contra affair — the plane sat abandoned at the San José airport in the 1980s and was hauled up here. The food is fine; the view and the story are the point.</p>
+        <div class="links"><a href="https://maps.google.com/?q=El+Avion+Restaurant+Manuel+Antonio+Costa+Rica" target="_blank" rel="noopener">📍 El Avión</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Sunday, Nov 15 · Manuel Antonio</h3>
+        <div class="sub">Park from 7:00 · beach in the afternoon</div></div>
+      <div class="slot"><div class="t">7:00 – 12:00</div><div>
+        <h4>Parque Nacional Manuel Antonio<span class="tg book">capped entry</span><span class="tg must">must</span></h4>
+        <p>The smallest national park in the country and the most densely populated by animals: two-toed sloths, capuchins, howlers, agoutis and, with luck, <b>squirrel monkeys</b>, which only live along this coast. Book online in advance — the daily visitor cap is genuinely enforced. The park closes one day a week, so confirm Sunday before booking.</p>
+        <p style="margin-top:8px"><b>Watch the capuchins:</b> they open backpacks and steal food. Do not feed them and do not leave a bag unattended.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Parque+Nacional+Manuel+Antonio+Costa+Rica" target="_blank" rel="noopener">📍 Manuel Antonio NP</a><a href="https://serviciosenlinea.sinac.go.cr/" target="_blank" rel="noopener">🎟️ SINAC tickets</a></div></div></div>
+      <div class="slot"><div class="t">12:00 – 16:00</div><div>
+        <h4>Playa Espadilla Sur and Playa Manuel Antonio</h4>
+        <p>Both inside the park, both white sand and calm water. Playa Manuel Antonio sits in a sheltered cove and stays swimmable even when the rest of the coast has surf.</p></div></div>
+      <div class="slot"><div class="t">evening</div><div>
+        <h4>Quepos · the marina<span class="tg eat">food</span></h4>
+        <p>Fresh fish and ceviche at Marina Pez Vela. Order <b>ceviche de corvina</b> — the Costa Rican version is less acidic than the Peruvian one, with cilantro and onion.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Marina+Pez+Vela+Quepos+Costa+Rica" target="_blank" rel="noopener">📍 Marina Pez Vela</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Monday, Nov 16 · back to base</h3>
+        <div class="sub">Manuel Antonio → Heredia · ~3.5 h</div></div>
+      <div class="slot"><div class="t">morning</div><div>
+        <h4>One last beach, then the road</h4>
+        <p>Leave around 11:00, Costanera Sur through Jacó and then Ruta 27 into the Central Valley. Best road in the country — tolled, but worth the few thousand colones.</p>
+        <div class="links"><a href="https://waze.com/ul?q=Heredia+Costa+Rica&navigate=yes" target="_blank" rel="noopener">🚗 Waze to base</a></div></div></div>
+      <div class="slot"><div class="t">on the way</div><div>
+        <h4>Jacó<span class="tg">optional</span></h4>
+        <p>The Pacific's biggest surf town, an hour from San José. Loud and touristy, but if a first surf lesson is on the list, this has the easiest waves and the most schools.</p></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Tuesday, Nov 17 · buffer day</h3>
+        <div class="sub">Heredia · reset before the work week</div>
+        <div class="note">This day is deliberately empty. After twelve days on the road, laundry, groceries and a connection test matter more than another park.</div></div>
+      <div class="slot"><div class="t">morning</div><div>
+        <h4>Laundry, groceries, reset</h4>
+        <p>Automercado or Más x Menos for the week. <b>Test the internet</b> — speedtest plus a trial call — before it matters on Wednesday morning.</p></div></div>
+      <div class="slot"><div class="t">afternoon</div><div>
+        <h4>Heredia at an easy pace<span class="tg eat">coffee</span></h4>
+        <p>A university town (UNA), so it has more cafés than its size suggests. El Fortín — the 19th-century tower on the main square — is the city's symbol and takes exactly five minutes.</p>
+        <div class="links"><a href="https://maps.google.com/?q=El+Fortin+Heredia+Costa+Rica" target="_blank" rel="noopener">📍 El Fortín</a></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEK 3 -->
+<section id="w3">
+  <div class="wrap">
+    <div class="shead"><h2>Week 3 — working remotely</h2><span class="tag">Wed Nov 18 → Wed Nov 25</span></div>
+    <div class="tipbox"><b>Time zone:</b> Costa Rica is UTC−6 with no daylight saving. Poland sits at UTC+1 in November, so this trip runs <b>7 hours behind</b> the Warsaw office. 09:00 in Poland is 02:00 here; 17:00 in Poland is 10:00 here. The realistic meeting window is 07:00–11:00 local — which means afternoons are effectively free. <b>Ticos: that's your window for dragging me out on a weekday.</b></div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Wednesday 18 – Friday 20 · work</h3>
+        <div class="sub">Loft in Heredia · evenings local</div></div>
+      <div class="slot"><div class="t">7:00 – 15:00</div><div>
+        <h4>Work block</h4>
+        <p>An early start catches the Polish afternoon and frees the rest of the day. If the loft isn't enough, Heredia and San José both have coworking spaces (Selina, Impact Hub) with day passes.</p></div></div>
+      <div class="slot"><div class="t">afternoons</div><div>
+        <h4>Trips that need no packing</h4>
+        <p>Within an hour of base: <b>Volcán Irazú</b> (the highest volcano in the country — on a clear day you can see both oceans), <b>Cartago</b> and the Basílica de los Ángeles, the <b>Lankester Botanical Gardens</b> for orchids, and Braulio Carrillo from the valley side.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Parque+Nacional+Volcan+Irazu+Costa+Rica" target="_blank" rel="noopener">📍 Irazú</a><a href="https://maps.google.com/?q=Jardin+Botanico+Lankester+Cartago+Costa+Rica" target="_blank" rel="noopener">📍 Lankester</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Saturday, Nov 21 · pachanga</h3>
+        <div class="sub">Antonio's place · the main event</div>
+        <div class="note">Deliberately placed in the work week so nobody in the crew has to take time off, and no travel day gets sacrificed.</div></div>
+      <div class="slot"><div class="t">beforehand</div><div>
+        <h4>Stroopwafels delivered<span class="tg must">promised</span></h4>
+        <p>Nicole set the terms clearly and it is on the record in the group chat. Buying them in Warsaw, not at an airport.</p></div></div>
+      <div class="slot"><div class="t">evening</div><div>
+        <h4>Pachanga at Antonio's</h4>
+        <p>Bringing something Polish beyond the stroopwafels — vodka, smoked cheese, chocolate-covered plums all travel well. Date to be confirmed with Antonio a week ahead so people can plan.</p></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Sunday, Nov 22 · San José</h3>
+        <div class="sub">Barrio Escalante + downtown · ~20 min from base</div></div>
+      <div class="slot"><div class="t">10:00</div><div>
+        <h4>Downtown: Teatro Nacional and Museo del Oro</h4>
+        <p>The theatre, built in 1897 with coffee money, imported its marble and frescoes from Europe — a few dollars gets you inside. <b>Museo del Oro Precolombino</b> under Plaza de la Cultura holds the country's biggest pre-Columbian gold collection.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Teatro+Nacional+San+Jose+Costa+Rica" target="_blank" rel="noopener">📍 Teatro Nacional</a><a href="https://maps.google.com/?q=Museo+del+Oro+Precolombino+San+Jose+Costa+Rica" target="_blank" rel="noopener">📍 Museo del Oro</a></div></div></div>
+      <div class="slot"><div class="t">13:00</div><div>
+        <h4>Mercado Central<span class="tg eat">food</span></h4>
+        <p>A market from 1880, a maze of sodas and stalls. Casado at the counter and <b>café chorreado</b> poured through a cloth filter. Crowded, loud, real.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Mercado+Central+San+Jose+Costa+Rica" target="_blank" rel="noopener">📍 Mercado Central</a></div></div></div>
+      <div class="slot"><div class="t">16:00</div><div>
+        <h4>Barrio Escalante<span class="tg eat">food</span></h4>
+        <p>San José's food district — <b>Paseo Gastronómico La Luz</b> is a few blocks of restaurants, craft breweries and specialty coffee. The best place in the country for a dinner that isn't a casado.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Barrio+Escalante+San+Jose+Costa+Rica" target="_blank" rel="noopener">📍 Barrio Escalante</a></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Monday 23 – Tuesday 24</h3>
+        <div class="sub">Work · wrapping up</div></div>
+      <div class="slot"><div class="t">Tue evening</div><div>
+        <h4>Packing and refuelling</h4>
+        <p>Fill the tank before returning the car — Jumbo Car charges for missing fuel at its own rate. Take a <b>second set of photos of the car</b>, this time at drop-off.</p></div></div>
+    </div>
+
+    <div class="day">
+      <div class="dayhead"><h3>Wednesday, Nov 25 · departure</h3>
+        <div class="sub">Check-out by 11:00 · car back at SJO</div></div>
+      <div class="slot"><div class="t">by 11:00</div><div>
+        <h4>Check out</h4>
+        <p>Check the drawers and the chargers. Keys as instructed by the host.</p></div></div>
+      <div class="slot"><div class="t">~3 h before</div><div>
+        <h4>Return the Jimny, then check in</h4>
+        <p>Be at SJO three hours ahead for an intercontinental flight — the car return shuttle adds 30–40 minutes. The deposit usually releases within 7–14 days.</p>
+        <div class="links"><a href="https://maps.google.com/?q=Juan+Santamaria+International+Airport+Costa+Rica" target="_blank" rel="noopener">📍 SJO</a></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PACHANGA -->
+<section id="pachanga">
+  <div class="wrap">
+    <div class="shead"><h2>The pachanga board</h2><span class="tag">who's taking me where</span></div>
+    <p class="sintro">Jonathan called it: the schedule will be packed because everyone wants to organise something. Tap a day, add who and what, then use the button to copy the whole thing as text for the group chat. Entries are saved in this browser only.</p>
+    <div class="board" id="theboard"></div>
+    <div class="rowbar">
+      <button class="act prim" id="copyBtn">Copy plan for WhatsApp</button>
+      <button class="act dang" id="clearBtn">Clear entries</button>
+      <span class="legend" id="copyMsg"></span>
+    </div>
+    <p class="legend" style="margin-top:12px">yellow number = weekend · blue dashes = working day</p>
+
+    <div class="shead" style="margin-top:38px"><h2>The crew</h2><span class="tag">from the WhatsApp group</span></div>
+    <div class="crew">
+      <div class="person offer"><h4>Jonathan Quiros</h4><div class="role">Chief organiser</div>
+        <p>Pushing for the coast: Manuel Antonio, Limón, Guanacaste — "at least a couple of those, and Limón for sure." Offered a weekend in Limón and mentioned Puerto Viejo. Asked for the itinerary, so this page is for him first.</p></div>
+      <div class="person ask"><h4>Nicole Davila</h4><div class="role">Stroopwafel enforcement</div>
+        <p>Entry condition: stroopwafels. The promise is already on the record, so this one is closed. Also introduced the Spanish-only rule for the group.</p></div>
+      <div class="person offer"><h4>Antonio Esna Castro</h4><div class="role">Party host</div>
+        <p>The pachanga happens at his place. Proposed date: Saturday, November 21.</p></div>
+      <div class="person"><h4>Gabriela Contreras</h4><div class="role">Added me to the group</div>
+        <p>First point of contact for anything that needs sorting locally.</p></div>
+      <div class="person"><h4>Heimar ✨ and Mario Brenes</h4><div class="role">The Puerto Viejo caucus</div>
+        <p>Both firmly, emotionally pro Puerto Viejo. Recommendations for specific spots welcome before November 6.</p></div>
+      <div class="person ask"><h4>The calendar</h4><div class="role">Only three weekends</div>
+        <p>Nov 7–8, Nov 14–15 and Nov 21–22, that's it. The first two are on the road and the third is the pachanga — so weekday afternoons in week 3 are the flexible slots. Shout early and I'll fit it in.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="wrap">
+    <div class="shead"><h2>Budget console</h2><span class="tag">drag the sliders</span></div>
+    <p class="sintro">Lodging and the car are locked and won't move. Flights, food, fuel and park fees are the levers that actually change the total. Amounts in Polish złoty by default — switch to USD if that reads better.</p>
+    <div class="console">
+      <div class="readout">
+        <div class="curtog"><button id="cur-pln" class="on">PLN</button><button id="cur-usd">USD</button></div>
+        <div class="mono" style="color:rgba(244,237,223,.5)">Live estimate</div>
+        <div class="big" id="total">—</div>
+        <div class="delta" id="delta">—</div>
+        <div class="gauge"><i id="gfill"></i></div>
+        <div class="gscale" id="gscale"></div>
+        <div class="lines" id="lines"></div>
+        <div class="fx" id="fx">Fetching USD rate…</div>
+      </div>
+      <div>
+        <div class="lever"><div class="lh"><span>Flights WAW ⇄ SJO</span><span class="lv" id="v-fly"></span></div>
+          <input type="range" id="s-fly" min="3200" max="5400" step="50" value="4195"></div>
+        <div class="lever"><div class="lh"><span>Food, per day</span><span class="lv" id="v-food"></span></div>
+          <input type="range" id="s-food" min="50" max="160" step="5" value="80"></div>
+        <div class="lever"><div class="lh"><span>Planned distance</span><span class="lv" id="v-km"></span></div>
+          <input type="range" id="s-km" min="1000" max="3000" step="50" value="1800"></div>
+        <div class="lever"><div class="lh"><span>Park entry fees</span><span class="lv" id="v-park"></span></div>
+          <input type="range" id="s-park" min="60" max="260" step="10" value="160"></div>
+        <div class="lever"><div class="lh"><span>Extra car coverage</span><span class="lv" id="v-ins"></span></div>
+          <input type="range" id="s-ins" min="0" max="361" step="361" value="0"></div>
+        <div class="lever"><div class="lh"><span>USD → PLN rate</span><span class="lv" id="v-fxr"></span></div>
+          <input type="range" id="s-fxr" min="3.2" max="4.6" step="0.01" value="3.75"></div>
+        <p class="legend" style="line-height:1.6">Fuel assumes 7.5 l/100 km for the Jimny and about $1.25/l for petrol in Costa Rica. Park fees in USD: Poás ~15, Mistico ~32, Río Celeste ~12, Monteverde ~25 plus a ~25 guide, Manuel Antonio ~18, Cahuita by donation. <b>Ticos: if any of these are off, tell me.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICAL -->
+<section id="practical">
+  <div class="wrap">
+    <div class="shead"><h2>Practical information</h2><span class="tag">local specifics, not general advice</span></div>
+    <p class="sintro">Everything here is Costa Rica-specific — the things that don't transfer from driving anywhere else. Most of it is obvious if you live here, so corrections are very welcome.</p>
+    <div class="pgrid">
+
+      <div class="pcard"><h3>🏠 Base · Heredia</h3>
+        <div class="kv"><b>Address</b><span>Calle 9, Heredia centro</span></div>
+        <div class="kv"><b>Booking code</b><span>HM2TWBHX8Q</span></div>
+        <div class="kv"><b>Check-in</b><span>Nov 4, after 15:00</span></div>
+        <div class="kv"><b>Check-out</b><span>Nov 25, by 11:00</span></div>
+        <div class="kv"><b>Cost</b><span>3,359 zł · 21 nights</span></div>
+        <div class="kv"><b>Card charged</b><span>October 22</span></div>
+        <div class="kv"><b>Free cancellation</b><span>until Oct 30, 15:00</span></div>
+      </div>
+
+      <div class="pcard"><h3>⏱️ Drive times from Heredia</h3>
+        <div class="kv"><b>🟢 SJO airport</b><span>25 min</span></div>
+        <div class="kv"><b>🟢 San José downtown</b><span>25 min</span></div>
+        <div class="kv"><b>🟢 Volcán Poás</b><span>1 h 15</span></div>
+        <div class="kv"><b>🟢 Sarchí</b><span>1 h</span></div>
+        <div class="kv"><b>🟡 Volcán Irazú</b><span>1 h 45</span></div>
+        <div class="kv"><b>🟡 La Fortuna</b><span>3 h 15</span></div>
+        <div class="kv"><b>🟡 Manuel Antonio</b><span>3 h 30</span></div>
+        <div class="kv"><b>🔴 Monteverde</b><span>4 h · gravel</span></div>
+        <div class="kv"><b>🔴 Puerto Viejo</b><span>4 h 30 · Ruta 32</span></div>
+        <div class="kv"><b>🔴 Guanacaste</b><span>4 h 30 – 5 h</span></div>
+      </div>
+
+      <div class="pcard"><h3>🚗 Local driving specifics</h3>
+        <ul>
+          <li><b>Addresses don't exist.</b> Directions run off landmarks: "200 metres north of the church, 50 east." Waze is the local standard and handles this better than Google Maps.</li>
+          <li><b>Attended fuel stations</b> — you don't pump it yourself. State an amount or say "lleno", and check the meter is zeroed.</li>
+          <li><b>Tolls</b> on Ruta 27 are cash only in colones. Keep coins in the car.</li>
+          <li><b>Police checkpoints</b> near national parks are routine, not a sign of trouble. Licence, IDP, passport or a copy.</li>
+          <li><b>Night driving</b> outside the highways is genuinely worse than the European equivalent: unlit, unshouldered, and shared with pedestrians and dogs. Worth building into the day plan rather than the driving.</li>
+          <li><b>Ruta 32</b> is the one road that can be closed outright. Check before committing to it.</li>
+        </ul>
+      </div>
+
+      <div class="pcard"><h3>🪪 Paperwork</h3>
+        <ul>
+          <li><b>Visa:</b> not required for Polish citizens up to 90 days.</li>
+          <li><b>Onward ticket</b> — immigration may ask for it, so carry a printout.</li>
+          <li><b>IDP:</b> not legally required under 90 days, but a Polish licence is in neither Spanish nor English, which technically puts it in the "translation recommended" category. <b>Jumbo Car's own terms need checking</b> — local rental companies sometimes require one. From PZM in Poland: 60–100 zł, one day.</li>
+          <li><b>Insurance:</b> Revolut Metal. Two things to verify — the single-trip limit (21 days) and whether the plan includes <b>car hire excess</b>, which would cover the $1,200 deductible.</li>
+          <li><b>Vaccinations:</b> none required when arriving from Europe.</li>
+        </ul>
+      </div>
+
+      <div class="pcard"><h3>💳 Money</h3>
+        <ul>
+          <li><b>Currency:</b> colón (CRC). Dollars are accepted almost everywhere, but the shop rate is always worse than the bank rate.</li>
+          <li><b>Cards</b> work in cities and tourist areas. Cash is needed for sodas, markets, tolls, guides and park donations.</li>
+          <li><b>Revolut</b> withdrawing from a BAC or BCR ATM works best. Always decline when an ATM offers to convert to złoty.</li>
+          <li><b>Tipping:</b> a 10% service charge is already on restaurant bills. Anything extra is a gesture, not an obligation.</li>
+          <li><b>Car deposit:</b> roughly $1,200 held on the card — check the limit and tell the bank about the trip.</li>
+        </ul>
+      </div>
+
+      <div class="pcard"><h3>🔌 Tech</h3>
+        <ul>
+          <li><b>Type A/B sockets, 120 V</b> — Polish plugs don't fit. <b>Bring adapters</b>, ideally two. Most USB chargers handle 100–240 V, but check each device.</li>
+          <li><b>SIM/eSIM:</b> Kölbi (ICE) has the best coverage outside cities; Claro and Movistar are cheaper. eSIM can be bought before departure.</li>
+          <li><b>Signal disappears</b> in Monteverde and in patches along the Caribbean. Download offline maps for the whole country.</li>
+          <li><b>Emergency number: 911</b>, English-capable.</li>
+        </ul>
+      </div>
+
+      <div class="pcard"><h3>🍽️ What to eat</h3>
+        <ul>
+          <li><b>Gallo pinto</b> — rice and beans, the national breakfast, with egg and natilla.</li>
+          <li><b>Casado</b> — the lunch plate: rice, beans, salad, plátano maduro, a protein.</li>
+          <li><b>Olla de carne</b> — thick beef and root-vegetable stew, a Sunday classic.</li>
+          <li><b>Chifrijo</b> — rice, beans, chicharrón and pico de gallo in one bowl, made for beer.</li>
+          <li><b>Ceviche de corvina</b> — milder than the Peruvian version, heavy on cilantro.</li>
+          <li><b>Rice and beans</b> and <b>rondón</b> — the Caribbean versions, cooked in coconut milk. Different league.</li>
+          <li><b>Salsa Lizano</b> — on every table, ends up on everything.</li>
+          <li>To drink: <b>Imperial</b>, <b>agua de sapo</b>, <b>café chorreado</b>, <b>guaro Cacique</b> with lime.</li>
+          <li>A <b>soda</b> is a small family kitchen. Eat there, not at places with English menus and photos of the food.</li>
+        </ul>
+      </div>
+
+      <div class="pcard"><h3>🌦️ November weather</h3>
+        <ul>
+          <li><b>Central Valley (Heredia):</b> 18–26°C, afternoon showers, mornings usually clear.</li>
+          <li><b>Caribbean:</b> early November extends the October dry window; from mid-month it turns distinctly wet. Hence the trip on the first weekend.</li>
+          <li><b>Pacific:</b> dries out through November — the second half is noticeably better. Hence Manuel Antonio in week two.</li>
+          <li><b>Monteverde:</b> rain and cloud all month, 14–18°C. Bring a warm layer.</li>
+          <li>November is the <b>end of the green season and the start of high season</b> — fewer people and lower prices than December.</li>
+        </ul>
+      </div>
+
+      <div class="pcard"><h3>🛡️ Safety</h3>
+        <ul>
+          <li><b>Nothing in the car.</b> Not on the seat, not in the trunk. Break-ins at beach and trailhead parking are the main crime affecting visitors.</li>
+          <li><b>San José after dark</b> — stick to Escalante and Sabana, avoid the Coca-Cola area and the Zona Roja.</li>
+          <li><b>Rip currents</b> on Pacific beaches are a real hazard and lifeguards are rare. If caught, swim parallel to shore.</li>
+          <li><b>Mosquitoes:</b> dengue is present, especially on the coasts. DEET repellent, long sleeves at dusk.</li>
+          <li><b>Tap water</b> is drinkable in the Central Valley and most of the country.</li>
+        </ul>
+      </div>
+
+      <div class="pcard"><h3>🎁 What to take home</h3>
+        <ul>
+          <li><b>Coffee</b> — Tarrazú, Monteverde, Doka. Buy at the farm or in a supermarket, not at the airport.</li>
+          <li><b>Salsa Lizano</b> — several bottles, the best dollar-a-piece gift there is.</li>
+          <li><b>Chocolate</b> from the Caribbean — Caribeans in Puerto Viejo, cacao from Talamanca.</li>
+          <li><b>Guaro Cacique</b> — the national sugarcane spirit.</li>
+          <li><b>A miniature carreta</b> from Sarchí — pocket-sized UNESCO heritage.</li>
+          <li><b>Café Britt</b> — practically in Heredia, convenient for the last minute.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <div class="wrap">
+    <div class="shead"><h2>Pre-departure checklist</h2><span class="tag">saved in this browser</span></div>
+    <div class="progress">
+      <div><div class="pn" id="c-done">0</div><div class="pl">done</div></div>
+      <div><div class="pn" id="c-left" style="color:var(--yellow)">0</div><div class="pl">to go</div></div>
+      <div class="pbar"><i id="c-bar"></i></div>
+      <div><div class="pn" id="c-pct" style="color:var(--bone)">0%</div><div class="pl">complete</div></div>
+    </div>
+    <div id="clist"></div>
+    <div class="rowbar"><button class="act dang" id="c-clear">↺ Reset checklist</button></div>
+  </div>
+</section>
+
+<!-- PACKING -->
+<section id="packing">
+  <div class="wrap">
+    <div class="shead"><h2>Packing</h2><span class="tag">21 days · mountains, jungle, two oceans</span></div>
+    <p class="sintro">Three climates in one bag: a spring-like Central Valley, two wet coasts and a cold cloud forest. The rule is layers plus anything that dries fast — cotton in Costa Rica in November never dries at all.</p>
+    <div class="progress">
+      <div><div class="pn" id="p-done">0</div><div class="pl">packed</div></div>
+      <div><div class="pn" id="p-left" style="color:var(--yellow)">0</div><div class="pl">to go</div></div>
+      <div class="pbar"><i id="p-bar"></i></div>
+      <div><div class="pn" id="p-pct" style="color:var(--bone)">0%</div><div class="pl">ready</div></div>
+    </div>
+    <div id="plist"></div>
+    <div class="rowbar"><button class="act dang" id="p-clear">↺ Reset packing list</button></div>
+  </div>
+</section>
+
+</main>
+
+<dialog id="dlg">
+  <h3 id="dlgTitle">Day</h3>
+  <div class="mono" style="color:rgba(244,237,223,.5)" id="dlgSub"></div>
+  <label for="fWho">Who</label><input id="fWho" placeholder="e.g. Jonathan" autocomplete="off">
+  <label for="fWhat">What / where</label><textarea id="fWhat" placeholder="e.g. weekend in Limón, leaving early"></textarea>
+  <div class="dlgbar">
+    <button class="act prim" id="saveBtn">Save</button>
+    <button class="act" id="delBtn">Delete</button>
+    <button class="act" id="cancelBtn">Cancel</button>
+  </div>
+</dialog>
+
+<footer>Costa Rica · November 2026 · ¡Pura vida! 🇨🇷</footer>
+
+<script>
+/* carreta wheel */
+(function(){
+  const sp=document.getElementById('spokes'),pt=document.getElementById('petals');
+  let s='',p='';
+  for(let i=0;i<16;i++){const a=i*22.5*Math.PI/180;
+    s+=`<line x1="${100+20*Math.cos(a)}" y1="${100+20*Math.sin(a)}" x2="${100+66*Math.cos(a)}" y2="${100+66*Math.sin(a)}" stroke="${i%2?'#D8412E':'#F4EDDF'}" stroke-width="2"/>`;}
+  for(let i=0;i<8;i++){const a=i*45*Math.PI/180;
+    p+=`<circle cx="${100+53*Math.cos(a)}" cy="${100+53*Math.sin(a)}" r="8" fill="${i%2?'#F5B921':'#38C793'}" opacity=".9"/>`;}
+  sp.innerHTML=s;pt.innerHTML=p;
+})();
+
+/* countdown */
+(function(){
+  const d=Math.ceil((new Date(2026,10,4)-new Date())/864e5);
+  document.getElementById('cd').textContent=d>0?d+' days':'en route';
+})();
+
+/* storage: Claude artifact → localStorage → memory */
+const mem={};
+async function sGet(k){
+  try{const r=await window.storage.get(k);return r?JSON.parse(r.value):null;}catch(e){}
+  try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){}
+  return mem[k]??null;
+}
+async function sSet(k,v){
+  mem[k]=v;
+  try{await window.storage.set(k,JSON.stringify(v));return;}catch(e){}
+  try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}
+}
+function esc(s){return String(s).replace(/[<>&]/g,m=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[m]));}
+
+/* nav highlight */
+(function(){
+  const links=[...document.querySelectorAll('#nav a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+    links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id));}});},
+    {rootMargin:'-60px 0px -70% 0px'});
+  secs.forEach(s=>io.observe(s));
+})();
+
+/* pachanga board */
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const CTX={4:'arrival',5:'Poás',6:'→ Caribbean',7:'Cahuita',8:'Manzanillo',9:'→ Fortuna',10:'Arenal',
+11:'Río Celeste',12:'→ Monteverde',13:'cloud forest',14:'→ Manuel A.',15:'Manuel A.',16:'back to base',17:'buffer',
+18:'work',19:'work',20:'work',21:'pachanga',22:'San José',23:'work',24:'work',25:'departure'};
+let claims={},cur=null;
+const dlg=document.getElementById('dlg');
+function renderBoard(){
+  let h='';
+  for(let d=4;d<=25;d++){
+    const dt=new Date(2026,10,d),dw=dt.getDay(),wk=(dw===0||dw===6),wo=(d>=18&&d<=24&&!wk),c=claims[d];
+    h+=`<button class="slat${c?' taken':''}${wk?' wknd':''}${wo?' work':''}" data-d="${d}" aria-label="November ${d}">
+      <span class="d">${d}</span> <span class="dw">${DOW[dw]}</span>
+      <span class="who ${c?'':'e'}">${c?esc(c.who)+(c.what?' — '+esc(c.what):''):(CTX[d]||'—')}</span></button>`;
+  }
+  const b=document.getElementById('theboard');b.innerHTML=h;
+  b.querySelectorAll('.slat').forEach(el=>el.addEventListener('click',()=>{
+    cur=+el.dataset.d;const dt=new Date(2026,10,cur);
+    document.getElementById('dlgTitle').textContent='November '+cur;
+    document.getElementById('dlgSub').textContent=DOW[dt.getDay()]+' · '+(CTX[cur]||'');
+    document.getElementById('fWho').value=claims[cur]?.who||'';
+    document.getElementById('fWhat').value=claims[cur]?.what||'';
+    dlg.showModal();document.getElementById('fWho').focus();}));
+}
+document.getElementById('saveBtn').onclick=async()=>{
+  const w=document.getElementById('fWho').value.trim(),t=document.getElementById('fWhat').value.trim();
+  if(w)claims[cur]={who:w,what:t};else delete claims[cur];
+  await sSet('cr26en:claims',claims);renderBoard();dlg.close();};
+document.getElementById('delBtn').onclick=async()=>{delete claims[cur];await sSet('cr26en:claims',claims);renderBoard();dlg.close();};
+document.getElementById('cancelBtn').onclick=()=>dlg.close();
+document.getElementById('clearBtn').onclick=async()=>{claims={};await sSet('cr26en:claims',claims);renderBoard();};
+document.getElementById('copyBtn').onclick=async()=>{
+  let t='🇨🇷 Miko in Costa Rica · Nov 4–25, 2026\n\n';
+  for(let d=4;d<=25;d++){const dt=new Date(2026,10,d);
+    t+=`Nov ${d} (${DOW[dt.getDay()]}) — ${claims[d]?claims[d].who+(claims[d].what?': '+claims[d].what:''):(CTX[d]||'free')}\n`;}
+  const m=document.getElementById('copyMsg');
+  try{await navigator.clipboard.writeText(t);m.textContent='Copied';}
+  catch(e){m.textContent='Clipboard blocked';}
+  setTimeout(()=>m.textContent='',2500);};
+
+/* budget console */
+const B={fly:4195,food:80,km:1800,park:160,ins:0,fxr:3.75};
+const TARGET=12000;
+let CUR='PLN';
+function money(pln){
+  if(CUR==='USD'){const v=pln/B.fxr;return '$'+Math.round(v).toLocaleString('en-US');}
+  return Math.round(pln).toLocaleString('en-US')+' zł';
+}
+function calcBudget(){
+  const fuel=(B.km/100)*7.5*1.25*B.fxr, food=B.food*21, park=B.park*B.fxr;
+  const rows=[
+    ['Lodging · Heredia, 21 nights',3359,true],
+    ['Car · Jimny 4×4, 21 days',1021,true],
+    ['Flights WAW ⇄ SJO',B.fly,false],
+    ['International driving permit',80,false],
+    ['Food · 21 days',food,false],
+    ['Fuel · '+B.km+' km',fuel,false],
+    ['Park entry fees',park,false],
+    ['Extra car coverage',B.ins,false],
+    ['Buffer',500,false]];
+  const total=rows.reduce((a,r)=>a+r[1],0);
+  document.getElementById('lines').innerHTML=rows.filter(r=>r[1]>0)
+    .map(r=>`<div class="${r[2]?'fixed':''}"><span>${r[0]}</span><span>${money(r[1])}</span></div>`).join('');
+  document.getElementById('total').textContent=money(total);
+  const d=TARGET-total,el=document.getElementById('delta');
+  el.textContent=d>=0?money(d)+' under target':money(-d)+' over target';
+  el.className='delta '+(d>=0?'under':'over');
+  document.getElementById('gfill').style.width=Math.max(0,Math.min(100,((total-8000)/7000)*100))+'%';
+  document.getElementById('gscale').innerHTML=[8000,10000,12000,15000]
+    .map((v,i)=>`<span>${CUR==='USD'?'$'+Math.round(v/B.fxr).toLocaleString('en-US'):v.toLocaleString('en-US')+(i===3?' zł':'')}</span>`).join('');
+  document.getElementById('mf-budget').textContent=money(TARGET);
+  document.getElementById('v-fly').textContent=money(B.fly);
+  document.getElementById('v-food').textContent=money(B.food)+'/day';
+  document.getElementById('v-km').textContent=B.km+' km';
+  document.getElementById('v-park').textContent='$'+B.park;
+  document.getElementById('v-ins').textContent=B.ins?money(B.ins):'none';
+  document.getElementById('v-fxr').textContent=B.fxr.toFixed(2);
+}
+[['s-fly','fly'],['s-food','food'],['s-km','km'],['s-park','park'],['s-ins','ins'],['s-fxr','fxr']]
+.forEach(([id,key])=>{const el=document.getElementById(id);
+  el.addEventListener('input',()=>{B[key]=parseFloat(el.value);calcBudget();});});
+document.getElementById('cur-pln').onclick=()=>{CUR='PLN';
+  document.getElementById('cur-pln').classList.add('on');document.getElementById('cur-usd').classList.remove('on');calcBudget();};
+document.getElementById('cur-usd').onclick=()=>{CUR='USD';
+  document.getElementById('cur-usd').classList.add('on');document.getElementById('cur-pln').classList.remove('on');calcBudget();};
+calcBudget();
+fetch('https://api.frankfurter.app/latest?from=USD&to=PLN')
+  .then(r=>r.json()).then(d=>{
+    if(d&&d.rates&&d.rates.PLN){B.fxr=d.rates.PLN;document.getElementById('s-fxr').value=B.fxr;calcBudget();
+      document.getElementById('fx').textContent='USD/PLN '+B.fxr.toFixed(3)+' · ECB via frankfurter.app, '+d.date+'. Slider overrides.';}
+  }).catch(()=>{document.getElementById('fx').textContent='Live rate unavailable — set it with the slider.';});
+
+/* checklists */
+const CHECK=[
+  ['✈️ Flights and deadlines',[
+    ['Book flights WAW ⇄ SJO','British Airways via LHR, ~16 h · deadline end of August','req'],
+    ['Check the Skyscanner price alert','live results beat any estimate',''],
+    ['Add the Nov 4 landing time to the plan','it shapes the whole first day','']]],
+  ['🚗 Car and documents',[
+    ["Check Jumbo Car's terms on the IDP",'before paying for the permit','req'],
+    ['Get the IDP from PZM','if required · 60–100 zł · one day',''],
+    ['Verify Revolut Metal: 21-day trip + car hire excess','could cover the $1,200 deductible','rec'],
+    ['Check the card limit for the ~$1,200 deposit hold','placed at pick-up','req'],
+    ['Tell the bank about the trip','so the card is not blocked','']]],
+  ['🎟️ Reservations',[
+    ['Volcán Poás — book through SINAC','online only, nothing sold at the gate','req'],
+    ['Manuel Antonio — book online','daily visitor cap','req'],
+    ['Monteverde — guide for 7:00','without one you see half of it','rec'],
+    ['Mistico Hanging Bridges — book online','~$32',''],
+    ['Confirm Manuel Antonio is open Sunday Nov 15','the park closes one day a week','rec']]],
+  ['📱 Before flying',[
+    ['Buy an eSIM (Kölbi / Claro)','signal disappears in Monteverde and on the coast',''],
+    ['Download offline maps for all of Costa Rica','Google Maps + Waze','req'],
+    ['Buy type A/B plug adapters','120 V, Polish plugs do not fit','req'],
+    ['Save the base address and code HM2TWBHX8Q offline','in case there is no signal on landing','']]],
+  ['🎉 The crew',[
+    ['Buy stroopwafels for Nicole','promised in the group chat — non-negotiable','req'],
+    ['Send Jonathan the itinerary','he asked for it',''],
+    ['Confirm the pachanga date with Antonio (Sat Nov 21)','a week ahead','rec'],
+    ['Ask Heimar and Mario for Puerto Viejo spots','before November 6',''],
+    ['Bring something Polish for the pachanga','vodka, sweets, smoked cheese','']]],
+  ['⚠️ Last minute and on the ground',[
+    ['Check Ruta 32 status on the morning of Nov 6','landslides close the only road to the Caribbean','req'],
+    ['Film the car at pick-up','all panels, roof, interior, fuel level','req'],
+    ['Test the internet at the loft on Nov 17','before it matters on Wednesday','rec']]]
+];
+const PACK=[
+  ['👕 Clothes',[
+    ['Quick-dry shirts (6–7)','cotton will not dry, seriously','req'],
+    ['Light long trousers (2)','mosquitoes at dusk, checkpoints, evenings',''],
+    ['Shorts (2–3)','',''],
+    ['Warm fleece or hoodie','Monteverde 14°C, Poás 10°C, Irazú colder','req'],
+    ['Rain jacket','not an umbrella — useless in a cloud forest','req'],
+    ['Swimwear (2)','so one is always dry',''],
+    ['Underwear and socks (10 sets)','',''],
+    ['Hiking shoes','mud at Río Celeste and Monteverde','req'],
+    ['Sandals / flip-flops','beaches, hot springs',''],
+    ['Cap and sunglasses','','']]],
+  ['🎒 Gear',[
+    ['Type A/B plug adapters (×2)','120 V, nothing charges without them','req'],
+    ['Power bank','long days away from a socket','rec'],
+    ['Dry bag','boats, rain, beach','rec'],
+    ['Binoculars','they make the difference in Monteverde and Manuel Antonio',''],
+    ['Head torch','night walk in the forest',''],
+    ['Laptop and charger','week 3','req'],
+    ['Headphones','~16 h each way','']]],
+  ['💊 Medical',[
+    ['DEET repellent','dengue is present on the coasts','req'],
+    ['SPF 50, reef-safe','the Cahuita reef is protected','req'],
+    ['Something for an upset stomach','diet change, street food',''],
+    ['Ibuprofen / paracetamol','',''],
+    ['Plasters and blister care','500 steps to the waterfall',''],
+    ['Personal medication + list in English','in case of a doctor visit','']]],
+  ['📄 Documents',[
+    ['Passport','valid at least through the stay','req'],
+    ['Driving licence + IDP','for the rental and checkpoints','req'],
+    ['Printed onward ticket','immigration may ask','rec'],
+    ['Card with room for the deposit hold','~$1,200','req'],
+    ['Airbnb and Jumbo Car confirmations offline','','']]],
+  ['🎁 From Poland',[
+    ['Stroopwafels for Nicole','entry condition','req'],
+    ["Something Polish for Antonio's pachanga",'vodka, sweets, smoked cheese','rec'],
+    ['Small things for the Snowflake CR team','','']]],
+  ['🛍️ Room for the way back',[
+    ['Leave ~5 kg spare in the luggage','coffee, chocolate, Lizano, guaro','rec'],
+    ['Bottles go in checked baggage','','']]]
+];
+function mkList(defs,root,pfx,ids){
+  let state={};
+  const total=defs.reduce((a,c)=>a+c[1].length,0);
+  function draw(){
+    let h='',i=0;
+    defs.forEach(([cat,items])=>{
+      h+=`<div class="catt">${cat}</div><ul class="todo">`;
+      items.forEach(([txt,meta,req])=>{
+        const id=pfx+i;
+        h+=`<li class="${state[i]?'done':''}"><input type="checkbox" id="${id}" data-i="${i}" ${state[i]?'checked':''}>
+        <label for="${id}">${esc(txt)}${req?`<span class="req ${req==='rec'?'rec':''}">${req==='rec'?'recommended':'essential'}</span>`:''}
+        ${meta?`<span class="m">${esc(meta)}</span>`:''}</label></li>`;i++;});
+      h+='</ul>';});
+    root.innerHTML=h;
+    root.querySelectorAll('input').forEach(el=>el.addEventListener('change',async()=>{
+      state[el.dataset.i]=el.checked;await sSet(pfx+'state',state);draw();}));
+    const done=Object.values(state).filter(Boolean).length;
+    document.getElementById(ids[0]).textContent=done;
+    document.getElementById(ids[1]).textContent=total-done;
+    document.getElementById(ids[2]).textContent=Math.round(done/total*100)+'%';
+    document.getElementById(ids[3]).style.width=(done/total*100)+'%';
+  }
+  return {draw,set:s=>{state=s||{}},clear:async()=>{state={};await sSet(pfx+'state',{});draw();}};
+}
+const cl=mkList(CHECK,document.getElementById('clist'),'cr26en:chk',['c-done','c-left','c-pct','c-bar']);
+const pl=mkList(PACK,document.getElementById('plist'),'cr26en:pack',['p-done','p-left','p-pct','p-bar']);
+document.getElementById('c-clear').onclick=()=>cl.clear();
+document.getElementById('p-clear').onclick=()=>pl.clear();
+
+(async function(){
+  claims=(await sGet('cr26en:claims'))||{};renderBoard();
+  cl.set(await sGet('cr26en:chkstate'));cl.draw();
+  pl.set(await sGet('cr26en:packstate'));pl.draw();
+})();
+</script>
+</body>
+</html>
