@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --ink:#0E1F1C; --panel:#152A26; --panel2:#1C3833;
@@ -573,7 +574,7 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
 <section id="pachanga">
   <div class="wrap">
     <div class="shead"><h2>The pachanga board</h2><span class="tag">who's taking me where</span></div>
-    <p class="sintro">Jonathan called it: the schedule will be packed because everyone wants to organise something. Tap a day, add who and what, then use the button to copy the whole thing as text for the group chat. Entries are saved in this browser only.</p>
+    <p class="sintro">Jonathan called it: the schedule will be packed because everyone wants to organise something. Tap a day, add who and what, then use the button to copy the whole thing as text for the group chat. Entries sync live for everyone who opens this page. <span class="mono" id="syncStatus" style="color:var(--jade)">● connecting…</span></p>
     <div class="board" id="theboard"></div>
     <div class="rowbar">
       <button class="act prim" id="copyBtn">Copy plan for WhatsApp</button>
@@ -581,22 +582,6 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
       <span class="legend" id="copyMsg"></span>
     </div>
     <p class="legend" style="margin-top:12px">yellow number = weekend · blue dashes = working day</p>
-
-    <div class="shead" style="margin-top:38px"><h2>The crew</h2><span class="tag">from the WhatsApp group</span></div>
-    <div class="crew">
-      <div class="person offer"><h4>Jonathan Quiros</h4><div class="role">Chief organiser</div>
-        <p>Pushing for the coast: Manuel Antonio, Limón, Guanacaste — "at least a couple of those, and Limón for sure." Offered a weekend in Limón and mentioned Puerto Viejo. Asked for the itinerary, so this page is for him first.</p></div>
-      <div class="person ask"><h4>Nicole Davila</h4><div class="role">Stroopwafel enforcement</div>
-        <p>Entry condition: stroopwafels. The promise is already on the record, so this one is closed. Also introduced the Spanish-only rule for the group.</p></div>
-      <div class="person offer"><h4>Antonio Esna Castro</h4><div class="role">Party host</div>
-        <p>The pachanga happens at his place. Proposed date: Saturday, November 21.</p></div>
-      <div class="person"><h4>Gabriela Contreras</h4><div class="role">Added me to the group</div>
-        <p>First point of contact for anything that needs sorting locally.</p></div>
-      <div class="person"><h4>Heimar ✨ and Mario Brenes</h4><div class="role">The Puerto Viejo caucus</div>
-        <p>Both firmly, emotionally pro Puerto Viejo. Recommendations for specific spots welcome before November 6.</p></div>
-      <div class="person ask"><h4>The calendar</h4><div class="role">Only three weekends</div>
-        <p>Nov 7–8, Nov 14–15 and Nov 21–22, that's it. The first two are on the road and the third is the pachanga — so weekday afternoons in week 3 are the flexible slots. Shout early and I'll fit it in.</p></div>
-    </div>
   </div>
 </section>
 
@@ -843,13 +828,36 @@ function esc(s){return String(s).replace(/[<>&]/g,m=>({'<':'&lt;','>':'&gt;','&'
   secs.forEach(s=>io.observe(s));
 })();
 
-/* pachanga board */
+/* pachanga board — synced via Supabase */
+const SUPABASE_URL='https://prdqwappvrucrntiokna.supabase.co';
+const SUPABASE_KEY='sb_publishable__C07-Ap4Jl0i5l5LwBB2Ug_gfW9f03z';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
 const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const CTX={4:'arrival',5:'Poás',6:'→ Caribbean',7:'Cahuita',8:'Manzanillo',9:'→ Fortuna',10:'Arenal',
 11:'Río Celeste',12:'→ Monteverde',13:'cloud forest',14:'→ Manuel A.',15:'Manuel A.',16:'back to base',17:'buffer',
 18:'work',19:'work',20:'work',21:'pachanga',22:'San José',23:'work',24:'work',25:'departure'};
 let claims={},cur=null;
 const dlg=document.getElementById('dlg');
+
+function setSync(state){
+  const el=document.getElementById('syncStatus');
+  if(!el)return;
+  if(state==='live'){el.textContent='● live';el.style.color='var(--jade)';}
+  else if(state==='saving'){el.textContent='● saving…';el.style.color='var(--yellow)';}
+  else if(state==='error'){el.textContent='● offline — changes may not be saved';el.style.color='var(--red)';}
+  else{el.textContent='● connecting…';el.style.color='var(--yellow)';}
+}
+
+async function loadBoard(){
+  const {data,error}=await sb.from('pachanga_board').select('*');
+  if(error){setSync('error');return;}
+  claims={};
+  (data||[]).forEach(row=>{claims[row.day]={who:row.who,what:row.what};});
+  setSync('live');
+  renderBoard();
+}
+
 function renderBoard(){
   let h='';
   for(let d=4;d<=25;d++){
@@ -869,11 +877,23 @@ function renderBoard(){
 }
 document.getElementById('saveBtn').onclick=async()=>{
   const w=document.getElementById('fWho').value.trim(),t=document.getElementById('fWhat').value.trim();
-  if(w)claims[cur]={who:w,what:t};else delete claims[cur];
-  await sSet('cr26en:claims',claims);renderBoard();dlg.close();};
-document.getElementById('delBtn').onclick=async()=>{delete claims[cur];await sSet('cr26en:claims',claims);renderBoard();dlg.close();};
+  setSync('saving');
+  try{
+    if(w){await sb.from('pachanga_board').upsert({day:cur,who:w,what:t});claims[cur]={who:w,what:t};}
+    else{await sb.from('pachanga_board').delete().eq('day',cur);delete claims[cur];}
+    setSync('live');
+  }catch(e){setSync('error');}
+  renderBoard();dlg.close();};
+document.getElementById('delBtn').onclick=async()=>{
+  setSync('saving');
+  try{await sb.from('pachanga_board').delete().eq('day',cur);setSync('live');}catch(e){setSync('error');}
+  delete claims[cur];renderBoard();dlg.close();};
 document.getElementById('cancelBtn').onclick=()=>dlg.close();
-document.getElementById('clearBtn').onclick=async()=>{claims={};await sSet('cr26en:claims',claims);renderBoard();};
+document.getElementById('clearBtn').onclick=async()=>{
+  if(!confirm('Clear every entry on the board for everyone?'))return;
+  setSync('saving');
+  try{await sb.from('pachanga_board').delete().neq('day',-1);setSync('live');}catch(e){setSync('error');}
+  claims={};renderBoard();};
 document.getElementById('copyBtn').onclick=async()=>{
   let t='🇨🇷 Miko in Costa Rica · Nov 4–25, 2026\n\n';
   for(let d=4;d<=25;d++){const dt=new Date(2026,10,d);
@@ -882,6 +902,10 @@ document.getElementById('copyBtn').onclick=async()=>{
   try{await navigator.clipboard.writeText(t);m.textContent='Copied';}
   catch(e){m.textContent='Clipboard blocked';}
   setTimeout(()=>m.textContent='',2500);};
+
+sb.channel('board-live')
+  .on('postgres_changes',{event:'*',schema:'public',table:'pachanga_board'},()=>{loadBoard();})
+  .subscribe();
 
 /* budget console */
 const B={fly:4195,food:80,km:1800,park:160,ins:0,fxr:3.75};
@@ -958,7 +982,7 @@ const CHECK=[
     ['Download offline maps for all of Costa Rica','Google Maps + Waze','req'],
     ['Buy type A/B plug adapters','120 V, Polish plugs do not fit','req'],
     ['Save the base address and code HM2TWBHX8Q offline','in case there is no signal on landing','']]],
-  ['🎉 The crew',[
+  ['🎉 Gifts and coordination',[
     ['Buy stroopwafels for Nicole','promised in the group chat — non-negotiable','req'],
     ['Send Jonathan the itinerary','he asked for it',''],
     ['Confirm the pachanga date with Antonio (Sat Nov 21)','a week ahead','rec'],
@@ -1002,10 +1026,11 @@ const PACK=[
     ['Printed onward ticket','immigration may ask','rec'],
     ['Card with room for the deposit hold','~$1,200','req'],
     ['Airbnb and Jumbo Car confirmations offline','','']]],
-  ['🎁 From Poland',[
+  ['🎁 Gifts to bring',[
     ['Stroopwafels for Nicole','entry condition','req'],
     ["Something Polish for Antonio's pachanga",'vodka, sweets, smoked cheese','rec'],
-    ['Small things for the Snowflake CR team','','']]],
+    ['Smalec for Esteban','',''],
+    ['More as they come up','list keeps growing — add below','']]],
   ['🛍️ Room for the way back',[
     ['Leave ~5 kg spare in the luggage','coffee, chocolate, Lizano, guaro','rec'],
     ['Bottles go in checked baggage','','']]]
@@ -1040,7 +1065,7 @@ document.getElementById('c-clear').onclick=()=>cl.clear();
 document.getElementById('p-clear').onclick=()=>pl.clear();
 
 (async function(){
-  claims=(await sGet('cr26en:claims'))||{};renderBoard();
+  loadBoard();
   cl.set(await sGet('cr26en:chkstate'));cl.draw();
   pl.set(await sGet('cr26en:packstate'));pl.draw();
 })();
