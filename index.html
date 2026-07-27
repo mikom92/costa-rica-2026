@@ -4,17 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0E1F1C">
 <title>Costa Rica · Nov 4–25, 2026</title>
+<meta name="description" content="Trip manifest for Costa Rica, 4–25 November 2026: day-by-day itinerary, shared pachanga board, live budget console and pre-departure checklists.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Costa Rica · Nov 4–25, 2026">
+<meta property="og:description" content="21 nights, one base in Heredia, a Jimny 4×4 and a crew lining up the weekends. Itinerary, budget and the pachanga board.">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Sync is optional: if this CDN is unreachable the page still renders and stays fully usable offline. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <style>
 :root{
   --ink:#0E1F1C; --panel:#152A26; --panel2:#1C3833;
   --bone:#F4EDDF; --yellow:#F5B921; --red:#D8412E; --jade:#38C793; --blue:#2E86C8;
-  --line:rgba(244,237,223,.13);
+  /* Text-safe variants: --red/--blue are brand colours for borders and fills only.
+     On --ink they measure 3.83:1 and 4.35:1, i.e. below WCAG AA for body text. */
+  --red-t:#F2705E; --blue-t:#63A9E0;
+  --line:rgba(244,237,223,.22);
+  /* Contrast floor for small type: .62 alpha stays above 5:1 on every surface used here. */
+  --dim:var(--dim2); --dim2:rgba(244,237,223,.72);
   --display:"Anton",Impact,"Arial Narrow",sans-serif;
   --body:"Karla","Segoe UI",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
@@ -39,15 +57,22 @@ h1 .out{color:transparent;-webkit-text-stroke:2px var(--bone)}
 @media(prefers-reduced-motion:reduce){.wheel{animation:none}}
 .manifest{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}
 .mf{background:var(--ink);padding:14px 16px}
-.mf .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,237,223,.5)}
+.mf .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
 .mf .v{font-family:var(--display);font-size:19px;margin-top:3px;color:var(--bone)}
-.mf .s{font-size:12.5px;color:rgba(244,237,223,.6)}
+.mf .s{font-size:12.5px;color:var(--dim2)}
 .mf.hot .v{color:var(--yellow)}
 
-nav{position:sticky;top:0;z-index:50;background:rgba(14,31,28,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.navin{display:flex;gap:2px;overflow-x:auto;padding:0 18px;max-width:1000px;margin:0 auto;-ms-overflow-style:none;scrollbar-width:none}
+nav{position:sticky;top:0;z-index:50;background:rgba(14,31,28,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  position:sticky}
+/* The bar scrolls horizontally on phones and its scrollbar is hidden, so fade the right
+   edge to signal there are more sections (Checklist/Packing) past the fold. */
+.navwrap{position:relative;max-width:1000px;margin:0 auto}
+.navwrap::after{content:"";position:absolute;inset:0 0 0 auto;width:34px;pointer-events:none;
+  background:linear-gradient(90deg,rgba(14,31,28,0),rgba(14,31,28,.96));opacity:0;transition:opacity .2s}
+.navwrap.more::after{opacity:1}
+.navin{display:flex;gap:2px;overflow-x:auto;padding:0 18px;-ms-overflow-style:none;scrollbar-width:none}
 .navin::-webkit-scrollbar{display:none}
-.navin a{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:rgba(244,237,223,.62);
+.navin a{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim2);
   text-decoration:none;padding:15px 12px;white-space:nowrap;border-bottom:2px solid transparent}
 .navin a:hover{color:var(--bone)}
 .navin a.on{color:var(--yellow);border-bottom-color:var(--yellow)}
@@ -61,9 +86,9 @@ section{padding:44px 0;border-bottom:1px solid var(--line)}
 .ov{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px}
 .ovc{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--jade);border-radius:2px;padding:11px 12px}
 .ovc.sea{border-left-color:var(--blue)} .ovc.fire{border-left-color:var(--red)} .ovc.work{border-left-color:var(--yellow)}
-.ovc .dt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:rgba(244,237,223,.5);text-transform:uppercase}
+.ovc .dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
 .ovc .tt{font-family:var(--display);font-size:15px;margin-top:3px;line-height:1.15}
-.ovc .nn{font-size:12px;color:rgba(244,237,223,.6);margin-top:4px}
+.ovc .nn{font-size:12px;color:var(--dim2);margin-top:4px}
 
 .day{margin-bottom:34px}
 .dayhead{border-top:2px solid var(--yellow);padding-top:12px;margin-bottom:4px}
@@ -75,17 +100,19 @@ section{padding:44px 0;border-bottom:1px solid var(--line)}
 .slot h4{font-size:16.5px;margin-bottom:5px}
 .slot p{margin:0;font-size:14.5px;color:rgba(244,237,223,.76)}
 .links{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
-.links a{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-decoration:none;color:rgba(244,237,223,.72);
-  border:1px solid var(--line);padding:3px 7px;border-radius:2px}
+/* Map/Waze links are tapped on a phone mid-trip: keep them at the 44px touch minimum. */
+.links a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-decoration:none;color:rgba(244,237,223,.85);
+  border:1px solid var(--line);padding:0 11px;border-radius:2px;min-height:44px;display:inline-flex;align-items:center}
 .links a:hover{border-color:var(--jade);color:var(--jade)}
-.tg{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
-  padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle;border:1px solid var(--line);color:rgba(244,237,223,.65)}
-.tg.must{border-color:var(--red);color:var(--red)}
+.links a:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+.tg{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle;border:1px solid var(--line);color:var(--dim2)}
+.tg.must{border-color:var(--red);color:var(--red-t)}
 .tg.book{border-color:var(--yellow);color:var(--yellow)}
 .tg.free{border-color:var(--jade);color:var(--jade)}
-.tg.eat{border-color:var(--blue);color:var(--blue)}
+.tg.eat{border-color:var(--blue);color:var(--blue-t)}
 .warnbox{background:rgba(216,65,46,.1);border:1px solid rgba(216,65,46,.4);border-radius:2px;padding:13px 15px;margin:14px 0;font-size:14.5px}
-.warnbox b{color:var(--red)}
+.warnbox b{color:var(--red-t)}
 .tipbox{background:rgba(56,199,147,.08);border:1px solid rgba(56,199,147,.3);border-radius:2px;padding:13px 15px;margin:14px 0;font-size:14.5px}
 
 .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(106px,1fr));gap:7px;margin-top:16px}
@@ -94,23 +121,28 @@ section{padding:44px 0;border-bottom:1px solid var(--line)}
 .slat:hover{transform:translateY(-2px);border-color:var(--yellow)}
 .slat:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
 .slat .d{font-family:var(--display);font-size:22px;line-height:1}
-.slat .dw{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:rgba(244,237,223,.5);text-transform:uppercase}
-.slat .who{font-size:12px;margin-top:7px;color:var(--yellow);line-height:1.3;min-height:1.3em}
-.slat .who.e{color:rgba(244,237,223,.32)}
+.slat .dw{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+/* Block, so the entry sits on its own line: as an inline span, margin-top was ignored
+   and the text ran on from the weekday. */
+.slat .who{display:block;font-size:12px;margin-top:7px;color:var(--yellow);line-height:1.3;min-height:1.3em}
+.slat .who.e{color:var(--dim);font-style:italic}
+/* Distinguish "nobody has claimed this, tap to add" from someone else's entry. */
+.slat .who.e::before{content:"+ ";color:var(--jade);font-style:normal;font-weight:700}
 .slat.taken{background:linear-gradient(180deg,var(--panel2),rgba(245,185,33,.1));border-color:rgba(245,185,33,.45)}
 .slat.work::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:repeating-linear-gradient(90deg,var(--blue) 0 6px,transparent 6px 12px)}
 .slat.wknd .d{color:var(--yellow)}
 .rowbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
 button.act{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--bone);
-  border:1px solid var(--line);padding:9px 13px;border-radius:2px;cursor:pointer}
+  border:1px solid var(--line);padding:0 16px;min-height:44px;border-radius:2px;cursor:pointer}
+button.act:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
 button.act:hover{border-color:var(--jade);color:var(--jade)}
 button.prim{background:var(--yellow);border-color:var(--yellow);color:var(--ink);font-weight:700}
 button.prim:hover{background:var(--bone);border-color:var(--bone);color:var(--ink)}
-button.dang:hover{border-color:var(--red);color:var(--red)}
-.legend{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:rgba(244,237,223,.45);text-transform:uppercase}
+button.dang:hover{border-color:var(--red-t);color:var(--red-t)}
+.legend{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dim);text-transform:uppercase}
 dialog{border:1px solid var(--yellow);background:var(--panel);color:var(--bone);border-radius:3px;padding:20px;max-width:370px;width:92%}
 dialog::backdrop{background:rgba(6,14,12,.75)}
-dialog label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,237,223,.6);margin:13px 0 5px}
+dialog label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);margin:13px 0 5px}
 dialog input,dialog textarea{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--bone);padding:9px;font:inherit;font-size:14px;border-radius:2px}
 dialog textarea{min-height:60px;resize:vertical}
 .dlgbar{display:flex;gap:7px;margin-top:16px}.dlgbar button{flex:1}
@@ -118,24 +150,35 @@ dialog textarea{min-height:60px;resize:vertical}
 .console{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .readout{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:20px}
 .curtog{display:flex;gap:4px;margin-bottom:10px}
-.curtog button{font-family:var(--mono);font-size:10px;letter-spacing:.1em;background:transparent;border:1px solid var(--line);
-  color:rgba(244,237,223,.6);padding:4px 10px;border-radius:2px;cursor:pointer}
+.curtog button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;background:transparent;border:1px solid var(--line);
+  color:var(--dim2);padding:0 16px;min-height:40px;border-radius:2px;cursor:pointer}
 .curtog button.on{border-color:var(--yellow);color:var(--yellow)}
+.curtog button:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
 .big{font-family:var(--display);font-size:clamp(38px,7vw,60px);line-height:1;color:var(--yellow)}
 .delta{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;margin-top:8px}
-.delta.under{color:var(--jade)}.delta.over{color:var(--red)}
-.gauge{height:8px;background:var(--panel2);border-radius:4px;margin:16px 0 6px;position:relative;overflow:hidden}
+.delta.under{color:var(--jade)}.delta.over{color:var(--red-t)}
+.gauge{height:8px;background:var(--panel2);border-radius:4px;margin:16px 0 6px;position:relative}
 .gauge i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--jade),var(--yellow));border-radius:4px;transition:width .2s}
-.gscale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:rgba(244,237,223,.4)}
+.gauge .tgt{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--bone);opacity:.8;transform:translateX(-1px)}
+/* Ticks are positioned at their true position on the scale. Laying them out with
+   space-between would put 12,000 at 67% while the bar reaches it at 57%. */
+.gscale{position:relative;height:14px;font-family:var(--mono);font-size:11px;color:var(--dim)}
+.gscale span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.gscale span:first-child{transform:none}
+.gscale span:last-child{transform:translateX(-100%)}
 .lever{margin-bottom:15px}
 .lever .lh{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;gap:10px}
 .lever .lv{font-family:var(--mono);font-size:12px;color:var(--yellow);white-space:nowrap}
-input[type=range]{width:100%;margin-top:6px;accent-color:var(--yellow);height:20px}
+input[type=range]{width:100%;margin-top:6px;accent-color:var(--yellow);height:28px}
+input[type=range]:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+/* Two-state options are a checkbox, not a range with step === max. */
+.toggle{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;font-size:13.5px}
+.toggle input{width:18px;height:18px;accent-color:var(--yellow);flex:none;cursor:pointer}
 .lines{margin-top:14px;font-size:13.5px}
 .lines div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
 .lines span:last-child{font-family:var(--mono);font-size:12.5px;white-space:nowrap;color:rgba(244,237,223,.85)}
 .lines div.fixed span:last-child{color:var(--jade)}
-.fx{font-family:var(--mono);font-size:10px;color:rgba(244,237,223,.45);margin-top:10px;letter-spacing:.05em}
+.fx{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:10px;letter-spacing:.05em}
 
 .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
 .pcard{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:17px}
@@ -144,18 +187,18 @@ input[type=range]{width:100%;margin-top:6px;accent-color:var(--yellow);height:20
 .pcard ul{margin:0;padding-left:17px}.pcard li{margin-bottom:5px}
 .kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
 .kv:last-child{border-bottom:none}
-.kv b{font-weight:500;color:rgba(244,237,223,.65);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+.kv b{font-weight:500;color:var(--dim2);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
 
 .crew{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px}
 .person{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--jade);border-radius:3px;padding:15px}
 .person.ask{border-left-color:var(--red)}.person.offer{border-left-color:var(--yellow)}
 .person h4{font-size:16px}
-.person .role{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,237,223,.5);margin-top:2px}
+.person .role{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:2px}
 .person p{font-size:13.5px;margin:8px 0 0;color:rgba(244,237,223,.78)}
 
 .progress{display:flex;gap:20px;align-items:center;margin:4px 0 16px;flex-wrap:wrap}
 .progress .pn{font-family:var(--display);font-size:30px;color:var(--jade);line-height:1}
-.progress .pl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,237,223,.5)}
+.progress .pl{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
 .pbar{flex:1;min-width:120px;height:6px;background:var(--panel2);border-radius:3px;overflow:hidden}
 .pbar i{display:block;height:100%;background:var(--jade);width:0;transition:width .25s}
 .catt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin:20px 0 8px}
@@ -163,12 +206,12 @@ ul.todo{list-style:none;padding:0;margin:0;display:grid;gap:2px}
 ul.todo li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:2px}
 ul.todo input{margin-top:4px;accent-color:var(--jade);width:16px;height:16px;flex:none;cursor:pointer}
 ul.todo label{cursor:pointer;font-size:14.5px}
-ul.todo .m{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244,237,223,.45);margin-top:3px}
-ul.todo li.done label{text-decoration:line-through;color:rgba(244,237,223,.35)}
-.req{font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;border:1px solid var(--red);color:var(--red);padding:1px 5px;border-radius:2px;margin-left:6px}
+ul.todo .m{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:3px}
+ul.todo li.done label{text-decoration:line-through;color:rgba(244,237,223,.55)}
+.req{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;border:1px solid var(--red-t);color:var(--red-t);padding:1px 5px;border-radius:2px;margin-left:6px}
 .req.rec{border-color:var(--jade);color:var(--jade)}
 
-footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align:center}
+footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
 
 @media(max-width:760px){
   .hero{grid-template-columns:1fr;padding:30px 0 22px;gap:14px}
@@ -176,6 +219,24 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
   .slot{grid-template-columns:1fr;gap:3px}
   .slot .t{padding-top:0}
   .console{grid-template-columns:1fr}
+}
+@media(hover:none){.slat:hover{transform:none}}
+
+/* A trip plan gets printed or saved as PDF. Without this it is 20 pages of dark ink. */
+@media print{
+  :root{--ink:#fff;--panel:#fff;--panel2:#fff;--bone:#111;--line:#bbb;--dim:#444;--dim2:#333;
+        --yellow:#8a6000;--jade:#0a6b4a;--red-t:#a3271a;--blue-t:#1a5580}
+  body{background:#fff;color:#111;font-size:11pt}
+  nav,.wheel,.rowbar,.board,.curtog,.lever,.gauge,.gscale,dialog,#syncStatus,footer{display:none!important}
+  header{border-bottom:2px solid #111}
+  section{padding:14pt 0;border-bottom:1px solid #bbb;break-inside:avoid}
+  .day{break-inside:avoid}
+  h1{font-size:28pt}
+  a{color:#111;text-decoration:none}
+  .links a{border:none;padding:0;min-height:0;font-size:8pt;color:#555}
+  .links a::after{content:" (" attr(href) ")";word-break:break-all}
+  .manifest,.ov,.pgrid,.crew{background:none}
+  .mf,.ovc,.pcard,.person,.readout,ul.todo li{border:1px solid #bbb;background:#fff}
 }
 </style>
 </head>
@@ -208,7 +269,7 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
   </div></div>
 </header>
 
-<nav><div class="navin" id="nav">
+<nav aria-label="Sections"><div class="navwrap" id="navwrap"><div class="navin" id="nav">
   <a href="#overview">Overview</a>
   <a href="#w1">Week 1</a>
   <a href="#w2">Week 2</a>
@@ -218,7 +279,7 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
   <a href="#practical">Practical</a>
   <a href="#checklist">✓ Checklist</a>
   <a href="#packing">🧳 Packing</a>
-</div></nav>
+</div></div></nav>
 
 <main>
 
@@ -575,12 +636,12 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
 <section id="pachanga">
   <div class="wrap">
     <div class="shead"><h2>The pachanga board</h2><span class="tag">who's taking me where</span></div>
-    <p class="sintro">Jonathan called it: the schedule will be packed because everyone wants to organise something. Tap a day, add who and what, then use the button to copy the whole thing as text for the group chat. Entries sync live for everyone who opens this page. <span class="mono" id="syncStatus" style="color:var(--jade)">● connecting…</span></p>
+    <p class="sintro">Jonathan called it: the schedule will be packed because everyone wants to organise something. Tap a day, add who and what, then use the button to copy the whole thing as text for the group chat. Entries sync live for everyone who opens this page. <span class="mono" id="syncStatus" style="color:var(--yellow)" role="status">● connecting…</span></p>
     <div class="board" id="theboard"></div>
     <div class="rowbar">
       <button class="act prim" id="copyBtn">Copy plan for WhatsApp</button>
       <button class="act dang" id="clearBtn">Clear entries</button>
-      <span class="legend" id="copyMsg"></span>
+      <span class="legend" id="copyMsg" role="status"></span>
     </div>
     <p class="legend" style="margin-top:12px">yellow number = weekend · blue dashes = working day</p>
   </div>
@@ -594,27 +655,28 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
     <div class="console">
       <div class="readout">
         <div class="curtog"><button id="cur-pln" class="on">PLN</button><button id="cur-usd">USD</button></div>
-        <div class="mono" style="color:rgba(244,237,223,.5)">Live estimate</div>
+        <div class="mono" style="color:var(--dim)">Live estimate</div>
         <div class="big" id="total">—</div>
         <div class="delta" id="delta">—</div>
-        <div class="gauge"><i id="gfill"></i></div>
+        <div class="gauge"><i id="gfill"></i><span class="tgt" id="gtgt" title="Budget target"></span></div>
         <div class="gscale" id="gscale"></div>
         <div class="lines" id="lines"></div>
         <div class="fx" id="fx">Fetching USD rate…</div>
       </div>
       <div>
-        <div class="lever"><div class="lh"><span>Flights WAW ⇄ SJO</span><span class="lv" id="v-fly"></span></div>
+        <div class="lever"><div class="lh"><label for="s-fly">Flights WAW ⇄ SJO</label><span class="lv" id="v-fly"></span></div>
           <input type="range" id="s-fly" min="3200" max="5400" step="50" value="3964"></div>
-        <div class="lever"><div class="lh"><span>Food, per day</span><span class="lv" id="v-food"></span></div>
+        <div class="lever"><div class="lh"><label for="s-food">Food, per day</label><span class="lv" id="v-food"></span></div>
           <input type="range" id="s-food" min="50" max="160" step="5" value="80"></div>
-        <div class="lever"><div class="lh"><span>Planned distance</span><span class="lv" id="v-km"></span></div>
+        <div class="lever"><div class="lh"><label for="s-km">Planned distance</label><span class="lv" id="v-km"></span></div>
           <input type="range" id="s-km" min="1000" max="3000" step="50" value="1800"></div>
-        <div class="lever"><div class="lh"><span>Park entry fees</span><span class="lv" id="v-park"></span></div>
+        <div class="lever"><div class="lh"><label for="s-park">Park entry fees (USD)</label><span class="lv" id="v-park"></span></div>
           <input type="range" id="s-park" min="60" max="260" step="10" value="160"></div>
-        <div class="lever"><div class="lh"><span>Extra car coverage</span><span class="lv" id="v-ins"></span></div>
-          <input type="range" id="s-ins" min="0" max="361" step="361" value="0"></div>
-        <div class="lever"><div class="lh"><span>USD → PLN rate</span><span class="lv" id="v-fxr"></span></div>
-          <input type="range" id="s-fxr" min="3.2" max="4.6" step="0.01" value="3.75"></div>
+        <div class="lever"><label class="toggle"><input type="checkbox" id="s-ins">
+          <span>Extra car coverage <span class="lv" id="v-ins"></span></span></label></div>
+        <div class="lever"><div class="lh"><label for="s-fxr">USD → PLN rate</label><span class="lv" id="v-fxr"></span></div>
+          <input type="range" id="s-fxr" min="3.2" max="5.2" step="0.01" value="3.75"></div>
+        <div class="rowbar"><button class="act" id="b-reset">↺ Reset to defaults</button></div>
         <p class="legend" style="line-height:1.6">Fuel assumes 7.5 l/100 km for the Jimny and about $1.25/l for petrol in Costa Rica. Park fees in USD: Poás ~15, Mistico ~32, Río Celeste ~12, Monteverde ~25 plus a ~25 guide, Manuel Antonio ~18, Cahuita by donation. <b>Ticos: if any of these are off, tell me.</b></p>
       </div>
     </div>
@@ -756,11 +818,11 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
     <div class="progress">
       <div><div class="pn" id="c-done">0</div><div class="pl">done</div></div>
       <div><div class="pn" id="c-left" style="color:var(--yellow)">0</div><div class="pl">to go</div></div>
-      <div class="pbar"><i id="c-bar"></i></div>
+      <div class="pbar" id="c-bar-t" role="progressbar" aria-label="Checklist progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="c-bar"></i></div>
       <div><div class="pn" id="c-pct" style="color:var(--bone)">0%</div><div class="pl">complete</div></div>
     </div>
     <div id="clist"></div>
-    <div class="rowbar"><button class="act dang" id="c-clear">↺ Reset checklist</button></div>
+    <div class="rowbar"><button class="act dang" id="c-clear">↺ Reset checklist</button><span class="legend" id="c-msg" role="status"></span></div>
   </div>
 </section>
 
@@ -772,34 +834,56 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
     <div class="progress">
       <div><div class="pn" id="p-done">0</div><div class="pl">packed</div></div>
       <div><div class="pn" id="p-left" style="color:var(--yellow)">0</div><div class="pl">to go</div></div>
-      <div class="pbar"><i id="p-bar"></i></div>
+      <div class="pbar" id="p-bar-t" role="progressbar" aria-label="Packing progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="p-bar"></i></div>
       <div><div class="pn" id="p-pct" style="color:var(--bone)">0%</div><div class="pl">ready</div></div>
     </div>
     <div id="plist"></div>
-    <div class="rowbar"><button class="act dang" id="p-clear">↺ Reset packing list</button></div>
+    <div class="rowbar"><button class="act dang" id="p-clear">↺ Reset packing list</button><span class="legend" id="p-msg" role="status"></span></div>
   </div>
 </section>
 
 </main>
 
-<dialog id="dlg">
-  <h3 id="dlgTitle">Day</h3>
-  <div class="mono" style="color:rgba(244,237,223,.5)" id="dlgSub"></div>
-  <label for="fWho">Who</label><input id="fWho" placeholder="e.g. Jonathan" autocomplete="off">
-  <label for="fWhat">What / where</label><textarea id="fWhat" placeholder="e.g. weekend in Limón, leaving early"></textarea>
-  <div class="dlgbar">
-    <button class="act prim" id="saveBtn">Save</button>
-    <button class="act" id="delBtn">Delete</button>
-    <button class="act" id="cancelBtn">Cancel</button>
-  </div>
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <form method="dialog" id="dlgForm">
+    <h3 id="dlgTitle">Day</h3>
+    <div class="mono" style="color:var(--dim)" id="dlgSub"></div>
+    <label for="fWho">Who</label><input id="fWho" placeholder="e.g. Jonathan" autocomplete="off" maxlength="60">
+    <label for="fWhat">What / where</label><textarea id="fWhat" placeholder="e.g. weekend in Limón, leaving early" maxlength="200"></textarea>
+    <div class="dlgbar">
+      <button class="act prim" id="saveBtn" value="save">Save</button>
+      <button class="act" id="delBtn" value="delete" type="button">Delete</button>
+      <button class="act" id="cancelBtn" value="cancel" type="button">Cancel</button>
+    </div>
+  </form>
 </dialog>
 
 <footer>Costa Rica · November 2026 · ¡Pura vida! 🇨🇷</footer>
 
 <script>
-/* carreta wheel */
+"use strict";
+
+/* ---------- small helpers ---------- */
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[<>&"]/g,m=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[m]));}
+
+/* Storage: localStorage, with an in-memory fallback that is actually reachable when
+   localStorage is unavailable (private mode, blocked cookies). Synchronous on purpose. */
+const mem={};
+function sGet(k){
+  if(Object.prototype.hasOwnProperty.call(mem,k))return mem[k];
+  try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}
+}
+function sSet(k,v){
+  mem[k]=v;
+  try{localStorage.setItem(k,JSON.stringify(v));}catch(e){/* memory-only for this session */}
+}
+function flash(el,msg){if(!el)return;el.textContent=msg;setTimeout(()=>{if(el.textContent===msg)el.textContent='';},2500);}
+
+/* ---------- carreta wheel ---------- */
 (function(){
-  const sp=document.getElementById('spokes'),pt=document.getElementById('petals');
+  const sp=$('spokes'),pt=$('petals');
+  if(!sp||!pt)return;
   let s='',p='';
   for(let i=0;i<16;i++){const a=i*22.5*Math.PI/180;
     s+=`<line x1="${100+20*Math.cos(a)}" y1="${100+20*Math.sin(a)}" x2="${100+66*Math.cos(a)}" y2="${100+66*Math.sin(a)}" stroke="${i%2?'#D8412E':'#F4EDDF'}" stroke-width="2"/>`;}
@@ -808,125 +892,252 @@ footer{padding:30px 0 54px;color:rgba(244,237,223,.42);font-size:13px;text-align
   sp.innerHTML=s;pt.innerHTML=p;
 })();
 
-/* countdown */
+/* ---------- countdown ---------- */
 (function(){
-  const d=Math.ceil((new Date(2026,10,4)-new Date())/864e5);
-  document.getElementById('cd').textContent=d>0?d+' days':'en route';
+  const el=$('cd');
+  if(!el)return;
+  const DEP=new Date(2026,10,4);
+  function tick(){
+    const d=Math.ceil((DEP-new Date())/864e5);
+    el.textContent = d>1 ? d+' days' : d===1 ? 'tomorrow' : d>=0 ? 'today' : 'en route';
+  }
+  tick();
+  // Re-run just after the next local midnight so a page left open does not go stale.
+  const mid=new Date();mid.setHours(24,0,1,0);
+  setTimeout(function(){tick();setInterval(tick,864e5);},mid-Date.now());
 })();
 
-/* storage: Claude artifact → localStorage → memory */
-const mem={};
-async function sGet(k){
-  try{const r=await window.storage.get(k);return r?JSON.parse(r.value):null;}catch(e){}
-  try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){}
-  return mem[k]??null;
-}
-async function sSet(k,v){
-  mem[k]=v;
-  try{await window.storage.set(k,JSON.stringify(v));return;}catch(e){}
-  try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}
-}
-function esc(s){return String(s).replace(/[<>&]/g,m=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[m]));}
-
-/* nav highlight */
+/* ---------- nav: active section + horizontal scroll affordance ---------- */
 (function(){
   const links=[...document.querySelectorAll('#nav a')];
   const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
-    links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id));}});},
-    {rootMargin:'-60px 0px -70% 0px'});
-  secs.forEach(s=>io.observe(s));
+  if(secs.length){
+    const visible=new Set();
+    const io=new IntersectionObserver(es=>{
+      es.forEach(e=>{e.isIntersecting?visible.add(e.target.id):visible.delete(e.target.id);});
+      // Pick the first visible section in document order, otherwise several sections
+      // intersecting at once make the highlight flicker onto whichever fired last.
+      const active=secs.map(s=>s.id).find(id=>visible.has(id));
+      if(active)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+active));
+    },{rootMargin:'-60px 0px -70% 0px'});
+    secs.forEach(s=>io.observe(s));
+  }
+  const bar=$('nav'),wrap=$('navwrap');
+  if(bar&&wrap){
+    const upd=()=>wrap.classList.toggle('more',bar.scrollWidth-bar.clientWidth-bar.scrollLeft>8);
+    bar.addEventListener('scroll',upd,{passive:true});
+    window.addEventListener('resize',upd);
+    upd();
+  }
 })();
 
-/* pachanga board — synced via Supabase */
-const SUPABASE_URL='https://prdqwappvrucrntiokna.supabase.co';
-const SUPABASE_KEY='sb_publishable__C07-Ap4Jl0i5l5LwBB2Ug_gfW9f03z';
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
+/* ================= PACHANGA BOARD =================
+   Renders from local data first and works read-only without any network.
+   Supabase is layered on top and every failure path is surfaced, never swallowed. */
 const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const CTX={4:'arrival',5:'Poás',6:'→ Caribbean',7:'Cahuita',8:'Manzanillo',9:'→ Fortuna',10:'Arenal',
 11:'Río Celeste',12:'→ Monteverde',13:'cloud forest',14:'→ Manuel A.',15:'Manuel A.',16:'back to base',17:'buffer',
 18:'work',19:'work',20:'work',21:'pachanga',22:'San José',23:'work',24:'work',25:'departure'};
+const DAY_MIN=4,DAY_MAX=25;
+
 let claims={},cur=null;
-const dlg=document.getElementById('dlg');
+const dlg=$('dlg');
 
-function setSync(state){
-  const el=document.getElementById('syncStatus');
+function setSync(state,detail){
+  const el=$('syncStatus');
   if(!el)return;
-  if(state==='live'){el.textContent='● live';el.style.color='var(--jade)';}
-  else if(state==='saving'){el.textContent='● saving…';el.style.color='var(--yellow)';}
-  else if(state==='error'){el.textContent='● offline — changes may not be saved';el.style.color='var(--red)';}
-  else{el.textContent='● connecting…';el.style.color='var(--yellow)';}
-}
-
-async function loadBoard(){
-  const {data,error}=await sb.from('pachanga_board').select('*');
-  if(error){setSync('error');return;}
-  claims={};
-  (data||[]).forEach(row=>{claims[row.day]={who:row.who,what:row.what};});
-  setSync('live');
-  renderBoard();
+  const map={
+    live:['● live','var(--jade)'],
+    saving:['● saving…','var(--yellow)'],
+    connecting:['● connecting…','var(--yellow)'],
+    offline:['● offline — this board is read-only right now','var(--red-t)'],
+    error:['● not saved — '+(detail||'try again'),'var(--red-t)']
+  };
+  const [t,c]=map[state]||map.connecting;
+  el.textContent=t;el.style.color=c;
 }
 
 function renderBoard(){
+  const b=$('theboard');
+  if(!b)return;
   let h='';
-  for(let d=4;d<=25;d++){
+  for(let d=DAY_MIN;d<=DAY_MAX;d++){
     const dt=new Date(2026,10,d),dw=dt.getDay(),wk=(dw===0||dw===6),wo=(d>=18&&d<=24&&!wk),c=claims[d];
-    h+=`<button class="slat${c?' taken':''}${wk?' wknd':''}${wo?' work':''}" data-d="${d}" aria-label="November ${d}">
+    const txt=c?c.who+(c.what?' — '+c.what:''):(CTX[d]||'—');
+    // The label has to carry the claim too: an aria-label of just the date hides
+    // everything a screen reader user came here for.
+    const label='November '+d+', '+DOW[dw]+'. '+(c?'Taken by '+txt:'Free. '+(CTX[d]||'')+'. Tap to add someone');
+    h+=`<button class="slat${c?' taken':''}${wk?' wknd':''}${wo?' work':''}" data-d="${d}" aria-label="${esc(label)}">
       <span class="d">${d}</span> <span class="dw">${DOW[dw]}</span>
-      <span class="who ${c?'':'e'}">${c?esc(c.who)+(c.what?' — '+esc(c.what):''):(CTX[d]||'—')}</span></button>`;
+      <span class="who ${c?'':'e'}">${esc(txt)}</span></button>`;
   }
-  const b=document.getElementById('theboard');b.innerHTML=h;
-  b.querySelectorAll('.slat').forEach(el=>el.addEventListener('click',()=>{
-    cur=+el.dataset.d;const dt=new Date(2026,10,cur);
-    document.getElementById('dlgTitle').textContent='November '+cur;
-    document.getElementById('dlgSub').textContent=DOW[dt.getDay()]+' · '+(CTX[cur]||'');
-    document.getElementById('fWho').value=claims[cur]?.who||'';
-    document.getElementById('fWhat').value=claims[cur]?.what||'';
-    dlg.showModal();document.getElementById('fWho').focus();}));
+  b.innerHTML=h;
 }
-document.getElementById('saveBtn').onclick=async()=>{
-  const w=document.getElementById('fWho').value.trim(),t=document.getElementById('fWhat').value.trim();
-  setSync('saving');
-  try{
-    if(w){await sb.from('pachanga_board').upsert({day:cur,who:w,what:t});claims[cur]={who:w,what:t};}
-    else{await sb.from('pachanga_board').delete().eq('day',cur);delete claims[cur];}
-    setSync('live');
-  }catch(e){setSync('error');}
-  renderBoard();dlg.close();};
-document.getElementById('delBtn').onclick=async()=>{
-  setSync('saving');
-  try{await sb.from('pachanga_board').delete().eq('day',cur);setSync('live');}catch(e){setSync('error');}
-  delete claims[cur];renderBoard();dlg.close();};
-document.getElementById('cancelBtn').onclick=()=>dlg.close();
-document.getElementById('clearBtn').onclick=async()=>{
-  if(!confirm('Clear every entry on the board for everyone?'))return;
-  setSync('saving');
-  try{await sb.from('pachanga_board').delete().neq('day',-1);setSync('live');}catch(e){setSync('error');}
-  claims={};renderBoard();};
-document.getElementById('copyBtn').onclick=async()=>{
+
+function openDay(d){
+  cur=d;
+  const dt=new Date(2026,10,d);
+  $('dlgTitle').textContent='November '+d;
+  $('dlgSub').textContent=DOW[dt.getDay()]+' · '+(CTX[d]||'');
+  $('fWho').value=claims[d]?.who||'';
+  $('fWhat').value=claims[d]?.what||'';
+  // Nothing to delete on an empty day.
+  $('delBtn').hidden=!claims[d];
+  dlg.showModal();
+  $('fWho').focus();
+}
+
+(function(){
+  const b=$('theboard');
+  if(!b)return;
+  // Delegated: the board is re-rendered wholesale, so per-node listeners would leak.
+  b.addEventListener('click',e=>{
+    const el=e.target.closest('.slat');
+    if(el)openDay(+el.dataset.d);
+  });
+})();
+
+// Give focus back to the day that opened the dialog instead of dropping it on <body>.
+dlg.addEventListener('close',()=>{
+  const el=document.querySelector('.slat[data-d="'+cur+'"]');
+  if(el)el.focus();
+});
+
+/* ---------- sync layer ---------- */
+const SUPABASE_URL='https://prdqwappvrucrntiokna.supabase.co';
+const SUPABASE_KEY='sb_publishable__C07-Ap4Jl0i5l5LwBB2Ug_gfW9f03z';
+
+const Sync=(function(){
+  let sb=null,live=false,poll=null;
+
+  function available(){return !!sb;}
+
+  async function load(){
+    if(!sb)return;
+    // supabase-js resolves with {data,error}; it does NOT reject on a database or RLS
+    // error, so try/catch alone would report success on every rejected write.
+    let res;
+    try{res=await sb.from('pachanga_board').select('day,who,what');}
+    catch(e){setSync('offline');return;}
+    if(res.error){setSync('error',res.error.message);return;}
+    claims={};
+    (res.data||[]).forEach(r=>{
+      if(r.day>=DAY_MIN&&r.day<=DAY_MAX)claims[r.day]={who:r.who||'',what:r.what||''};
+    });
+    setSync(live?'live':'connecting');
+    renderBoard();
+  }
+
+  async function write(op){
+    if(!sb){setSync('offline');return false;}
+    setSync('saving');
+    let res;
+    try{res=await op(sb);}catch(e){setSync('error',e.message||'network');return false;}
+    if(res&&res.error){setSync('error',res.error.message);return false;}
+    setSync(live?'live':'connecting');
+    return true;
+  }
+
+  function startPolling(){
+    if(poll)return;
+    poll=setInterval(load,60000);
+  }
+
+  function init(){
+    if(!window.supabase||typeof window.supabase.createClient!=='function'){
+      setSync('offline');return;
+    }
+    try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}
+    catch(e){setSync('offline');return;}
+    load();
+    try{
+      sb.channel('board-live')
+        .on('postgres_changes',{event:'*',schema:'public',table:'pachanga_board'},load)
+        .subscribe(status=>{
+          if(status==='SUBSCRIBED'){live=true;setSync('live');if(poll){clearInterval(poll);poll=null;}}
+          else{live=false;startPolling();}   // realtime may not be enabled on the table
+        });
+    }catch(e){startPolling();}
+    // Catch anything missed while the tab was in the background.
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});
+  }
+
+  return {init,load,write,available};
+})();
+
+/* ---------- board actions ---------- */
+$('dlgForm').addEventListener('submit',async e=>{
+  // method="dialog" closes the dialog for us; Enter in a field now saves as expected.
+  const w=$('fWho').value.trim().slice(0,60),t=$('fWhat').value.trim().slice(0,200),d=cur;
+  if(w){
+    claims[d]={who:w,what:t};renderBoard();
+    const ok=await Sync.write(sb=>sb.from('pachanga_board').upsert({day:d,who:w,what:t},{onConflict:'day'}));
+    if(!ok)await Sync.load();          // roll the optimistic edit back to server truth
+  }else if(claims[d]){
+    delete claims[d];renderBoard();
+    const ok=await Sync.write(sb=>sb.from('pachanga_board').delete().eq('day',d));
+    if(!ok)await Sync.load();
+  }
+});
+$('delBtn').onclick=async()=>{
+  const d=cur;
+  dlg.close();
+  if(!claims[d])return;
+  delete claims[d];renderBoard();
+  const ok=await Sync.write(sb=>sb.from('pachanga_board').delete().eq('day',d));
+  if(!ok)await Sync.load();
+};
+$('cancelBtn').onclick=()=>dlg.close();
+
+$('clearBtn').onclick=async()=>{
+  if(!Sync.available()){setSync('offline');return;}
+  if(!confirm('Clear every entry on the board, for everyone? This cannot be undone.'))return;
+  const ok=await Sync.write(sb=>sb.from('pachanga_board').delete().gte('day',DAY_MIN).lte('day',DAY_MAX));
+  await Sync.load();
+  if(ok)renderBoard();
+};
+
+$('copyBtn').onclick=async()=>{
   let t='🇨🇷 Miko in Costa Rica · Nov 4–25, 2026\n\n';
-  for(let d=4;d<=25;d++){const dt=new Date(2026,10,d);
-    t+=`Nov ${d} (${DOW[dt.getDay()]}) — ${claims[d]?claims[d].who+(claims[d].what?': '+claims[d].what:''):(CTX[d]||'free')}\n`;}
-  const m=document.getElementById('copyMsg');
-  try{await navigator.clipboard.writeText(t);m.textContent='Copied';}
-  catch(e){m.textContent='Clipboard blocked';}
-  setTimeout(()=>m.textContent='',2500);};
+  for(let d=DAY_MIN;d<=DAY_MAX;d++){
+    const dt=new Date(2026,10,d);
+    t+=`Nov ${d} (${DOW[dt.getDay()]}) — ${claims[d]?claims[d].who+(claims[d].what?': '+claims[d].what:''):(CTX[d]||'free')}\n`;
+  }
+  const m=$('copyMsg');
+  try{
+    await navigator.clipboard.writeText(t);
+    flash(m,'Copied');
+  }catch(e){
+    // Clipboard API needs a secure context and can be blocked; fall back to a selection.
+    const ta=document.createElement('textarea');
+    ta.value=t;ta.setAttribute('readonly','');
+    ta.style.cssText='position:fixed;top:0;left:0;opacity:0';
+    document.body.appendChild(ta);ta.select();
+    let ok=false;
+    try{ok=document.execCommand('copy');}catch(e2){}
+    ta.remove();
+    flash(m,ok?'Copied':'Copy blocked — select the text manually');
+  }
+};
 
-sb.channel('board-live')
-  .on('postgres_changes',{event:'*',schema:'public',table:'pachanga_board'},()=>{loadBoard();})
-  .subscribe();
+renderBoard();   // usable immediately, before and regardless of any network call
 
-/* budget console */
-const B={fly:3964,food:80,km:1800,park:160,ins:0,fxr:3.75};
-const TARGET=12000;
-let CUR='PLN';
+/* ================= BUDGET CONSOLE ================= */
+const BUDGET_DEFAULTS={fly:3964,food:80,km:1800,park:160,ins:false,fxr:3.75};
+const B=Object.assign({},BUDGET_DEFAULTS);
+const TARGET=12000, INS_COST=361, GMIN=8000, GMAX=15000;
+const FUEL_L_100=7.5, FUEL_USD_L=1.25, NIGHTS=21;
+let CUR='PLN', fxTouched=false;
+
 function money(pln){
-  if(CUR==='USD'){const v=pln/B.fxr;return '$'+Math.round(v).toLocaleString('en-US');}
+  if(CUR==='USD')return '$'+Math.round(pln/B.fxr).toLocaleString('en-US');
   return Math.round(pln).toLocaleString('en-US')+' zł';
 }
+function pos(v){return Math.max(0,Math.min(100,((v-GMIN)/(GMAX-GMIN))*100));}
+
 function calcBudget(){
-  const fuel=(B.km/100)*7.5*1.25*B.fxr, food=B.food*21, park=B.park*B.fxr;
+  const fuel=(B.km/100)*FUEL_L_100*FUEL_USD_L*B.fxr, food=B.food*NIGHTS, park=B.park*B.fxr;
+  const ins=B.ins?INS_COST:0;
   const rows=[
     ['Lodging · Heredia, 21 nights',3359,true],
     ['Car · Jimny 4×4, 21 days',1021,true],
@@ -935,41 +1146,107 @@ function calcBudget(){
     ['Food · 21 days',food,false],
     ['Fuel · '+B.km+' km',fuel,false],
     ['Park entry fees',park,false],
-    ['Extra car coverage',B.ins,false],
+    ['Extra car coverage',ins,false],
     ['Buffer',500,false]];
   const total=rows.reduce((a,r)=>a+r[1],0);
-  document.getElementById('lines').innerHTML=rows.filter(r=>r[1]>0)
-    .map(r=>`<div class="${r[2]?'fixed':''}"><span>${r[0]}</span><span>${money(r[1])}</span></div>`).join('');
-  document.getElementById('total').textContent=money(total);
-  const d=TARGET-total,el=document.getElementById('delta');
+
+  $('lines').innerHTML=rows.filter(r=>r[1]>0)
+    .map(r=>`<div class="${r[2]?'fixed':''}"><span>${esc(r[0])}</span><span>${money(r[1])}</span></div>`).join('');
+  $('total').textContent=money(total);
+
+  const d=TARGET-total,el=$('delta');
   el.textContent=d>=0?money(d)+' under target':money(-d)+' over target';
   el.className='delta '+(d>=0?'under':'over');
-  document.getElementById('gfill').style.width=Math.max(0,Math.min(100,((total-8000)/7000)*100))+'%';
-  document.getElementById('gscale').innerHTML=[8000,10000,12000,15000]
-    .map((v,i)=>`<span>${CUR==='USD'?'$'+Math.round(v/B.fxr).toLocaleString('en-US'):v.toLocaleString('en-US')+(i===3?' zł':'')}</span>`).join('');
-  document.getElementById('mf-budget').textContent=money(TARGET);
-  document.getElementById('v-fly').textContent=money(B.fly);
-  document.getElementById('v-food').textContent=money(B.food)+'/day';
-  document.getElementById('v-km').textContent=B.km+' km';
-  document.getElementById('v-park').textContent='$'+B.park;
-  document.getElementById('v-ins').textContent=B.ins?money(B.ins):'none';
-  document.getElementById('v-fxr').textContent=B.fxr.toFixed(2);
-}
-[['s-fly','fly'],['s-food','food'],['s-km','km'],['s-park','park'],['s-ins','ins'],['s-fxr','fxr']]
-.forEach(([id,key])=>{const el=document.getElementById(id);
-  el.addEventListener('input',()=>{B[key]=parseFloat(el.value);calcBudget();});});
-document.getElementById('cur-pln').onclick=()=>{CUR='PLN';
-  document.getElementById('cur-pln').classList.add('on');document.getElementById('cur-usd').classList.remove('on');calcBudget();};
-document.getElementById('cur-usd').onclick=()=>{CUR='USD';
-  document.getElementById('cur-usd').classList.add('on');document.getElementById('cur-pln').classList.remove('on');calcBudget();};
-calcBudget();
-fetch('https://api.frankfurter.app/latest?from=USD&to=PLN')
-  .then(r=>r.json()).then(d=>{
-    if(d&&d.rates&&d.rates.PLN){B.fxr=d.rates.PLN;document.getElementById('s-fxr').value=B.fxr;calcBudget();
-      document.getElementById('fx').textContent='USD/PLN '+B.fxr.toFixed(3)+' · ECB via frankfurter.app, '+d.date+'. Slider overrides.';}
-  }).catch(()=>{document.getElementById('fx').textContent='Live rate unavailable — set it with the slider.';});
 
-/* checklists */
+  $('gfill').style.width=pos(total)+'%';
+  $('gtgt').style.left=pos(TARGET)+'%';
+  // Ticks sit at their real position on the scale, not at even spacing.
+  $('gscale').innerHTML=[GMIN,10000,TARGET,GMAX]
+    .map(v=>`<span style="left:${pos(v)}%">${CUR==='USD'?'$'+Math.round(v/B.fxr).toLocaleString('en-US'):v.toLocaleString('en-US')}</span>`).join('');
+
+  $('mf-budget').textContent=money(TARGET);
+  $('v-fly').textContent=money(B.fly);
+  $('v-food').textContent=money(B.food)+'/day';
+  $('v-km').textContent=B.km+' km';
+  $('v-park').textContent='$'+B.park;
+  $('v-ins').textContent=B.ins?'· '+money(INS_COST):'· none';
+  $('v-fxr').textContent=B.fxr.toFixed(2);
+
+  // Screen readers otherwise announce the raw number with no unit.
+  $('s-fly').setAttribute('aria-valuetext',money(B.fly));
+  $('s-food').setAttribute('aria-valuetext',money(B.food)+' per day');
+  $('s-km').setAttribute('aria-valuetext',B.km+' km');
+  $('s-park').setAttribute('aria-valuetext','$'+B.park);
+  $('s-fxr').setAttribute('aria-valuetext',B.fxr.toFixed(2)+' PLN per USD');
+}
+
+function saveBudget(){sSet('cr26en:budget',{fly:B.fly,food:B.food,km:B.km,park:B.park,ins:B.ins,fxr:B.fxr,cur:CUR,fxTouched});}
+
+function setFx(v){
+  const el=$('s-fxr');
+  // Keep slider and model in step: assigning an out-of-range value silently clamps
+  // the input, and the two would then disagree until the next drag.
+  const c=Math.min(parseFloat(el.max),Math.max(parseFloat(el.min),v));
+  B.fxr=c;el.value=c;
+}
+
+[['s-fly','fly'],['s-food','food'],['s-km','km'],['s-park','park'],['s-fxr','fxr']]
+.forEach(([id,key])=>{
+  const el=$(id);
+  el.addEventListener('input',()=>{
+    B[key]=parseFloat(el.value);
+    if(key==='fxr')fxTouched=true;
+    calcBudget();saveBudget();
+  });
+});
+$('s-ins').addEventListener('change',e=>{B.ins=e.target.checked;calcBudget();saveBudget();});
+
+function setCur(c){
+  CUR=c;
+  $('cur-pln').classList.toggle('on',c==='PLN');
+  $('cur-usd').classList.toggle('on',c==='USD');
+  $('cur-pln').setAttribute('aria-pressed',c==='PLN');
+  $('cur-usd').setAttribute('aria-pressed',c==='USD');
+  calcBudget();saveBudget();
+}
+$('cur-pln').onclick=()=>setCur('PLN');
+$('cur-usd').onclick=()=>setCur('USD');
+
+$('b-reset').onclick=()=>{
+  Object.assign(B,BUDGET_DEFAULTS);
+  fxTouched=false;
+  $('s-fly').value=B.fly;$('s-food').value=B.food;$('s-km').value=B.km;
+  $('s-park').value=B.park;$('s-ins').checked=B.ins;setFx(B.fxr);
+  setCur('PLN');
+};
+
+(function restoreBudget(){
+  const s=sGet('cr26en:budget');
+  if(!s)return;
+  ['fly','food','km','park'].forEach(k=>{if(typeof s[k]==='number')B[k]=s[k];});
+  if(typeof s.ins==='boolean')B.ins=s.ins;
+  if(typeof s.fxr==='number')B.fxr=s.fxr;
+  if(s.cur==='USD'||s.cur==='PLN')CUR=s.cur;
+  fxTouched=!!s.fxTouched;
+  $('s-fly').value=B.fly;$('s-food').value=B.food;$('s-km').value=B.km;
+  $('s-park').value=B.park;$('s-ins').checked=B.ins;setFx(B.fxr);
+})();
+setCur(CUR);
+
+fetch('https://api.frankfurter.app/latest?from=USD&to=PLN')
+  .then(r=>r.ok?r.json():Promise.reject(new Error('http '+r.status)))
+  .then(d=>{
+    if(!(d&&d.rates&&d.rates.PLN))throw new Error('no rate');
+    if(fxTouched){
+      $('fx').textContent='Live USD/PLN '+d.rates.PLN.toFixed(3)+' ('+d.date+') — your slider value is kept.';
+      return;
+    }
+    setFx(d.rates.PLN);calcBudget();saveBudget();
+    $('fx').textContent='USD/PLN '+B.fxr.toFixed(3)+' · ECB via frankfurter.app, '+d.date+'. Slider overrides.';
+  })
+  .catch(()=>{$('fx').textContent='Live rate unavailable — set it with the slider.';});
+
+/* ================= CHECKLISTS ================= */
 const CHECK=[
   ['✈️ Flights and deadlines',[
     ['Book flights WAW ⇄ SJO','British Airways via LHR, ~16 h · deadline end of August','req'],
@@ -1045,40 +1322,106 @@ const PACK=[
     ['Leave ~5 kg spare in the luggage','coffee, chocolate, Lizano, guaro','rec'],
     ['Bottles go in checked baggage','','']]]
 ];
+
+function slug(s){
+  return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48);
+}
+
 function mkList(defs,root,pfx,ids){
+  // Keys are derived from the item text, not its array index: with index keys,
+  // inserting one item silently shifts every saved tick onto the wrong row.
+  const keys=[],flat=[];
+  defs.forEach(([cat,items])=>items.forEach(([txt,meta,req])=>{
+    keys.push(slug(cat)+'/'+slug(txt));flat.push([txt,meta,req]);
+  }));
+  const total=keys.length;
+  const stateKey=pfx+'state';
   let state={};
-  const total=defs.reduce((a,c)=>a+c[1].length,0);
+
+  function migrate(raw){
+    if(!raw||typeof raw!=='object')return {};
+    const ks=Object.keys(raw);
+    if(ks.length&&ks.every(k=>/^\d+$/.test(k))){
+      // Old index-keyed state: map positionally so existing progress survives.
+      const out={};
+      ks.forEach(k=>{const nk=keys[+k];if(nk&&raw[k])out[nk]=true;});
+      return out;
+    }
+    const out={};
+    ks.forEach(k=>{if(raw[k]&&keys.indexOf(k)>-1)out[k]=true;});
+    return out;
+  }
+
+  function counts(){
+    // Counting against the current key list means a removed item can never leave a
+    // stale tick behind and push the total past 100%.
+    const done=keys.filter(k=>state[k]).length;
+    $(ids[0]).textContent=done;
+    $(ids[1]).textContent=total-done;
+    const pct=total?Math.round(done/total*100):0;
+    $(ids[2]).textContent=pct+'%';
+    $(ids[3]).style.width=(total?done/total*100:0)+'%';
+    const track=$(ids[3]).parentElement;
+    if(track&&track.hasAttribute('role'))track.setAttribute('aria-valuenow',pct);
+  }
+
   function draw(){
     let h='',i=0;
     defs.forEach(([cat,items])=>{
-      h+=`<div class="catt">${cat}</div><ul class="todo">`;
+      h+=`<div class="catt">${esc(cat)}</div><ul class="todo">`;
       items.forEach(([txt,meta,req])=>{
-        const id=pfx+i;
-        h+=`<li class="${state[i]?'done':''}"><input type="checkbox" id="${id}" data-i="${i}" ${state[i]?'checked':''}>
+        const k=keys[i],id=pfx.replace(/[^a-z0-9]/gi,'')+'-'+i;
+        h+=`<li class="${state[k]?'done':''}"><input type="checkbox" id="${id}" data-k="${esc(k)}" ${state[k]?'checked':''}>
         <label for="${id}">${esc(txt)}${req?`<span class="req ${req==='rec'?'rec':''}">${req==='rec'?'recommended':'essential'}</span>`:''}
         ${meta?`<span class="m">${esc(meta)}</span>`:''}</label></li>`;i++;});
       h+='</ul>';});
     root.innerHTML=h;
-    root.querySelectorAll('input').forEach(el=>el.addEventListener('change',async()=>{
-      state[el.dataset.i]=el.checked;await sSet(pfx+'state',state);draw();}));
-    const done=Object.values(state).filter(Boolean).length;
-    document.getElementById(ids[0]).textContent=done;
-    document.getElementById(ids[1]).textContent=total-done;
-    document.getElementById(ids[2]).textContent=Math.round(done/total*100)+'%';
-    document.getElementById(ids[3]).style.width=(done/total*100)+'%';
+    root.querySelectorAll('input').forEach(el=>el.addEventListener('change',()=>{
+      // Update just this row. Re-rendering the whole list on every tick threw away
+      // focus and jumped the scroll position.
+      const k=el.dataset.k;
+      if(el.checked)state[k]=true;else delete state[k];
+      el.closest('li').classList.toggle('done',el.checked);
+      sSet(stateKey,state);
+      counts();
+    }));
+    counts();
   }
-  return {draw,set:s=>{state=s||{}},clear:async()=>{state={};await sSet(pfx+'state',{});draw();}};
-}
-const cl=mkList(CHECK,document.getElementById('clist'),'cr26en:chk',['c-done','c-left','c-pct','c-bar']);
-const pl=mkList(PACK,document.getElementById('plist'),'cr26en:pack',['p-done','p-left','p-pct','p-bar']);
-document.getElementById('c-clear').onclick=()=>cl.clear();
-document.getElementById('p-clear').onclick=()=>pl.clear();
 
-(async function(){
-  loadBoard();
-  cl.set(await sGet('cr26en:chkstate'));cl.draw();
-  pl.set(await sGet('cr26en:packstate'));pl.draw();
-})();
+  return {
+    load(){state=migrate(sGet(stateKey));sSet(stateKey,state);draw();},
+    clear(){state={};sSet(stateKey,state);draw();},
+    done(){return keys.filter(k=>state[k]).length;}
+  };
+}
+
+const cl=mkList(CHECK,$('clist'),'cr26en:chk',['c-done','c-left','c-pct','c-bar']);
+const pl=mkList(PACK,$('plist'),'cr26en:pack',['p-done','p-left','p-pct','p-bar']);
+
+// Resetting wipes real progress with no undo, so ask first — the board already does.
+$('c-clear').onclick=()=>{
+  if(cl.done()&&!confirm('Untick every item on the pre-departure checklist?'))return;
+  cl.clear();flash($('c-msg'),'Checklist reset');
+};
+$('p-clear').onclick=()=>{
+  if(pl.done()&&!confirm('Untick every item on the packing list?'))return;
+  pl.clear();flash($('p-msg'),'Packing list reset');
+};
+
+cl.load();
+pl.load();
+calcBudget();
+
+/* ---------- offline support ---------- */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});
+}
+
+/* Supabase is loaded with defer, so it is only ready once parsing is done. Sync starts
+   here and any failure is contained: the rest of the page has already initialised. */
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',Sync.init);
+else Sync.init();
 </script>
 </body>
 </html>

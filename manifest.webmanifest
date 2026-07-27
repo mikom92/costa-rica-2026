@@ -1,0 +1,15 @@
+{
+  "name": "Costa Rica · Nov 4–25, 2026",
+  "short_name": "Costa Rica 26",
+  "description": "Trip manifest: itinerary, pachanga board, budget console and checklists.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0E1F1C",
+  "theme_color": "#0E1F1C",
+  "icons": [
+    { "src": "icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "maskable" }
+  ]
+}

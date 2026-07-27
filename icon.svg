@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <title>Costa Rica 2026</title>
+  <rect width="200" height="200" rx="24" fill="#0E1F1C"/>
+  <g transform="translate(100 100) scale(.82) translate(-100 -100)">
+    <circle cx="100" cy="100" r="96" fill="none" stroke="#F5B921" stroke-width="6"/>
+    <circle cx="100" cy="100" r="82" fill="#152A26" stroke="#D8412E" stroke-width="3"/>
+    <g stroke="#F4EDDF" stroke-width="1.5" opacity=".8" fill="none">
+      <circle cx="100" cy="100" r="66"/><circle cx="100" cy="100" r="40"/><circle cx="100" cy="100" r="20"/>
+    </g>
+    <g stroke-width="2">
+      <line x1="120" y1="100" x2="166" y2="100" stroke="#F4EDDF"/>
+      <line x1="114.14" y1="114.14" x2="146.67" y2="146.67" stroke="#D8412E"/>
+      <line x1="100" y1="120" x2="100" y2="166" stroke="#F4EDDF"/>
+      <line x1="85.86" y1="114.14" x2="53.33" y2="146.67" stroke="#D8412E"/>
+      <line x1="80" y1="100" x2="34" y2="100" stroke="#F4EDDF"/>
+      <line x1="85.86" y1="85.86" x2="53.33" y2="53.33" stroke="#D8412E"/>
+      <line x1="100" y1="80" x2="100" y2="34" stroke="#F4EDDF"/>
+      <line x1="114.14" y1="85.86" x2="146.67" y2="53.33" stroke="#D8412E"/>
+    </g>
+    <g>
+      <circle cx="153" cy="100" r="8" fill="#F5B921" opacity=".9"/>
+      <circle cx="137.48" cy="137.48" r="8" fill="#38C793" opacity=".9"/>
+      <circle cx="100" cy="153" r="8" fill="#F5B921" opacity=".9"/>
+      <circle cx="62.52" cy="137.48" r="8" fill="#38C793" opacity=".9"/>
+      <circle cx="47" cy="100" r="8" fill="#F5B921" opacity=".9"/>
+      <circle cx="62.52" cy="62.52" r="8" fill="#38C793" opacity=".9"/>
+      <circle cx="100" cy="47" r="8" fill="#F5B921" opacity=".9"/>
+      <circle cx="137.48" cy="62.52" r="8" fill="#38C793" opacity=".9"/>
+    </g>
+    <circle cx="100" cy="100" r="9" fill="#F5B921"/>
+  </g>
+</svg>
