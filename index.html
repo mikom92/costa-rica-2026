@@ -213,6 +213,12 @@ ul.todo li.done label{text-decoration:line-through;color:rgba(244,237,223,.55)}
 
 footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
 
+/* Locked values are the affordance: tapping one opens the sign-in dialog. */
+[data-private].locked{cursor:pointer;color:var(--dim);letter-spacing:.06em}
+[data-private].locked:hover{color:var(--yellow)}
+[data-private].locked:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+.tg[data-private].locked{border-color:var(--line)}
+
 @media(max-width:760px){
   .hero{grid-template-columns:1fr;padding:30px 0 22px;gap:14px}
   .wheel{max-width:120px;margin:0}
@@ -262,7 +268,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   <div class="wrap"><div class="manifest">
     <div class="mf hot"><div class="k">Until departure</div><div class="v" id="cd">—</div><div class="s">Nov 4 · WAW → SJO</div></div>
     <div class="mf"><div class="k">On the ground</div><div class="v">21 nights</div><div class="s">14 vacation · 7 working</div></div>
-    <div class="mf"><div class="k">Base</div><div class="v">Heredia</div><div class="s">Calle 9 · HM2TWBHX8Q</div></div>
+    <div class="mf"><div class="k">Base</div><div class="v">Heredia</div><div class="s"><span data-private="base.short"></span></div></div>
     <div class="mf"><div class="k">Vehicle</div><div class="v">Jimny 4×4</div><div class="s">Jumbo Car · 21 days</div></div>
     <div class="mf"><div class="k">Check-in / out</div><div class="v">15:00 / 11:00</div><div class="s">Nov 4 / Nov 25</div></div>
     <div class="mf hot"><div class="k">Budget target</div><div class="v" id="mf-budget">12,000 zł</div><div class="s">flights still open</div></div>
@@ -324,11 +330,11 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="note">Landing time depends on which flight gets booked — the British Airways option via London puts arrival in the afternoon. No ambition on day one: car, check-in, groceries, dinner.</div></div>
       <div class="slot"><div class="t">on landing</div><div>
         <h4>Pick up the Jimny · Jumbo Car</h4>
-        <p>Jumbo Car runs a shuttle from the terminal. <b>Film the whole car before leaving the lot</b> — every panel, the roof, the wheels, the interior, the fuel gauge. That video is the only real protection in a damage dispute at drop-off. The card needs roughly $1,200 free for the deposit hold.</p>
+        <p>Jumbo Car runs a shuttle from the terminal. <b>Film the whole car before leaving the lot</b> — every panel, the roof, the wheels, the interior, the fuel gauge. That video is the only real protection in a damage dispute at drop-off. The card needs roughly <span data-private="car.deposit"></span> free for the deposit hold.</p>
         <div class="links"><a href="https://maps.google.com/?q=Juan+Santamaria+International+Airport+Costa+Rica" target="_blank" rel="noopener">📍 SJO</a></div></div></div>
       <div class="slot"><div class="t">~1 h later</div><div>
-        <h4>Heredia · check-in<span class="tg">Calle 9</span></h4>
-        <p>25–30 minutes from the airport via General Cañas and Ruta 3. Loft in downtown Heredia, booking code HM2TWBHX8Q. Ask the host about parking — downtown it is not a given.</p>
+        <h4>Heredia · check-in<span class="tg" data-private="base.street"></span></h4>
+        <p>25–30 minutes from the airport via General Cañas and Ruta 3. Loft in downtown Heredia, booking code <span data-private="base.code"></span>. Ask the host about parking — downtown it is not a given.</p>
         <div class="links"><a href="https://maps.google.com/?q=Calle+9+Heredia+Costa+Rica" target="_blank" rel="noopener">📍 Base</a><a href="https://waze.com/ul?q=Heredia+centro+Costa+Rica&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
       <div class="slot"><div class="t">evening</div><div>
         <h4>Mercado Central Heredia + first dinner<span class="tg eat">food</span></h4>
@@ -665,7 +671,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
       </div>
       <div>
         <div class="lever"><div class="lh"><label for="s-fly">Flights WAW ⇄ SJO</label><span class="lv" id="v-fly"></span></div>
-          <input type="range" id="s-fly" min="3200" max="5400" step="50" value="3964"></div>
+          <input type="range" id="s-fly" min="3200" max="5400" step="50" value="4000"></div>
         <div class="lever"><div class="lh"><label for="s-food">Food, per day</label><span class="lv" id="v-food"></span></div>
           <input type="range" id="s-food" min="50" max="160" step="5" value="80"></div>
         <div class="lever"><div class="lh"><label for="s-km">Planned distance</label><span class="lv" id="v-km"></span></div>
@@ -691,13 +697,13 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
     <div class="pgrid">
 
       <div class="pcard"><h3>🏠 Base · Heredia</h3>
-        <div class="kv"><b>Address</b><span>Calle 9, Heredia centro</span></div>
-        <div class="kv"><b>Booking code</b><span>HM2TWBHX8Q</span></div>
+        <div class="kv"><b>Address</b><span data-private="base.address"></span></div>
+        <div class="kv"><b>Booking code</b><span data-private="base.code"></span></div>
         <div class="kv"><b>Check-in</b><span>Nov 4, after 15:00</span></div>
         <div class="kv"><b>Check-out</b><span>Nov 25, by 11:00</span></div>
-        <div class="kv"><b>Cost</b><span>3,359 zł · 21 nights</span></div>
-        <div class="kv"><b>Card charged</b><span>October 22</span></div>
-        <div class="kv"><b>Free cancellation</b><span>until Oct 30, 15:00</span></div>
+        <div class="kv"><b>Cost</b><span data-private="base.cost"></span></div>
+        <div class="kv"><b>Card charged</b><span data-private="base.charged"></span></div>
+        <div class="kv"><b>Free cancellation</b><span data-private="base.cancel"></span></div>
       </div>
 
       <div class="pcard"><h3>⏱️ Drive times from Heredia</h3>
@@ -738,7 +744,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
           <li><b>Visa:</b> not required for Polish citizens up to 90 days.</li>
           <li><b>Onward ticket</b> — immigration may ask for it, so carry a printout.</li>
           <li><b>IDP:</b> not legally required under 90 days, but a Polish licence is in neither Spanish nor English, which technically puts it in the "translation recommended" category. <b>Jumbo Car's own terms need checking</b> — local rental companies sometimes require one. From PZM in Poland: 60–100 zł, one day.</li>
-          <li><b>Insurance:</b> Revolut Metal. Two things to verify — the single-trip limit (21 days) and whether the plan includes <b>car hire excess</b>, which would cover the $1,200 deductible.</li>
+          <li><b>Insurance:</b> <span data-private="insurance.plan"></span>. Two things to verify — the single-trip limit (21 days) and whether the plan includes <b>car hire excess</b>, which would cover the <span data-private="car.deposit"></span> deductible.</li>
           <li><b>Vaccinations:</b> none required when arriving from Europe.</li>
         </ul>
       </div>
@@ -747,9 +753,9 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <ul>
           <li><b>Currency:</b> colón (CRC). Dollars are accepted almost everywhere, but the shop rate is always worse than the bank rate.</li>
           <li><b>Cards</b> work in cities and tourist areas. Cash is needed for sodas, markets, tolls, guides and park donations.</li>
-          <li><b>Revolut</b> withdrawing from a BAC or BCR ATM works best. Always decline when an ATM offers to convert to złoty.</li>
+          <li><b><span data-private="insurance.bank"></span></b> withdrawing from a BAC or BCR ATM works best. Always decline when an ATM offers to convert to złoty.</li>
           <li><b>Tipping:</b> a 10% service charge is already on restaurant bills. Anything extra is a gesture, not an obligation.</li>
-          <li><b>Car deposit:</b> roughly $1,200 held on the card — check the limit and tell the bank about the trip.</li>
+          <li><b>Car deposit:</b> roughly <span data-private="car.deposit"></span> held on the card — check the limit and tell the bank about the trip.</li>
         </ul>
       </div>
 
@@ -858,7 +864,25 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   </form>
 </dialog>
 
-<footer>Costa Rica · November 2026 · ¡Pura vida! 🇨🇷</footer>
+<dialog id="authDlg" aria-labelledby="authTitle">
+  <form id="authForm">
+    <h3 id="authTitle">Private details</h3>
+    <div class="mono" style="color:var(--dim)">Address, booking code and costs</div>
+    <p style="font-size:13.5px;color:var(--dim2);margin:12px 0 0">These are not stored in this page. Sign in and they are fetched for you alone; everyone else never receives them.</p>
+    <label for="fEmail">Email</label>
+    <input id="fEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+    <div class="dlgbar">
+      <button class="act prim" id="authSend">Send sign-in link</button>
+      <button class="act" id="authCancel" type="button">Cancel</button>
+    </div>
+    <p class="legend" id="authMsg" role="status" style="margin-top:12px;line-height:1.5"></p>
+  </form>
+</dialog>
+
+<footer>
+  <div><button class="act" id="authBtn">🔒 Private details</button></div>
+  <div style="margin-top:16px">Costa Rica · November 2026 · ¡Pura vida! 🇨🇷</div>
+</footer>
 
 <script>
 "use strict";
@@ -1003,10 +1027,25 @@ dlg.addEventListener('close',()=>{
   if(el)el.focus();
 });
 
-/* ---------- sync layer ---------- */
+/* ---------- shared client ----------
+   This key is public by design and ships to every browser. It grants nothing on its
+   own: row-level security decides what anonymous visitors may read or write, and the
+   private trip details live in a table no anonymous request can select from. */
 const SUPABASE_URL='https://prdqwappvrucrntiokna.supabase.co';
 const SUPABASE_KEY='sb_publishable__C07-Ap4Jl0i5l5LwBB2Ug_gfW9f03z';
 
+const SB=(function(){
+  let client=null,tried=false;
+  return {get(){
+    if(tried)return client;
+    tried=true;
+    if(!window.supabase||typeof window.supabase.createClient!=='function')return null;
+    try{client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){client=null;}
+    return client;
+  }};
+})();
+
+/* ---------- sync layer ---------- */
 const Sync=(function(){
   let sb=null,live=false,poll=null;
 
@@ -1044,11 +1083,8 @@ const Sync=(function(){
   }
 
   function init(){
-    if(!window.supabase||typeof window.supabase.createClient!=='function'){
-      setSync('offline');return;
-    }
-    try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}
-    catch(e){setSync('offline');return;}
+    sb=SB.get();
+    if(!sb){setSync('offline');return;}
     load();
     try{
       sb.channel('board-live')
@@ -1122,12 +1158,111 @@ $('copyBtn').onclick=async()=>{
 
 renderBoard();   // usable immediately, before and regardless of any network call
 
+/* ================= PRIVATE DETAILS =================
+   Address, booking code and money live in `trip_private`, which RLS exposes only to a
+   signed-in owner. They are NOT in this file: hiding an element client-side would still
+   ship the value in the page source, so the data simply is not fetched until sign-in. */
+const PRIV={};
+let LODGING_LABEL='Lodging · Heredia, 21 nights';
+
+const Private=(function(){
+  const adlg=$('authDlg'),btn=$('authBtn'),msg=$('authMsg');
+  let email=null;
+
+  function paint(){
+    document.querySelectorAll('[data-private]').forEach(el=>{
+      const v=PRIV[el.dataset.private];
+      if(v){
+        el.textContent=v;el.classList.remove('locked');
+        el.removeAttribute('role');el.removeAttribute('tabindex');el.removeAttribute('title');
+      }else{
+        el.textContent='🔒';el.classList.add('locked');
+        el.setAttribute('role','button');el.setAttribute('tabindex','0');
+        el.setAttribute('title','Sign in to see the private trip details');
+      }
+    });
+    btn.textContent=email?'🔓 '+email+' · sign out':'🔒 Private details';
+  }
+
+  async function refresh(){
+    const sb=SB.get();
+    if(!sb){paint();return;}
+    let ses;
+    try{ses=await sb.auth.getSession();}catch(e){paint();return;}
+    email=ses?.data?.session?.user?.email||null;
+    Object.keys(PRIV).forEach(k=>delete PRIV[k]);
+    if(email){
+      // With no session RLS returns an empty set rather than an error, so an anonymous
+      // visitor simply gets nothing back — there is no failure state to leak.
+      const res=await sb.from('trip_private').select('key,value');
+      if(!res.error)(res.data||[]).forEach(r=>{PRIV[r.key]=r.value;});
+    }
+    applyToBudget();
+    paint();
+  }
+
+  function applyToBudget(){
+    LODGING_LABEL=PRIV['budget.lodgingLabel']||'Lodging · Heredia, 21 nights';
+    const q=parseFloat(PRIV['budget.flights']);
+    // Only pre-set the slider if it was never dragged, same rule as the FX rate.
+    // Read the value back afterwards: the input snaps to its step, and a model holding
+    // the unsnapped figure would disagree with the control until the next drag.
+    if(!isNaN(q)&&!flyTouched){
+      const el=$('s-fly');
+      el.value=q;
+      B.fly=parseFloat(el.value);
+    }
+    if(typeof calcBudget==='function')calcBudget();
+  }
+
+  async function signIn(addr){
+    const sb=SB.get();
+    if(!sb){flash(msg,'Offline — cannot sign in right now');return;}
+    const res=await sb.auth.signInWithOtp({email:addr,options:{emailRedirectTo:location.href.split('#')[0]}});
+    msg.textContent=res.error?('Failed: '+res.error.message):'Check your inbox for the sign-in link.';
+  }
+
+  async function signOut(){
+    const sb=SB.get();
+    if(sb)await sb.auth.signOut();
+    await refresh();
+  }
+
+  function init(){
+    paint();
+    btn.onclick=()=>{ if(email)signOut(); else {msg.textContent='';adlg.showModal();$('fEmail').focus();} };
+    $('authForm').addEventListener('submit',e=>{
+      e.preventDefault();                       // keep the dialog open to show the result
+      const a=$('fEmail').value.trim();
+      if(a)signIn(a);
+    });
+    $('authCancel').onclick=()=>adlg.close();
+    // Any locked value is itself the way in.
+    document.addEventListener('click',e=>{
+      const el=e.target.closest('[data-private].locked');
+      if(el){msg.textContent='';adlg.showModal();$('fEmail').focus();}
+    });
+    document.addEventListener('keydown',e=>{
+      if(e.key!=='Enter'&&e.key!==' ')return;
+      const el=e.target.closest?.('[data-private].locked');
+      if(el){e.preventDefault();msg.textContent='';adlg.showModal();$('fEmail').focus();}
+    });
+    const sb=SB.get();
+    if(sb)sb.auth.onAuthStateChange(()=>{refresh();});
+    refresh();
+    // Strip the magic-link tokens out of the address bar after they are consumed.
+    if(location.hash.includes('access_token'))history.replaceState(null,'',location.pathname+location.search);
+  }
+
+  return {init,refresh};
+})();
+
 /* ================= BUDGET CONSOLE ================= */
-const BUDGET_DEFAULTS={fly:3964,food:80,km:1800,park:160,ins:false,fxr:3.75};
+const BUDGET_DEFAULTS={fly:4000,food:80,km:1800,park:160,ins:false,fxr:3.75};
 const B=Object.assign({},BUDGET_DEFAULTS);
 const TARGET=12000, INS_COST=361, GMIN=8000, GMAX=15000;
 const FUEL_L_100=7.5, FUEL_USD_L=1.25, NIGHTS=21;
-let CUR='PLN', fxTouched=false;
+let CUR='PLN', fxTouched=false, flyTouched=false;
 
 function money(pln){
   if(CUR==='USD')return '$'+Math.round(pln/B.fxr).toLocaleString('en-US');
@@ -1139,7 +1274,7 @@ function calcBudget(){
   const fuel=(B.km/100)*FUEL_L_100*FUEL_USD_L*B.fxr, food=B.food*NIGHTS, park=B.park*B.fxr;
   const ins=B.ins?INS_COST:0;
   const rows=[
-    ['Lodging · Heredia, 21 nights',3359,true],
+    [LODGING_LABEL,parseFloat(PRIV['budget.lodging'])||3400,true],
     ['Car · Jimny 4×4, 21 days',1021,true],
     ['Flights WAW ⇄ SJO',B.fly,false],
     ['International driving permit',80,false],
@@ -1180,7 +1315,7 @@ function calcBudget(){
   $('s-fxr').setAttribute('aria-valuetext',B.fxr.toFixed(2)+' PLN per USD');
 }
 
-function saveBudget(){sSet('cr26en:budget',{fly:B.fly,food:B.food,km:B.km,park:B.park,ins:B.ins,fxr:B.fxr,cur:CUR,fxTouched});}
+function saveBudget(){sSet('cr26en:budget',{fly:B.fly,food:B.food,km:B.km,park:B.park,ins:B.ins,fxr:B.fxr,cur:CUR,fxTouched,flyTouched});}
 
 function setFx(v){
   const el=$('s-fxr');
@@ -1196,6 +1331,7 @@ function setFx(v){
   el.addEventListener('input',()=>{
     B[key]=parseFloat(el.value);
     if(key==='fxr')fxTouched=true;
+    if(key==='fly')flyTouched=true;
     calcBudget();saveBudget();
   });
 });
@@ -1214,7 +1350,7 @@ $('cur-usd').onclick=()=>setCur('USD');
 
 $('b-reset').onclick=()=>{
   Object.assign(B,BUDGET_DEFAULTS);
-  fxTouched=false;
+  fxTouched=false;flyTouched=false;
   $('s-fly').value=B.fly;$('s-food').value=B.food;$('s-km').value=B.km;
   $('s-park').value=B.park;$('s-ins').checked=B.ins;setFx(B.fxr);
   setCur('PLN');
@@ -1227,7 +1363,7 @@ $('b-reset').onclick=()=>{
   if(typeof s.ins==='boolean')B.ins=s.ins;
   if(typeof s.fxr==='number')B.fxr=s.fxr;
   if(s.cur==='USD'||s.cur==='PLN')CUR=s.cur;
-  fxTouched=!!s.fxTouched;
+  fxTouched=!!s.fxTouched;flyTouched=!!s.flyTouched;
   $('s-fly').value=B.fly;$('s-food').value=B.food;$('s-km').value=B.km;
   $('s-park').value=B.park;$('s-ins').checked=B.ins;setFx(B.fxr);
 })();
@@ -1255,8 +1391,8 @@ const CHECK=[
   ['🚗 Car and documents',[
     ["Check Jumbo Car's terms on the IDP",'before paying for the permit','req'],
     ['Get the IDP from PZM','if required · 60–100 zł · one day',''],
-    ['Verify Revolut Metal: 21-day trip + car hire excess','could cover the $1,200 deductible','rec'],
-    ['Check the card limit for the ~$1,200 deposit hold','placed at pick-up','req'],
+    ['Verify travel insurance: 21-day trip + car hire excess','could cover the car hire deductible','rec'],
+    ['Check the card limit for the deposit hold','placed at pick-up','req'],
     ['Tell the bank about the trip','so the card is not blocked','']]],
   ['🎟️ Reservations',[
     ['Volcán Poás — book through SINAC','online only, nothing sold at the gate','req'],
@@ -1268,7 +1404,7 @@ const CHECK=[
     ['Buy an eSIM (Kölbi / Claro)','signal disappears in Monteverde and on the coast',''],
     ['Download offline maps for all of Costa Rica','Google Maps + Waze','req'],
     ['Buy type A/B plug adapters','120 V, Polish plugs do not fit','req'],
-    ['Save the base address and code HM2TWBHX8Q offline','in case there is no signal on landing','']]],
+    ['Save the base address and booking code offline','in case there is no signal on landing','']]],
   ['🎉 Gifts and coordination',[
     ['Buy stroopwafels for Nicole','promised in the group chat — non-negotiable','req'],
     ['Send Jonathan the itinerary','he asked for it',''],
@@ -1311,7 +1447,7 @@ const PACK=[
     ['Passport','valid at least through the stay','req'],
     ['Driving licence + IDP','for the rental and checkpoints','req'],
     ['Printed onward ticket','immigration may ask','rec'],
-    ['Card with room for the deposit hold','~$1,200','req'],
+    ['Card with room for the deposit hold','for the rental hold','req'],
     ['Airbnb and Jumbo Car confirmations offline','','']]],
   ['🎁 Gifts to bring',[
     ['Stroopwafels for Nicole','entry condition','req'],
@@ -1420,8 +1556,9 @@ if('serviceWorker' in navigator){
 
 /* Supabase is loaded with defer, so it is only ready once parsing is done. Sync starts
    here and any failure is contained: the rest of the page has already initialised. */
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',Sync.init);
-else Sync.init();
+function bootRemote(){Sync.init();Private.init();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootRemote);
+else bootRemote();
 </script>
 </body>
 </html>

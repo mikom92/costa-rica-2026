@@ -70,6 +70,73 @@ Notes:
   to drop the `delete` policy (the "Clear entries" button stops working, nothing else
   does) and re-create rows manually.
 
+## Supabase — private trip details
+
+The public page carries no address, booking code or cost figures. They live in a second
+table that anonymous requests cannot select from, and the page fetches them only after
+the owner signs in. **Nothing here is hidden with CSS or JavaScript** — an unauthenticated
+browser never receives the values at all, so viewing the source reveals nothing.
+
+```sql
+create table if not exists public.trip_private (
+  key   text primary key,
+  value text not null
+);
+
+alter table public.trip_private enable row level security;
+
+-- Read-only from the page, and only for one signed-in address.
+-- Replace the email with your own before running this.
+create policy "owner reads" on public.trip_private
+  for select to authenticated
+  using (auth.email() = '<your email>');
+```
+
+There is deliberately **no insert/update/delete policy**: rows are managed in the
+Supabase table editor, so the page can never write to this table even if someone
+signs in.
+
+Seed the values (adjust to taste — `key` must match the `data-private` attributes in
+`index.html`):
+
+**Fill in the real values in the Supabase editor, not here** — this file is in the same
+public repository, so anything pasted below is exactly as exposed as it was in
+`index.html`. The placeholders are intentional.
+
+```sql
+insert into public.trip_private (key, value) values
+  ('base.address',        '<street, town>'),          -- "Calle N, Town centre"
+  ('base.street',         '<street>'),                -- short form for the day-1 tag
+  ('base.short',          '<street> · <booking code>'),
+  ('base.code',           '<booking code>'),
+  ('base.cost',           '<amount> zł · 21 nights'),
+  ('base.charged',        '<date the card was charged>'),
+  ('base.cancel',         'until <free cancellation deadline>'),
+  ('car.deposit',         '$<deposit hold>'),
+  ('insurance.plan',      '<insurer and plan>'),
+  ('insurance.bank',      '<bank / card>'),
+  ('budget.lodging',      '<lodging cost, PLN, digits only>'),
+  ('budget.lodgingLabel', 'Lodging · <town>, 21 nights'),
+  ('budget.flights',      '<flight quote, PLN, digits only>')
+on conflict (key) do update set value = excluded.value;
+```
+
+`budget.lodging` and `budget.flights` are numbers in PLN. Signed out, the budget console
+shows round estimates (3,400 and 4,000) so it stays usable without revealing the actual
+booked amounts. `budget.flights` only pre-sets the slider if it has never been dragged.
+
+### Sign-in
+
+Email magic link, no OAuth app to register and no password:
+
+1. Supabase dashboard → **Authentication → Providers → Email**, enable it.
+2. **Authentication → URL Configuration**, add the deployed page URL to the redirect
+   allow-list. Without this the link in the email will refuse to come back.
+3. Optionally restrict signups entirely — the RLS policy already pins access to one
+   address, so anyone else who signs in sees exactly nothing.
+
+Click **🔒 Private details** in the footer, or any locked `🔒` value on the page.
+
 ### Verify RLS is actually on
 
 If RLS is left disabled, the publishable key exposes **every** table in the project, not
