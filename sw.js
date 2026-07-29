@@ -2,7 +2,7 @@
    The plan is used in Monteverde and along the Caribbean, where the page itself warns
    that signal disappears — so it has to survive with no network at all. */
 
-const VERSION = 'cr26-v2';
+const VERSION = 'cr26-v3';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 
 // Live data must never be served from cache.

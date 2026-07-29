@@ -294,27 +294,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   <div class="wrap">
     <div class="shead"><h2>Route overview</h2><span class="tag">21 days, one base, three trips out</span></div>
     <p class="sintro">The one decision that shapes everything: <b>Caribbean on the first weekend, Pacific on the second</b>. The southern Caribbean coast gets an extension of its October dry window in early November, then turns wet from mid-month. The Pacific side does the opposite — it dries out steadily all November. Flipping the order costs nothing and buys better weather on both coasts. <b>Ticos: if this contradicts what you know from living here, say so — you win that argument.</b></p>
-    <div class="ov">
-      <div class="ovc"><div class="dt">Wed Nov 4</div><div class="tt">Arrival</div><div class="nn">SJO → Heredia</div></div>
-      <div class="ovc"><div class="dt">Thu Nov 5</div><div class="tt">Poás + Sarchí</div><div class="nn">volcano and carretas</div></div>
-      <div class="ovc sea"><div class="dt">Fri Nov 6</div><div class="tt">Ruta 32 → Limón</div><div class="nn">transfer, ~4.5 h</div></div>
-      <div class="ovc sea"><div class="dt">Sat Nov 7</div><div class="tt">Cahuita + Puerto Viejo</div><div class="nn">reef, sloths, beaches</div></div>
-      <div class="ovc sea"><div class="dt">Sun Nov 8</div><div class="tt">Manzanillo</div><div class="nn">back to Heredia</div></div>
-      <div class="ovc"><div class="dt">Mon Nov 9</div><div class="tt">Zarcero → La Fortuna</div><div class="nn">hot springs</div></div>
-      <div class="ovc fire"><div class="dt">Tue Nov 10</div><div class="tt">Arenal</div><div class="nn">bridges + waterfall</div></div>
-      <div class="ovc fire"><div class="dt">Wed Nov 11</div><div class="tt">Río Celeste</div><div class="nn">the blue river</div></div>
-      <div class="ovc"><div class="dt">Thu Nov 12</div><div class="tt">→ Monteverde</div><div class="nn">around the lake</div></div>
-      <div class="ovc"><div class="dt">Fri Nov 13</div><div class="tt">Cloud forest</div><div class="nn">7:00 with a guide</div></div>
-      <div class="ovc sea"><div class="dt">Sat Nov 14</div><div class="tt">→ Manuel Antonio</div><div class="nn">via Tárcoles</div></div>
-      <div class="ovc sea"><div class="dt">Sun Nov 15</div><div class="tt">Manuel Antonio</div><div class="nn">park + beach</div></div>
-      <div class="ovc"><div class="dt">Mon Nov 16</div><div class="tt">Back to base</div><div class="nn">~3.5 h</div></div>
-      <div class="ovc"><div class="dt">Tue Nov 17</div><div class="tt">Buffer day</div><div class="nn">reset before work</div></div>
-      <div class="ovc work"><div class="dt">Wed 18 – Fri 20</div><div class="tt">Working · Snowflake office</div><div class="nn">San José, loft as backup</div></div>
-      <div class="ovc work"><div class="dt">Sat Nov 21</div><div class="tt">Pachanga at Antonio's</div><div class="nn">the main event</div></div>
-      <div class="ovc work"><div class="dt">Sun Nov 22</div><div class="tt">Barrio Escalante</div><div class="nn">easy day in San José</div></div>
-      <div class="ovc work"><div class="dt">Mon 23 – Tue 24</div><div class="tt">Work + packing</div><div class="nn">wrapping up</div></div>
-      <div class="ovc"><div class="dt">Wed Nov 25</div><div class="tt">Departure</div><div class="nn">return car, fly SJO</div></div>
-    </div>
+    <div class="ov" id="ovGrid"></div>
     <div class="warnbox"><b>Biggest risk on this route:</b> Ruta 32 through Braulio Carrillo is the only sensible road to the Caribbean, and it closes for landslides, fog and roadworks. Check its status on the morning of Nov 6 before setting off. The detour via Turrialba exists but adds 2–3 hours.</div>
   </div>
 </section>
@@ -324,7 +304,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   <div class="wrap">
     <div class="shead"><h2>Week 1 — vacation</h2><span class="tag">Wed Nov 4 → Tue Nov 10</span></div>
 
-    <div class="day">
+    <div class="day" data-days="4" data-ctx="arrival" data-ov-date="Wed Nov 4" data-ov-title="Arrival" data-ov-sub="SJO → Heredia" data-ov-cls="">
       <div class="dayhead"><h3>Wednesday, Nov 4 · arrival</h3>
         <div class="sub">SJO → Heredia · ~30 min · check-in from 15:00</div>
         <div class="note">Landing time depends on which flight gets booked — the British Airways option via London puts arrival in the afternoon. No ambition on day one: car, check-in, groceries, dinner.</div></div>
@@ -342,7 +322,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Mercado+Central+Heredia+Costa+Rica" target="_blank" rel="noopener">📍 Mercado Central</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="5" data-ctx="Poás" data-ov-date="Thu Nov 5" data-ov-title="Poás + Sarchí" data-ov-sub="volcano and carretas" data-ov-cls="">
       <div class="dayhead"><h3>Thursday, Nov 5 · volcano</h3>
         <div class="sub">Poás + Sarchí · ~1.5 h each way · leave 6:30</div>
         <div class="note">Poás is the closest volcano to base and the only one in the country where you drive almost to the crater rim. The catch: clouds usually roll in before 10:00 and hide everything. First in, best view.</div></div>
@@ -367,7 +347,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Doka+Estate+Coffee+Tour+Costa+Rica" target="_blank" rel="noopener">📍 Doka Estate</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="6" data-ctx="→ Caribbean" data-ov-date="Fri Nov 6" data-ov-title="Ruta 32 → Limón" data-ov-sub="transfer, ~4.5 h" data-ov-cls="sea">
       <div class="dayhead"><h3>Friday, Nov 6 · transfer to the Caribbean</h3>
         <div class="sub">Ruta 32 · ~4.5 h to Puerto Viejo · leave 7:00</div>
         <div class="note">Longest drive of the week and the only one that can genuinely fail. Check Ruta 32 before leaving.</div></div>
@@ -385,7 +365,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Puerto+Viejo+de+Talamanca+Costa+Rica" target="_blank" rel="noopener">📍 Puerto Viejo</a><a href="https://waze.com/ul?q=Puerto+Viejo+de+Talamanca&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="7" data-ctx="Cahuita" data-ov-date="Sat Nov 7" data-ov-title="Cahuita + Puerto Viejo" data-ov-sub="reef, sloths, beaches" data-ov-cls="sea">
       <div class="dayhead"><h3>Saturday, Nov 7 · reef and beaches</h3>
         <div class="sub">Cahuita in the morning · Punta Uva in the afternoon</div></div>
       <div class="slot"><div class="t">7:00 – 11:00</div><div>
@@ -404,7 +384,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <p>Bars along the main street, live music, zero pretension. <b>Leave nothing in the car</b>, not even in the trunk — that is the only real safety note for this stretch.</p></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="8" data-ctx="Manzanillo" data-ov-date="Sun Nov 8" data-ov-title="Manzanillo" data-ov-sub="back to Heredia" data-ov-cls="sea">
       <div class="dayhead"><h3>Sunday, Nov 8 · Manzanillo + return</h3>
         <div class="sub">Gandoca-Manzanillo refuge · ~4.5 h back</div></div>
       <div class="slot"><div class="t">7:00 – 10:00</div><div>
@@ -417,7 +397,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://waze.com/ul?q=Heredia+Costa+Rica&navigate=yes" target="_blank" rel="noopener">🚗 Waze to base</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="9" data-ctx="→ Fortuna" data-ov-date="Mon Nov 9" data-ov-title="Zarcero → La Fortuna" data-ov-sub="hot springs" data-ov-cls="">
       <div class="dayhead"><h3>Monday, Nov 9 · transfer to Arenal</h3>
         <div class="sub">Heredia → Zarcero → La Fortuna · ~3.5 h</div></div>
       <div class="slot"><div class="t">9:00 – 10:30</div><div>
@@ -434,7 +414,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Rio+Chollin+hot+springs+La+Fortuna+Costa+Rica" target="_blank" rel="noopener">📍 Río Chollín</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Tabacon+Thermal+Resort+Costa+Rica" target="_blank" rel="noopener">📍 Tabacón</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="10" data-ctx="Arenal" data-ov-date="Tue Nov 10" data-ov-title="Arenal" data-ov-sub="bridges + waterfall" data-ov-cls="fire">
       <div class="dayhead"><h3>Tuesday, Nov 10 · Arenal</h3>
         <div class="sub">Hanging bridges in the morning · waterfall after lunch</div></div>
       <div class="slot"><div class="t">7:30 – 10:30</div><div>
@@ -458,7 +438,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   <div class="wrap">
     <div class="shead"><h2>Week 2 — vacation</h2><span class="tag">Wed Nov 11 → Tue Nov 17</span></div>
 
-    <div class="day">
+    <div class="day" data-days="11" data-ctx="Río Celeste" data-ov-date="Wed Nov 11" data-ov-title="Río Celeste" data-ov-sub="the blue river" data-ov-cls="fire">
       <div class="dayhead"><h3>Wednesday, Nov 11 · Río Celeste</h3>
         <div class="sub">Tenorio National Park · ~2 h each way · leave 6:30</div>
         <div class="note">The longest day trip of the week and the one place in the plan where the 4×4 actually earns its keep — the last stretch of road turns to rutted gravel.</div></div>
@@ -473,7 +453,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Nuevo+Arenal+Costa+Rica" target="_blank" rel="noopener">📍 Nuevo Arenal</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="12" data-ctx="→ Monteverde" data-ov-date="Thu Nov 12" data-ov-title="→ Monteverde" data-ov-sub="around the lake" data-ov-cls="">
       <div class="dayhead"><h3>Thursday, Nov 12 · transfer to Monteverde</h3>
         <div class="sub">Around Lake Arenal · ~3–3.5 h · gravel at the end</div></div>
       <div class="slot"><div class="t">9:00 – 12:30</div><div>
@@ -489,7 +469,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <p>The cloud forest after dark is a different animal: tarantulas, frogs, kinkajous, snakes. A guide with a torch will find things you would walk past ten times. ~$25, same-day booking usually works.</p></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="13" data-ctx="cloud forest" data-ov-date="Fri Nov 13" data-ov-title="Cloud forest" data-ov-sub="7:00 with a guide" data-ov-cls="">
       <div class="dayhead"><h3>Friday, Nov 13 · cloud forest</h3>
         <div class="sub">Reserve at 7:00 · afternoon is a choice</div>
         <div class="note">No sugar-coating: November in Monteverde can rain all day, and the cloud can cut visibility to a few metres. That is not a flaw, it is the definition of a cloud forest — but better to know beforehand.</div></div>
@@ -507,7 +487,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Cafe+Monteverde+Costa+Rica" target="_blank" rel="noopener">📍 Café Monteverde</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="14" data-ctx="→ Manuel A." data-ov-date="Sat Nov 14" data-ov-title="→ Manuel Antonio" data-ov-sub="via Tárcoles" data-ov-cls="sea">
       <div class="dayhead"><h3>Saturday, Nov 14 · transfer to the Pacific</h3>
         <div class="sub">Monteverde → Manuel Antonio · ~4 h · leave 8:00</div></div>
       <div class="slot"><div class="t">10:30</div><div>
@@ -524,7 +504,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=El+Avion+Restaurant+Manuel+Antonio+Costa+Rica" target="_blank" rel="noopener">📍 El Avión</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="15" data-ctx="Manuel A." data-ov-date="Sun Nov 15" data-ov-title="Manuel Antonio" data-ov-sub="park + beach" data-ov-cls="sea">
       <div class="dayhead"><h3>Sunday, Nov 15 · Manuel Antonio</h3>
         <div class="sub">Park from 7:00 · beach in the afternoon</div></div>
       <div class="slot"><div class="t">7:00 – 12:00</div><div>
@@ -541,7 +521,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Marina+Pez+Vela+Quepos+Costa+Rica" target="_blank" rel="noopener">📍 Marina Pez Vela</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="16" data-ctx="back to base" data-ov-date="Mon Nov 16" data-ov-title="Back to base" data-ov-sub="~3.5 h" data-ov-cls="">
       <div class="dayhead"><h3>Monday, Nov 16 · back to base</h3>
         <div class="sub">Manuel Antonio → Heredia · ~3.5 h</div></div>
       <div class="slot"><div class="t">morning</div><div>
@@ -553,7 +533,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <p>The Pacific's biggest surf town, an hour from San José. Loud and touristy, but if a first surf lesson is on the list, this has the easiest waves and the most schools.</p></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="17" data-ctx="buffer" data-ov-date="Tue Nov 17" data-ov-title="Buffer day" data-ov-sub="reset before work" data-ov-cls="">
       <div class="dayhead"><h3>Tuesday, Nov 17 · buffer day</h3>
         <div class="sub">Heredia · reset before the work week</div>
         <div class="note">This day is deliberately empty. After twelve days on the road, laundry, groceries and a connection test matter more than another park.</div></div>
@@ -574,7 +554,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
     <div class="shead"><h2>Week 3 — working remotely</h2><span class="tag">Wed Nov 18 → Wed Nov 25</span></div>
     <div class="tipbox"><b>Time zone:</b> Costa Rica is UTC−6 with no daylight saving. Poland sits at UTC+1 in November, so this trip runs <b>7 hours behind</b> the Warsaw office. 09:00 in Poland is 02:00 here; 17:00 in Poland is 10:00 here. The realistic meeting window is 07:00–11:00 local — which means afternoons are effectively free. <b>Ticos: that's your window for dragging me out on a weekday.</b></div>
 
-    <div class="day">
+    <div class="day" data-days="18-20" data-ctx="work" data-ov-date="Wed 18 – Fri 20" data-ov-title="Working · Snowflake office" data-ov-sub="San José, loft as backup" data-ov-cls="work">
       <div class="dayhead"><h3>Wednesday 18 – Friday 20 · work</h3>
         <div class="sub">Snowflake office, San José · loft as backup</div></div>
       <div class="slot"><div class="t">7:00 – 15:00</div><div>
@@ -587,7 +567,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Parque+Nacional+Volcan+Irazu+Costa+Rica" target="_blank" rel="noopener">📍 Irazú</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Jardin+Botanico+Lankester+Cartago+Costa+Rica" target="_blank" rel="noopener">📍 Lankester</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="21" data-ctx="pachanga" data-ov-date="Sat Nov 21" data-ov-title="Pachanga at Antonio&#x27;s" data-ov-sub="the main event" data-ov-cls="work">
       <div class="dayhead"><h3>Saturday, Nov 21 · pachanga</h3>
         <div class="sub">Antonio's place · the main event</div>
         <div class="note">Deliberately placed in the work week so nobody in the crew has to take time off, and no travel day gets sacrificed.</div></div>
@@ -599,7 +579,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <p>Bringing something Polish beyond the stroopwafels — vodka, smoked cheese, chocolate-covered plums all travel well. Date to be confirmed with Antonio a week ahead so people can plan.</p></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="22" data-ctx="San José" data-ov-date="Sun Nov 22" data-ov-title="Barrio Escalante" data-ov-sub="easy day in San José" data-ov-cls="work">
       <div class="dayhead"><h3>Sunday, Nov 22 · San José</h3>
         <div class="sub">Barrio Escalante + downtown · ~20 min from base</div></div>
       <div class="slot"><div class="t">10:00</div><div>
@@ -616,7 +596,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Barrio+Escalante+San+Jose+Costa+Rica" target="_blank" rel="noopener">📍 Barrio Escalante</a></div></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="23-24" data-ctx="work" data-ov-date="Mon 23 – Tue 24" data-ov-title="Work + packing" data-ov-sub="wrapping up" data-ov-cls="work">
       <div class="dayhead"><h3>Monday 23 – Tuesday 24</h3>
         <div class="sub">Work · wrapping up</div></div>
       <div class="slot"><div class="t">Tue evening</div><div>
@@ -624,7 +604,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <p>Fill the tank before returning the car — Jumbo Car charges for missing fuel at its own rate. Take a <b>second set of photos of the car</b>, this time at drop-off.</p></div></div>
     </div>
 
-    <div class="day">
+    <div class="day" data-days="25" data-ctx="departure" data-ov-date="Wed Nov 25" data-ov-title="Departure" data-ov-sub="return car, fly SJO" data-ov-cls="">
       <div class="dayhead"><h3>Wednesday, Nov 25 · departure</h3>
         <div class="sub">Check-out by 11:00 · car back at SJO</div></div>
       <div class="slot"><div class="t">by 11:00</div><div>
@@ -959,9 +939,27 @@ function flash(el,msg){if(!el)return;el.textContent=msg;setTimeout(()=>{if(el.te
    Renders from local data first and works read-only without any network.
    Supabase is layered on top and every failure path is surfaced, never swallowed. */
 const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const CTX={4:'arrival',5:'Poás',6:'→ Caribbean',7:'Cahuita',8:'Manzanillo',9:'→ Fortuna',10:'Arenal',
-11:'Río Celeste',12:'→ Monteverde',13:'cloud forest',14:'→ Manuel A.',15:'Manuel A.',16:'back to base',17:'buffer',
-18:'work',19:'work',20:'work',21:'pachanga',22:'San José',23:'work',24:'work',25:'departure'};
+/* Overview grid and per-day pachanga-board labels are generated from the day
+   sections below (.day[data-days]) instead of being maintained separately in
+   three places — this is now the one source of truth for both. */
+const CTX={};
+(function(){
+  const ovGrid=document.getElementById('ovGrid');
+  document.querySelectorAll('.day[data-days]').forEach(day=>{
+    const[d0,d1]=day.dataset.days.split('-').map(Number);
+    const end=d1||d0;
+    for(let d=d0;d<=end;d++)CTX[d]=day.dataset.ctx;
+
+    if(!ovGrid)return;
+    const cell=document.createElement('div');
+    cell.className='ovc'+(day.dataset.ovCls?' '+day.dataset.ovCls:'');
+    const dt=document.createElement('div');dt.className='dt';dt.textContent=day.dataset.ovDate;
+    const tt=document.createElement('div');tt.className='tt';tt.textContent=day.dataset.ovTitle;
+    const nn=document.createElement('div');nn.className='nn';nn.textContent=day.dataset.ovSub;
+    cell.append(dt,tt,nn);
+    ovGrid.appendChild(cell);
+  });
+})();
 const DAY_MIN=4,DAY_MAX=25;
 
 let claims={},cur=null;
