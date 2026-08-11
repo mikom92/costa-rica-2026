@@ -27,8 +27,9 @@ source"):
 | Token cleanup | end of `Private.init()` | strips `access_token` from the address bar |
 | Private values | `trip_private` table + `[data-private]` spans | RLS-gated `key → value`, injected by `paint()` |
 
-Line numbers below refer to **`index.html` as committed on `main`** at `9843c2e`, which is
-what a fresh clone gets. There is no uncommitted local state — see §10.
+Line numbers below refer to **`index.html` as committed at `9843c2e`**, which is on this
+branch and *not* on `main` — a fresh clone of `main` will be 4 lines lower throughout, so
+check out this branch first. There is no uncommitted local state — see §10.
 
 - `/* ===== PRIVATE DETAILS =====` comment block — line 1168
 - `const PRIV={}` — line 1172
@@ -37,7 +38,7 @@ what a fresh clone gets. There is no uncommitted local state — see §10.
 - `async function refresh(){` — line 1194
 - `.crew` / `.person` CSS — lines 201–202
 - nav links — lines 288–296
-- `<!-- CHECKLIST -->` — line 810
+- `<!-- CHECKLIST -->` — line 809
 
 There is **no `index-en.html`**. There is one `index.html` and it is already in English.
 
@@ -249,11 +250,37 @@ but affects this document in three ways:
 
 1. **All `index.html` line numbers in §§1, 4 and 5 are relative to it.** It added 4 lines
    near the top of the file, so any line number taken from an older commit is 4 too low.
-2. **`sw.js` is at `cr26-v4` and that version has shipped.** The notes change therefore
-   needs its own bump to `cr26-v5` (§9). Returning visitors otherwise keep the cached copy.
-3. **The SRI digest is verified**, not guessed: `sha384-l8ah+VgaWtk1mvOe9VC+…` matches
-   what jsDelivr serves for `2.112.3`. README's bump procedure exists because a wrong
-   digest blocks the script silently.
+2. **`sw.js` is at `cr26-v4`, and `v4` is claimed by that commit.** The notes change
+   therefore needs its own bump to `cr26-v5` (§9). Returning visitors otherwise keep the
+   cached copy. (`v4` has not reached Pages yet, since `main` does not have `9843c2e` —
+   but the number is spent, so a later change cannot reuse it.)
+3. **The SRI digest in `9843c2e` was wrong and has been corrected.** The original value,
+   `sha384-l8ah+Vga…`, was recorded here as "verified against jsDelivr"; it was not. It
+   matches no file in `2.112.3`, and no neighbouring release (`2.111.0`, `2.112.0`–`.2`)
+   either. Had it merged, the browser would have refused the script and the board would
+   have dropped to read-only local data — silently, which is exactly the failure README's
+   bump procedure warns about.
+
+   The correct digest for `2.112.3` is
+   `sha384-qafw21c/iciq0VXsi9FzkfoQv5I/V0iqE4lSNcKXPnW9/UTJLnv5CcN4FHxVLnKg`.
+
+   **How it was verified, so it can be re-run:** `cdn.jsdelivr.net` is blocked by this
+   sandbox's egress policy, so the check went through npm, which jsDelivr mirrors
+   byte-for-byte for an exact pinned version. The tarball's own `dist.integrity` (sha512)
+   was confirmed against the registry first, so the bytes hashed are authentic:
+
+   ```bash
+   V=2.112.3
+   curl -sS "https://registry.npmjs.org/@supabase/supabase-js/-/supabase-js-$V.tgz" -o sb.tgz
+   openssl dgst -sha512 -binary sb.tgz | openssl base64 -A   # must equal dist.integrity
+   tar xzf sb.tgz package/dist/umd/supabase.js               # the file jsDelivr serves bare
+   openssl dgst -sha384 -binary package/dist/umd/supabase.js | openssl base64 -A
+   ```
+
+   `dist/umd/supabase.js` is the right file because the package's `jsdelivr` field points
+   at it, which is what a bare `@supabase/supabase-js@2.112.3` URL resolves to. On a
+   machine with jsDelivr reachable, prefer README's one-liner — it hashes the exact
+   response and needs no equivalence argument.
 
 **`9843c2e` is on this branch (`docs/private-notes-design`) but not yet on
 `origin/main`.** GitHub Pages serves `main`, so the pinned Supabase tag is not live yet;
