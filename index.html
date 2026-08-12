@@ -26,8 +26,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<!-- Sync is optional: if this CDN is unreachable the page still renders and stays fully usable offline. -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<!-- Sync is optional: if this CDN is unreachable the page still renders and stays fully usable offline.
+     Pinned + SRI: a bad digest blocks the script, which the board already treats as "CDN down".
+     To bump, regenerate the digest — see "Bumping the pinned Supabase version" in README.md. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3"
+        integrity="sha384-qafw21c/iciq0VXsi9FzkfoQv5I/V0iqE4lSNcKXPnW9/UTJLnv5CcN4FHxVLnKg"
+        crossorigin="anonymous" defer></script>
 <style>
 :root{
   --ink:#0E1F1C; --panel:#152A26; --panel2:#1C3833;

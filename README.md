@@ -147,30 +147,38 @@ select relname, relrowsecurity from pg_class where relname = 'pachanga_board';
 -- relrowsecurity must be true
 ```
 
-## Known follow-ups
+## Bumping the pinned Supabase version
 
-- **Pin Supabase with an SRI hash.** The script tag currently tracks the latest v2. To
-  pin it, pick an exact version and generate the digest:
+The script tag is pinned to an exact version with an SRI digest, so an upgrade is two
+edits that must be made together. Generate the digest from the URL you are about to
+use — never guess it, because a wrong digest blocks the script entirely:
 
-  ```bash
-  V=2.45.4   # replace with the version you want
-  curl -sL "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@$V" \
-    | openssl dgst -sha384 -binary | openssl base64 -A
-  ```
+```bash
+V=2.112.3   # replace with the version you want
+curl -sL "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@$V" \
+  | openssl dgst -sha384 -binary | openssl base64 -A
+```
 
-  then use `src="…@$V" integrity="sha384-<digest>" crossorigin="anonymous"`.
-  Do not guess the digest — a wrong one blocks the script entirely.
-- **`og:image`.** The Open Graph tags have no image, so a link shared to WhatsApp shows
-  title and description but no thumbnail. Adding one needs a real PNG (≈1200×630);
-  SVG is not rendered as an OG image by most platforms.
-- **The itinerary is duplicated in three places** — the overview grid, the day sections
-  and the `CTX` map in the script. They currently agree, but nothing enforces that.
-  Deriving all three from one data array would remove the drift risk.
+Then update both `src="…@$V"` and `integrity="sha384-<digest>"` in `index.html`.
+
+A blocked script is not a page-down: the board falls back to read-only local data, the
+same path as an unreachable CDN. So a botched bump degrades quietly rather than loudly —
+check the console for an integrity error if the board stops syncing after an upgrade.
 
 ## Editing the content
 
-- **Itinerary days** — the `<section id="w1|w2|w3">` blocks, plus the matching card in
-  the `.ov` overview grid and the label in `CTX`.
+- **Itinerary days** — the `.day[data-days]` blocks are the single source of truth. The
+  overview grid (`#ovGrid`) and the per-day labels in `CTX` are both generated from them
+  at load, so edit the day block only. The generation reads these attributes:
+
+  | Attribute | Feeds |
+  | --- | --- |
+  | `data-days` | `"7"` or `"12-14"` — which November days the block covers |
+  | `data-ctx` | the short label shown on the pachanga board for those days |
+  | `data-ov-date`, `data-ov-title`, `data-ov-sub` | the three lines of the overview card |
+  | `data-ov-cls` | optional extra class on the overview card |
+
+  A day left out of every `data-days` range gets no `CTX` label and shows `—` on the board.
 - **Checklist / packing items** — the `CHECK` and `PACK` arrays. Each entry is
   `[text, note, 'req' | 'rec' | '']`. Saved ticks are keyed by a slug of the category
   and item text, so reordering or inserting items is safe; **rewording an item resets
