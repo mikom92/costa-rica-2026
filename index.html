@@ -982,11 +982,19 @@ function setSync(state,detail){
     saving:['● saving…','var(--yellow)'],
     connecting:['● connecting…','var(--yellow)'],
     offline:['● offline — this board is read-only right now','var(--red-t)'],
+    nosync:['● sync unavailable — this board is read-only right now','var(--red-t)'],
     error:['● not saved — '+(detail||'try again'),'var(--red-t)']
   };
   const [t,c]=map[state]||map.connecting;
   el.textContent=t;el.style.color=c;
 }
+
+// No network and "the sync library never loaded" are different faults with different
+// fixes, and they used to share the word "offline". That is how a broken SRI digest
+// came to read as bad wifi: the one label sent you to look at the router.
+// navigator.onLine only rules out the obvious case — it says nothing about reachability —
+// so anything else is reported as unavailable rather than guessed at.
+function noSyncState(){return navigator.onLine===false?'offline':'nosync';}
 
 function renderBoard(){
   const b=$('theboard');
@@ -1046,7 +1054,16 @@ const SB=(function(){
   return {get(){
     if(tried)return client;
     tried=true;
-    if(!window.supabase||typeof window.supabase.createClient!=='function')return null;
+    if(!window.supabase||typeof window.supabase.createClient!=='function'){
+      // The page degrades quietly by design, so this is the only place the real cause
+      // is ever stated. Say it plainly rather than leaving a silent read-only board.
+      console.warn('[sync] Supabase did not load: window.supabase is undefined. Either the '+
+        'CDN is unreachable, or the browser refused the script because its integrity (SRI) '+
+        'digest does not match the bytes served. An integrity error logged above means the '+
+        'digest is wrong — regenerate it by hashing the exact URL in the script tag; see '+
+        '"Bumping the pinned Supabase version" in README.md.');
+      return null;
+    }
     try{client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){client=null;}
     return client;
   }};
@@ -1064,7 +1081,7 @@ const Sync=(function(){
     // error, so try/catch alone would report success on every rejected write.
     let res;
     try{res=await sb.from('pachanga_board').select('day,who,what');}
-    catch(e){setSync('offline');return;}
+    catch(e){setSync(noSyncState());return;}
     if(res.error){setSync('error',res.error.message);return;}
     claims={};
     (res.data||[]).forEach(r=>{
@@ -1075,7 +1092,7 @@ const Sync=(function(){
   }
 
   async function write(op){
-    if(!sb){setSync('offline');return false;}
+    if(!sb){setSync(noSyncState());return false;}
     setSync('saving');
     let res;
     try{res=await op(sb);}catch(e){setSync('error',e.message||'network');return false;}
@@ -1091,7 +1108,7 @@ const Sync=(function(){
 
   function init(){
     sb=SB.get();
-    if(!sb){setSync('offline');return;}
+    if(!sb){setSync(noSyncState());return;}
     load();
     try{
       sb.channel('board-live')
@@ -1133,7 +1150,7 @@ $('delBtn').onclick=async()=>{
 $('cancelBtn').onclick=()=>dlg.close();
 
 $('clearBtn').onclick=async()=>{
-  if(!Sync.available()){setSync('offline');return;}
+  if(!Sync.available()){setSync(noSyncState());return;}
   if(!confirm('Clear every entry on the board, for everyone? This cannot be undone.'))return;
   const ok=await Sync.write(sb=>sb.from('pachanga_board').delete().gte('day',DAY_MIN).lte('day',DAY_MAX));
   await Sync.load();
@@ -1224,7 +1241,9 @@ const Private=(function(){
 
   async function signIn(addr){
     const sb=SB.get();
-    if(!sb){flash(msg,'Offline — cannot sign in right now');return;}
+    if(!sb){flash(msg,navigator.onLine===false
+      ?'Offline — cannot sign in right now'
+      :'Cannot sign in — the sign-in library did not load. This is not your connection; see the console.');return;}
     const res=await sb.auth.signInWithOtp({email:addr,options:{emailRedirectTo:location.href.split('#')[0]}});
     msg.textContent=res.error?('Failed: '+res.error.message):'Check your inbox for the sign-in link.';
   }
