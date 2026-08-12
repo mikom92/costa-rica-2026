@@ -27,19 +27,23 @@ source"):
 | Token cleanup | end of `Private.init()` | strips `access_token` from the address bar |
 | Private values | `trip_private` table + `[data-private]` spans | RLS-gated `key → value`, injected by `paint()` |
 
-Line numbers below refer to **`index.html` as committed at `9843c2e`**. They hold for any
-checkout that contains that commit; a checkout without it is 4 lines lower throughout.
-Verify rather than assume — `git merge-base --is-ancestor 9843c2e HEAD` — see §10 for
-where it lives. There is no uncommitted local state.
+**Find these by searching, not by line number.** Absolute line numbers went stale three
+times while this document was being written — every edit to `index.html` above a reference
+moves it, and a number that is silently four or seventeen lines off is worse than no
+number at all. The patterns below are stable; `grep -n` gives you the current position.
 
-- `/* ===== PRIVATE DETAILS =====` comment block — line 1168
-- `const PRIV={}` — line 1172
-- `const Private=(function(){` — line 1175
-- `function paint(){` — line 1179
-- `async function refresh(){` — line 1194
-- `.crew` / `.person` CSS — lines 201–202
-- nav links — lines 288–296
-- `<!-- CHECKLIST -->` — line 809
+| What | `grep -n` for |
+| --- | --- |
+| private-details block | `===== PRIVATE DETAILS =====` |
+| the private-values store | `const PRIV={` |
+| the module | `const Private=(function(){` |
+| the repaint entry point | `function paint(){` |
+| the fetch | `async function refresh(){` |
+| the orphaned card CSS (§4) | `^\.crew{` and `^\.person{` |
+| nav links (§4) | `<a href="#packing"` |
+| checklist section (§4) | `<!-- CHECKLIST -->` |
+
+There is no uncommitted local state.
 
 There is **no `index-en.html`**. There is one `index.html` and it is already in English.
 
@@ -145,8 +149,7 @@ seeds the rows and knows whether any exist.
 
 ## 5. Fetching — changes to `refresh()`
 
-Add a module-level `const NOTES=[];` next to `const PRIV={}` (line 1172). Inside
-`refresh()` (line 1194):
+Add a module-level `const NOTES=[];` next to `const PRIV={}`. Inside `refresh()`:
 
 ```js
 Object.keys(PRIV).forEach(k=>delete PRIV[k]);
@@ -249,8 +252,10 @@ from a clone is not reasoning about a repository it cannot see.
 `9843c2e` — "Pin Supabase to 2.112.3 with an SRI digest" — is unrelated to private notes
 but affects this document in three ways:
 
-1. **All `index.html` line numbers in §§1, 4 and 5 are relative to it.** It added 4 lines
-   near the top of the file, so any line number taken from an older commit is 4 too low.
+1. **It shifted `index.html` line numbers**, as did every later commit touching that file.
+   This is why §1 now locates code by search pattern instead. The remaining absolute
+   numbers in §4 are CSS and markup near the top of the file, which nothing has moved yet —
+   treat them as hints and confirm with `grep -n` before relying on one.
 2. **`sw.js` is at `cr26-v4`, and `v4` is claimed by that commit.** The notes change
    therefore needs its own bump to `cr26-v5` (§9). Returning visitors otherwise keep the
    cached copy. The number is spent the moment `9843c2e` exists, whether or not it has
