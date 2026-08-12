@@ -27,9 +27,10 @@ source"):
 | Token cleanup | end of `Private.init()` | strips `access_token` from the address bar |
 | Private values | `trip_private` table + `[data-private]` spans | RLS-gated `key → value`, injected by `paint()` |
 
-Line numbers below refer to **`index.html` as committed at `9843c2e`**, which is on this
-branch and *not* on `main` — a fresh clone of `main` will be 4 lines lower throughout, so
-check out this branch first. There is no uncommitted local state — see §10.
+Line numbers below refer to **`index.html` as committed at `9843c2e`**. They hold for any
+checkout that contains that commit; a checkout without it is 4 lines lower throughout.
+Verify rather than assume — `git merge-base --is-ancestor 9843c2e HEAD` — see §10 for
+where it lives. There is no uncommitted local state.
 
 - `/* ===== PRIVATE DETAILS =====` comment block — line 1168
 - `const PRIV={}` — line 1172
@@ -252,8 +253,8 @@ but affects this document in three ways:
    near the top of the file, so any line number taken from an older commit is 4 too low.
 2. **`sw.js` is at `cr26-v4`, and `v4` is claimed by that commit.** The notes change
    therefore needs its own bump to `cr26-v5` (§9). Returning visitors otherwise keep the
-   cached copy. (`v4` has not reached Pages yet, since `main` does not have `9843c2e` —
-   but the number is spent, so a later change cannot reuse it.)
+   cached copy. The number is spent the moment `9843c2e` exists, whether or not it has
+   reached Pages yet, so a later change cannot reuse it.
 3. **The SRI digest in `9843c2e` was wrong and has been corrected.** The original value,
    `sha384-l8ah+Vga…`, was recorded here as "verified against jsDelivr"; it was not. It
    matches no file in `2.112.3`, and no neighbouring release (`2.111.0`, `2.112.0`–`.2`)
@@ -282,11 +283,24 @@ but affects this document in three ways:
    machine with jsDelivr reachable, prefer README's one-liner — it hashes the exact
    response and needs no equivalence argument.
 
-**`9843c2e` is on this branch (`docs/private-notes-design`) but not yet on
-`origin/main`.** GitHub Pages serves `main`, so the pinned Supabase tag is not live yet;
-it deploys when this branch merges. A session working from a clone must check this branch
-out — cloning `main` gets neither the spec nor the pin, and its `index.html` line numbers
-will be 4 lower than every reference in this document.
+**Where the pin lives depends on whether PR #3 has merged, so check — do not trust this
+paragraph.** The spec and the pin were developed on `claude/sri-digest-spec-lines-pvvqou`
+(mirrored to `docs/private-notes-design`), and PR #3 proposes them onto `main`:
+
+```bash
+git fetch origin main
+git merge-base --is-ancestor 9843c2e origin/main \
+  && echo "merged — the pin is live, since Pages serves main" \
+  || echo "not merged — main still tracks @2 and has neither the spec nor the pin"
+```
+
+GitHub Pages serves `main`, so that check is also the answer to "is the pinned Supabase
+tag live?". Before the merge, work from the branch: a clone of `main` gets neither this
+document nor the pin, and its `index.html` line numbers are 4 lower than every reference
+here. After the merge, `main` is the right base and the line numbers hold there.
+
+Merging PR #3 is what puts the pin into production. That was deliberately kept as a
+separate decision from writing the spec, because it changes what visitors load.
 
 The private-notes work should branch from `main` once this branch is merged, or rebase
 onto it.
