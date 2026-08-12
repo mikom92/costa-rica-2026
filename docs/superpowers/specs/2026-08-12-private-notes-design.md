@@ -284,8 +284,8 @@ but affects this document in three ways:
    response and needs no equivalence argument.
 
 **Where the pin lives depends on whether PR #3 has merged, so check — do not trust this
-paragraph.** The spec and the pin were developed on `claude/sri-digest-spec-lines-pvvqou`
-(mirrored to `docs/private-notes-design`), and PR #3 proposes them onto `main`:
+paragraph.** The spec and the pin live on `claude/sri-digest-spec-lines-pvvqou`, the sole
+branch carrying them, and PR #3 proposes them onto `main`:
 
 ```bash
 git fetch origin main
