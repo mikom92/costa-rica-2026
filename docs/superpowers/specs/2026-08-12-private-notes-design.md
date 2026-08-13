@@ -130,7 +130,13 @@ A new section between `#practical` and `#checklist`:
 </section>
 ```
 
-plus a nav link `<a href="#notes" hidden>Notes</a>` after `#packing` (line 296).
+plus a nav link `<a href="#notes" hidden>Notes</a>` **between `#practical` and `#checklist`,
+matching where the section sits.** An earlier draft put it after `#packing`; that is a bug.
+The scrollspy derives its section list from the order of the nav links, not from the
+document (`links.map(a=>document.querySelector(a.getAttribute('href')))`), and highlights
+the first visible one. The comment there claiming "document order" holds only because the
+two orders coincide today — break the coincidence and scrolling through the notes leaves
+"Packing" lit instead.
 **Both `hidden` attributes are toggled together, driven by `email` — not by how many notes
 came back.** `paint()` already reads `email` from the `Private` closure to label the footer
 button, so this needs no new state. Signed in reveals the section; signed out hides it.

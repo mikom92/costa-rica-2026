@@ -201,6 +201,9 @@ input[type=range]:focus-visible{outline:2px solid var(--jade);outline-offset:2px
 .crew{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px}
 .person{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--jade);border-radius:3px;padding:15px}
 .person.ask{border-left-color:var(--red)}.person.offer{border-left-color:var(--yellow)}
+/* Note bodies are authored as paragraphs in the Supabase editor; without this the line
+   breaks collapse and a multi-paragraph note arrives as one run-on block. */
+.person p{white-space:pre-wrap}
 .person h4{font-size:16px}
 .person .role{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:2px}
 .person p{font-size:13.5px;margin:8px 0 0;color:rgba(244,237,223,.78)}
@@ -292,6 +295,9 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   <a href="#pachanga">Pachanga</a>
   <a href="#budget">Budget</a>
   <a href="#practical">Practical</a>
+  <!-- Must stay in document order: the scrollspy builds its section list from the order of
+       these links, not from the page, and picks the first visible one. -->
+  <a href="#notes" hidden>Notes</a>
   <a href="#checklist">✓ Checklist</a>
   <a href="#packing">🧳 Packing</a>
 </div></div></nav>
@@ -806,6 +812,14 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   </div>
 </section>
 
+<!-- PRIVATE NOTES -->
+<section id="notes" hidden>
+  <div class="wrap">
+    <div class="shead"><h2>Private notes</h2><span class="tag">visible only to you</span></div>
+    <div id="notesList"></div>
+  </div>
+</section>
+
 <!-- CHECKLIST -->
 <section id="checklist">
   <div class="wrap">
@@ -1187,6 +1201,12 @@ renderBoard();   // usable immediately, before and regardless of any network cal
    signed-in owner. They are NOT in this file: hiding an element client-side would still
    ship the value in the page source, so the data simply is not fetched until sign-in. */
 const PRIV={};
+// Notes are their own table: `trip_private` is key→value for substitution inside sentences
+// and carries no title, body or ordering. NOTES_ERR is separate from an empty NOTES so the
+// render can tell "nothing added yet" from "the table or its policy is wrong" — the two
+// look identical to a reader, and only this fetch knows which happened.
+const NOTES=[];
+let NOTES_ERR=false;
 let LODGING_LABEL='Lodging · Heredia, 21 nights';
 
 const Private=(function(){
@@ -1206,6 +1226,39 @@ const Private=(function(){
       }
     });
     btn.textContent=email?'🔓 '+email+' · sign out':'🔒 Private details';
+    paintNotes();
+  }
+
+  // Three states, not two. An empty list and a broken table both produce zero notes, and
+  // rendering them identically turns a setup error into something that looks like an empty
+  // notebook — the silent failure this section exists to avoid.
+  function paintNotes(){
+    const sec=$('notes'),list=$('notesList');
+    const link=document.querySelector('#nav a[href="#notes"]');
+    if(!sec||!list)return;
+    // Keyed on the session, NOT on NOTES.length: a signed-in owner with nothing stored has
+    // to reach the empty-state message, and a length check would swallow it.
+    const show=!!email;
+    sec.hidden=!show;if(link)link.hidden=!show;
+    // Rebuilt wholesale: init() and onAuthStateChange both drive refresh(), so a renderer
+    // that appended would duplicate every note.
+    list.textContent='';
+    if(!show)return;
+    const line=(text,colour)=>{
+      const p=document.createElement('p');
+      p.className='mono';p.style.color=colour;p.textContent=text;
+      list.appendChild(p);
+    };
+    if(NOTES_ERR){line('Could not load notes — check the table and its policy.','var(--red-t)');return;}
+    if(!NOTES.length){line('No notes yet — add them in the Supabase table editor.','var(--dim2)');return;}
+    const grid=document.createElement('div');grid.className='crew';
+    NOTES.forEach(n=>{
+      const card=document.createElement('div');card.className='person';
+      const h=document.createElement('h4');h.textContent=n.title||'';
+      const p=document.createElement('p');p.textContent=n.body||'';
+      card.append(h,p);grid.appendChild(card);
+    });
+    list.appendChild(grid);
   }
 
   async function refresh(){
@@ -1214,12 +1267,21 @@ const Private=(function(){
     let ses;
     try{ses=await sb.auth.getSession();}catch(e){paint();return;}
     email=ses?.data?.session?.user?.email||null;
+    // Cleared before the branch, not inside it: signOut() calls refresh(), which takes the
+    // false path, and clearing only on the fetch path leaves stale notes on screen.
     Object.keys(PRIV).forEach(k=>delete PRIV[k]);
+    NOTES.length=0;NOTES_ERR=false;
     if(email){
       // With no session RLS returns an empty set rather than an error, so an anonymous
       // visitor simply gets nothing back — there is no failure state to leak.
-      const res=await sb.from('trip_private').select('key,value');
-      if(!res.error)(res.data||[]).forEach(r=>{PRIV[r.key]=r.value;});
+      // Both queries need the session but not each other, so they go out together.
+      const [priv,notes]=await Promise.all([
+        sb.from('trip_private').select('key,value'),
+        // Postgres does not guarantee row order; `sort` exists precisely to control it.
+        sb.from('private_notes').select('title,body,sort').order('sort').order('title')
+      ]);
+      if(!priv.error)(priv.data||[]).forEach(r=>{PRIV[r.key]=r.value;});
+      if(notes.error)NOTES_ERR=true;else NOTES.push(...(notes.data||[]));
     }
     applyToBudget();
     paint();
