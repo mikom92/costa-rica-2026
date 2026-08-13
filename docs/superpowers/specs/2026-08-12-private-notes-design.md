@@ -1,10 +1,17 @@
 # Private notes — design
 
-**Status:** presented 2026-08-11. §8 answered 2026-08-12: **read-only**. §§1–7 have been
-presented but not explicitly approved line by line. No implementation started.
-**Date:** 2026-08-12
-**Next step:** confirm §§1–7 with the owner, then invoke the `writing-plans` skill. Do not
-start implementing straight from this document.
+**Status:** approved 2026-08-13. Every open question has an owner's answer:
+§8 read-only (2026-08-12); §2 its own table, §3 flat list with no `category`, and §4 an
+explicit empty state (all 2026-08-13). No implementation started.
+**Date:** 2026-08-13
+**Next step:** invoke the `writing-plans` skill. Do not start implementing straight from
+this document.
+
+**On trusting this document.** Its factual claims about `index.html` and `README.md` were
+re-checked against the code on 2026-08-13 and held. Its *arguments* deserve more suspicion
+than that: §10 records a case where this document confidently asserted a verified fact that
+was false, and shipping on it broke production. Where a section reasons rather than cites,
+check the code.
 
 This document is written to be read cold. It assumes no memory of the conversation that
 produced it.
@@ -54,10 +61,10 @@ in the existing `refresh()`.
 
 **Why not reuse `trip_private`.** That table is `key → value`, and its values are
 substituted in place inside sentences (`base.code` → the booking code). A note needs a
-title, a category, an ordering and a paragraph of body text. Encoding that into a `value`
-column as JSON, or into prefixed keys like `note.<category>.<slug>`, pretends the two are
-the same problem. With prefixed keys the ordering has to be smuggled into the key name and
-the title concatenated with the body — a permanent readability cost to save one `select`.
+title, an ordering and a paragraph of body text. Encoding that into a `value` column as
+JSON, or into prefixed keys like `note.<slug>`, pretends the two are the same problem. With
+prefixed keys the ordering has to be smuggled into the key name and the title concatenated
+with the body — a permanent readability cost to save one `select`.
 
 **Why not one table with a `kind` column.** Cleanest on a blank slate, but it requires
 migrating the existing `trip_private` rows and rewriting working code that has nothing to
@@ -71,11 +78,10 @@ real way to get this wrong.
 
 ```sql
 create table if not exists public.private_notes (
-  id       bigint generated always as identity primary key,
-  category text     not null,
-  title    text     not null,
-  body     text     not null default '',
-  sort     smallint not null default 0
+  id    bigint   generated always as identity primary key,
+  title text     not null,
+  body  text     not null default '',
+  sort  smallint not null default 0
 );
 
 alter table public.private_notes enable row level security;
@@ -96,16 +102,20 @@ This was considered and confirmed — see §8.
 README. Do not switch to `auth.jwt() ->> 'email'`; two styles in one project is how an
 audit goes wrong.
 
-**Ordering.** A single `sort` column drives everything. The client sorts by `sort` then
-`title`, and groups by `category` in order of first appearance — so `sort` controls both
-the order of notes and, implicitly, the order of categories. Moving a category means
-renumbering its notes, which is acceptable for a handful of editor-managed rows.
+**Ordering.** `sort` drives the order of the list, `title` breaks ties. Nothing else
+depends on it.
+
+**No `category` column — decided 2026-08-13.** Notes render as one flat list. Grouping was
+offered and declined: at the expected volume, headings would cost a field on every row to
+organise a page that fits on one screen. If categories are ever wanted, adding the column
+is additive — but read §4 first, because a grouped list also has to decide the order of the
+groups, and a single `sort` column cannot express both without renumbering.
 
 **Seeding.** Rows are inserted in the Supabase table editor. The README section must use
 placeholder content only. The repository is public: real note content is exactly the
 material that was removed from the public page in the first place, and pasting it into a
-seed snippet in README re-publishes it. The categories this content falls into are
-recorded outside the repo; do not enumerate real ones here.
+seed snippet in README re-publishes it. Do not paste real titles or bodies here, and do not
+describe what the notes are about — the subject matter is itself part of what was removed.
 
 ## 4. Where it renders
 
@@ -121,12 +131,15 @@ A new section between `#practical` and `#checklist`:
 ```
 
 plus a nav link `<a href="#notes" hidden>Notes</a>` after `#packing` (line 296).
-**Both `hidden` attributes are toggled together**, only when there are notes to show.
+**Both `hidden` attributes are toggled together, driven by `email` — not by how many notes
+came back.** `paint()` already reads `email` from the `Private` closure to label the footer
+button, so this needs no new state. Signed in reveals the section; signed out hides it.
 
 **Reuse the orphaned CSS.** `.crew` (line 201) and `.person` (line 202) are defined but
 used by no markup — leftovers from the crew section that was scrubbed before the repo went
-public. Notes are exactly that shape: a grid of cards, each a title plus a paragraph. Per
-category, render an `<h3>` heading followed by a `.crew` grid of `.person` cards.
+public. Notes are exactly that shape: a grid of cards, each a title plus a paragraph.
+Render one `.crew` grid of `.person` cards — no headings, since there are no categories
+(§3).
 
 The only new CSS needed is `white-space:pre-wrap` on the body text so paragraph breaks
 survive. Check whether `.person h4` inherits acceptably during implementation; add one
@@ -144,27 +157,46 @@ only advertises to the public that something is hidden. The footer button stays 
 sections at load; a `display:none` section never intersects, so it is never marked active,
 and it is picked up automatically once unhidden.
 
-**Signed in with zero rows is indistinguishable from signed out.** Accepted: the owner
-seeds the rows and knows whether any exist.
+**Signed in with zero notes says so — decided 2026-08-13.** Render one line in place of the
+grid: *"No notes yet — add them in the Supabase table editor."* An earlier draft of this
+document accepted silence here, reasoning that the owner seeds the rows and knows whether
+any exist. That was overturned deliberately.
+
+The reason is not convenience. Silence makes a **broken setup** — table missing, RLS policy
+wrong, email in the policy not matching the signed-in address — look exactly like a
+correctly empty list. This project has already paid for that class of bug once: a wrong SRI
+digest presented itself as the word "offline", and the cause was found only after it
+reached production. A failure that renders as ordinary emptiness is the expensive kind.
+
+The privacy argument for silence does not apply. It was about the **signed-out** state,
+where an empty "sign in to see" block advertises to the public that something is hidden.
+This line appears only once `email` is set, so it is visible to nobody but the owner.
 
 ## 5. Fetching — changes to `refresh()`
 
-Add a module-level `const NOTES=[];` next to `const PRIV={}`. Inside `refresh()`:
+Add a module-level `const NOTES=[];` next to `const PRIV={}`, plus `let NOTES_ERR=false;`
+— §4 has to tell "empty" apart from "broken", and only the fetch knows which happened.
+Inside `refresh()`:
 
 ```js
 Object.keys(PRIV).forEach(k=>delete PRIV[k]);
-NOTES.length=0;                                  // cleared BEFORE the if, not inside it
+NOTES.length=0;NOTES_ERR=false;                  // cleared BEFORE the if, not inside it
 if(email){
   const [priv,notes]=await Promise.all([
     sb.from('trip_private').select('key,value'),
-    sb.from('private_notes').select('category,title,body,sort').order('sort').order('title')
+    sb.from('private_notes').select('title,body,sort').order('sort').order('title')
   ]);
   if(!priv.error)(priv.data||[]).forEach(r=>{PRIV[r.key]=r.value;});
-  if(!notes.error)NOTES.push(...(notes.data||[]));
+  if(notes.error)NOTES_ERR=true;else NOTES.push(...(notes.data||[]));
 }
 applyToBudget();
 paint();
 ```
+
+**Three states to render, not two** (§4). `NOTES_ERR` → *"Could not load notes — check the
+table and its policy."*; empty and no error → *"No notes yet…"*; otherwise the grid.
+Collapsing the first two back into one message re-creates exactly the silence this design
+decided against.
 
 Four requirements, each of which is a bug if missed:
 
@@ -175,8 +207,10 @@ Four requirements, each of which is a bug if missed:
 3. **Explicit `.order()`.** Postgres does not guarantee row order. The `sort` column exists
    precisely to control this and must actually be used.
 4. **Render from inside `paint()`**, not as a separate call site. `paint()` is already the
-   single repaint entry point, and `init()` calls it before `refresh()` resolves — with
-   `NOTES` empty, which correctly leaves the section hidden.
+   single repaint entry point, and `init()` calls it before `refresh()` resolves — at which
+   point `email` is still `null`, which correctly leaves the section hidden. Note the
+   guard is `email`, not `NOTES.length`: a signed-in owner with no notes must reach the
+   "No notes yet…" state (§4), and a length check would silently swallow it.
 
 **Rendering rules.** Rebuild the list wholesale (`list.textContent=''` first), never
 append: `init()` calls `refresh()` and `onAuthStateChange` fires it again, so an appending
@@ -191,14 +225,21 @@ Unchanged from the existing private-data path:
 | Situation | Result |
 | --- | --- |
 | Not signed in | RLS returns an empty set, not an error. Section hidden. |
-| Query error / table missing | `NOTES` stays empty. Section hidden. |
-| Supabase CDN blocked or unreachable | No client. Section hidden. |
+| Signed in, no rows | Section shown, "No notes yet…" (§4). |
+| Query error / table missing / policy wrong | Section shown, "Could not load notes…" (§4). |
+| Supabase CDN blocked or unreachable | No client, so no session. Section hidden. |
 | Offline | Same as above. |
 
-**Accepted trade:** forgetting to create the table looks exactly like being correctly
-signed out — silently. `trip_private` behaves the same way today, and introducing a second
-pattern for one table is worse than the gap. The RLS verification query in README covers
-setup errors.
+**The gap this closes.** An earlier draft accepted that forgetting to create the table
+would look exactly like being correctly signed out. That trade is no longer taken: the
+last two rows above are now distinguishable, and distinguishable from each other. The RLS
+verification query in README remains the check for setup errors, but it is no longer the
+*only* way to discover one.
+
+**What stays silent, deliberately.** A blocked CDN still hides the section rather than
+explaining itself, because with no client there is no session and the page cannot know
+whether anyone would have been signed in. That path already announces itself in the
+console via `SB.get()`, which is the right place for it.
 
 ## 7. Known limitation — no offline access
 
