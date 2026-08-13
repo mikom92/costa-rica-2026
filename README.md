@@ -137,14 +137,58 @@ Email magic link, no OAuth app to register and no password:
 
 Click **🔒 Private details** in the footer, or any locked `🔒` value on the page.
 
+## Supabase — private notes
+
+Longer notes that belong to the owner alone: a title and a paragraph, rather than the
+single values `trip_private` slots into sentences. Same sign-in, same guarantee — the page
+never receives them until someone is signed in, so the public source shows nothing.
+
+```sql
+create table if not exists public.private_notes (
+  id    bigint   generated always as identity primary key,
+  title text     not null,
+  body  text     not null default '',
+  sort  smallint not null default 0
+);
+
+alter table public.private_notes enable row level security;
+
+-- Read-only from the page, and only for one signed-in address.
+-- Replace the email with your own before running this.
+create policy "owner reads" on public.private_notes
+  for select to authenticated
+  using (auth.email() = '<your email>');
+```
+
+As with `trip_private`, there is deliberately **no insert/update/delete policy**. Notes are
+written in the Supabase table editor; the page can only read them.
+
+**Write the real notes in the Supabase editor, not here.** This file sits in the same
+public repository, and the note content is exactly the material that was taken off the
+public page — pasting it below would put it straight back.
+
+```sql
+insert into public.private_notes (title, body, sort) values
+  ('<note title>', '<first paragraph>' || chr(10) || chr(10) || '<second paragraph>', 10),
+  ('<note title>', '<body>', 20);
+```
+
+`sort` orders the list, `title` breaks ties. Number in tens so a note can be slipped
+between two others without renumbering. Blank lines inside `body` survive to the page.
+
+Nothing appears until you are signed in. Signed in with an empty table the section says
+so, and a table that is missing or whose policy does not match your address reports that
+differently — the two are deliberately not the same message.
+
 ### Verify RLS is actually on
 
 If RLS is left disabled, the publishable key exposes **every** table in the project, not
 just this one. Check it:
 
 ```sql
-select relname, relrowsecurity from pg_class where relname = 'pachanga_board';
--- relrowsecurity must be true
+select relname, relrowsecurity from pg_class
+where relname in ('pachanga_board','trip_private','private_notes');
+-- relrowsecurity must be true for all three
 ```
 
 ## Bumping the pinned Supabase version
@@ -167,6 +211,9 @@ check the console for an integrity error if the board stops syncing after an upg
 
 ## Editing the content
 
+- **Private notes** — not in this file at all. Rows in the `private_notes` table, edited in
+  the Supabase table editor; nothing in the repository needs touching to add, reword or
+  reorder one. Same for the values in `trip_private`.
 - **Itinerary days** — the `.day[data-days]` blocks are the single source of truth. The
   overview grid (`#ovGrid`) and the per-day labels in `CTX` are both generated from them
   at load, so edit the day block only. The generation reads these attributes:
