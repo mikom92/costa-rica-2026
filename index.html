@@ -201,12 +201,13 @@ input[type=range]:focus-visible{outline:2px solid var(--jade);outline-offset:2px
 .crew{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px}
 .person{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--jade);border-radius:3px;padding:15px}
 .person.ask{border-left-color:var(--red)}.person.offer{border-left-color:var(--yellow)}
-/* Note bodies are authored as paragraphs in the Supabase editor; without this the line
-   breaks collapse and a multi-paragraph note arrives as one run-on block. */
-.person p{white-space:pre-wrap}
 .person h4{font-size:16px}
 .person .role{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:2px}
-.person p{font-size:13.5px;margin:8px 0 0;color:rgba(244,237,223,.78)}
+/* These cards now carry only private notes: paragraphs to be read, not the one-line crew
+   blurbs the rule was written for. Hence 15px over the old 13.5px and a lighter dim, which
+   at 78% on this background was thin enough to tire the eye. `pre-wrap` keeps the blank
+   lines authored in the Supabase editor; without it a multi-paragraph note runs together. */
+.person p{font-size:15px;line-height:1.6;margin:9px 0 0;color:rgba(244,237,223,.88);white-space:pre-wrap}
 
 .progress{display:flex;gap:20px;align-items:center;margin:4px 0 16px;flex-wrap:wrap}
 .progress .pn{font-family:var(--display);font-size:30px;color:var(--jade);line-height:1}
