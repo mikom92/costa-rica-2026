@@ -86,11 +86,27 @@ create table if not exists public.trip_private (
 alter table public.trip_private enable row level security;
 
 -- Read-only from the page, and only for one signed-in address.
--- Replace the email with your own before running this.
+-- Replace <your email> INCLUDING THE ANGLE BRACKETS: 'you@example.com', not
+-- '<you@example.com>'. The drop makes this safe to re-run.
+drop policy if exists "owner reads" on public.trip_private;
+
 create policy "owner reads" on public.trip_private
   for select to authenticated
   using (auth.email() = '<your email>');
 ```
+
+> **The placeholder is the one that bites.** Leave `<your email>` unreplaced, or keep the
+> angle brackets around a real address, and the policy compares your address against a
+> string it can never equal. Nothing errors: the table simply returns nothing, forever, and
+> the page reports it as having no data rather than as being misconfigured. Verify what
+> actually landed rather than trusting that the statement ran — see
+> [Verify RLS is actually on](#verify-rls-is-actually-on) below, which prints the stored
+> expression.
+>
+> `create policy` does **not** overwrite an existing policy; it fails with
+> `42710: policy … already exists` and leaves the old, broken one in place. That is why the
+> snippet drops first — otherwise a corrected re-run appears to fail while actually
+> changing nothing.
 
 There is deliberately **no insert/update/delete policy**: rows are managed in the
 Supabase table editor, so the page can never write to this table even if someone
@@ -154,11 +170,18 @@ create table if not exists public.private_notes (
 alter table public.private_notes enable row level security;
 
 -- Read-only from the page, and only for one signed-in address.
--- Replace the email with your own before running this.
+-- Replace <your email> INCLUDING THE ANGLE BRACKETS: 'you@example.com', not
+-- '<you@example.com>'. The drop makes this safe to re-run.
+drop policy if exists "owner reads" on public.private_notes;
+
 create policy "owner reads" on public.private_notes
   for select to authenticated
   using (auth.email() = '<your email>');
 ```
+
+The placeholder warning under `trip_private` applies here too, and this table is where it
+hurts less obviously: a wrong address here shows up as "No notes yet", which reads like an
+empty table rather than a broken policy.
 
 As with `trip_private`, there is deliberately **no insert/update/delete policy**. Notes are
 written in the Supabase table editor; the page can only read them.
@@ -190,6 +213,19 @@ select relname, relrowsecurity from pg_class
 where relname in ('pachanga_board','trip_private','private_notes');
 -- relrowsecurity must be true for all three
 ```
+
+Then check what the policies actually say, which is the step that catches an unreplaced
+placeholder:
+
+```sql
+select tablename, policyname, qual
+from pg_policies
+where tablename in ('trip_private','private_notes');
+```
+
+`qual` must contain your real address, bare — `(auth.email() = 'you@example.com'::text)`.
+Anything with angle brackets still in it, or the literal `<your email>`, means the policy
+was created from the unedited snippet and will match nobody.
 
 ## Bumping the pinned Supabase version
 
