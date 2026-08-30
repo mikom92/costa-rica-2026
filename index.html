@@ -322,8 +322,14 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
 
     <div class="day" data-days="4" data-ctx="arrival" data-ov-date="Wed Nov 4" data-ov-title="Arrival" data-ov-sub="SJO → Heredia" data-ov-cls="">
       <div class="dayhead"><h3>Wednesday, Nov 4 · arrival</h3>
-        <div class="sub">SJO → Heredia · ~30 min · check-in from 15:00</div>
-        <div class="note">Landing time depends on which flight gets booked — the British Airways option via London puts arrival in the afternoon. No ambition on day one: car, check-in, groceries, dinner.</div></div>
+        <div class="sub">Landing 16:40 · SJO → Heredia · ~30 min · check-in from 15:00</div>
+        <div class="note">Flights are booked and ticketed. Landing at 16:40 puts the car at roughly 17:30–18:00 and the drive to Heredia after dark. No ambition on day one: car, check-in, groceries, dinner.</div></div>
+      <div class="slot"><div class="t">07:20 – 16:40</div><div>
+        <h4>Fly Warsaw → San José, via London</h4>
+        <p><b>BA0851</b> · WAW 07:20 → London Heathrow T5 09:25.<br>
+        <b>BA0233</b> · London Heathrow T5 11:10 → SJO Terminal M 16:40.<br>
+        16 h 20 m in total, Economy on both legs. The Heathrow connection is 1 h 45 m, T5 to T5 and airside — no UK immigration and no bag reclaim.</p>
+        <div class="note">That connection has no same-day fallback: in the winter season BA flies Heathrow → San José five times a week (Tue, Wed, Fri, Sat, Sun), so a missed link waits two days.</div></div></div>
       <div class="slot"><div class="t">on landing</div><div>
         <h4>Pick up the Jimny · Jumbo Car</h4>
         <p>Jumbo Car runs a shuttle from the terminal. <b>Film the whole car before leaving the lot</b> — every panel, the roof, the wheels, the interior, the fuel gauge. That video is the only real protection in a damage dispute at drop-off. The card needs roughly <span data-private="car.deposit"></span> free for the deposit hold.</p>
@@ -622,13 +628,17 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
 
     <div class="day" data-days="25" data-ctx="departure" data-ov-date="Wed Nov 25" data-ov-title="Departure" data-ov-sub="return car, fly SJO" data-ov-cls="">
       <div class="dayhead"><h3>Wednesday, Nov 25 · departure</h3>
-        <div class="sub">Check-out by 11:00 · car back at SJO</div></div>
+        <div class="sub">Check-out by 11:00 · car back at SJO · wheels up 18:40</div>
+        <div class="note">Departure is 18:40, so the airport swallows the day from about 15:40 — Nov 25 is not usable for anything outside San José. With Antonio's pachanga on Sat Nov 21, the last few days are tight: plan goodbyes before the 24th, not on it.</div></div>
       <div class="slot"><div class="t">by 11:00</div><div>
         <h4>Check out</h4>
         <p>Check the drawers and the chargers. Keys as instructed by the host.</p></div></div>
       <div class="slot"><div class="t">~3 h before</div><div>
         <h4>Return the Jimny, then check in</h4>
         <p>Be at SJO three hours ahead for an intercontinental flight — the car return shuttle adds 30–40 minutes. The deposit usually releases within 7–14 days.</p>
+        <p><b>BA0232</b> · SJO Terminal M 18:40 → London Heathrow T5 10:50 the next morning.<br>
+        <b>BA0848</b> · London Heathrow T5 15:15 → WAW 18:50, Thu Nov 26.<br>
+        17 h 10 m in total with a 4 h 25 m wait at Heathrow. Two nights are involved: you leave on the 25th and land in Warsaw on the evening of the 26th.</p>
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Juan+Santamaria+International+Airport+Costa+Rica" target="_blank" rel="noopener">📍 SJO</a></div></div></div>
     </div>
   </div>
@@ -653,7 +663,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
 <section id="budget">
   <div class="wrap">
     <div class="shead"><h2>Budget console</h2><span class="tag">drag the sliders</span></div>
-    <p class="sintro">Lodging and the car are locked and won't move. Flights, food, fuel and park fees are the levers that actually change the total. Amounts in Polish złoty by default — switch to USD if that reads better.</p>
+    <p class="sintro">Lodging, the car and the flights are booked and won't move. Food, fuel and park fees are the levers that actually change the total. Amounts in Polish złoty by default — switch to USD if that reads better.</p>
     <div class="console">
       <div class="readout">
         <div class="curtog"><button id="cur-pln" class="on">PLN</button><button id="cur-usd">USD</button></div>
@@ -666,8 +676,6 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="fx" id="fx">Fetching USD rate…</div>
       </div>
       <div>
-        <div class="lever"><div class="lh"><label for="s-fly">Flights WAW ⇄ SJO</label><span class="lv" id="v-fly"></span></div>
-          <input type="range" id="s-fly" min="3200" max="5400" step="50" value="4000"></div>
         <div class="lever"><div class="lh"><label for="s-food">Food, per day</label><span class="lv" id="v-food"></span></div>
           <input type="range" id="s-food" min="50" max="160" step="5" value="80"></div>
         <div class="lever"><div class="lh"><label for="s-km">Planned distance</label><span class="lv" id="v-km"></span></div>
@@ -700,6 +708,22 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="kv"><b>Cost</b><span data-private="base.cost"></span></div>
         <div class="kv"><b>Card charged</b><span data-private="base.charged"></span></div>
         <div class="kv"><b>Free cancellation</b><span data-private="base.cancel"></span></div>
+      </div>
+
+      <div class="pcard"><h3>✈️ Flights · British Airways</h3>
+        <div class="kv"><b>Booking ref</b><span data-private="flight.ref"></span></div>
+        <div class="kv"><b>Out · Nov 4</b><span>BA0851 WAW 07:20 → LHR 09:25</span></div>
+        <div class="kv"><b></b><span>BA0233 LHR 11:10 → SJO 16:40</span></div>
+        <div class="kv"><b>Back · Nov 25</b><span>BA0232 SJO 18:40 → LHR 10:50 +1</span></div>
+        <div class="kv"><b></b><span>BA0848 LHR 15:15 → WAW 18:50</span></div>
+        <div class="kv"><b>Terminals</b><span>LHR T5 both ways · SJO Terminal M</span></div>
+        <div class="kv"><b>Connections</b><span>1 h 45 m out · 4 h 25 m back</span></div>
+        <div class="kv"><b>Cabin</b><span>Economy, all four legs</span></div>
+        <div class="kv"><b>Baggage</b><span>23 kg checked + cabin bag + laptop bag</span></div>
+        <div class="kv"><b>Changes</b><span>€150 fee plus fare difference</span></div>
+        <div class="kv"><b>Cancellation</b><span>taxes refunded only</span></div>
+        <div class="kv"><b>Cost</b><span data-private="flight.cost"></span></div>
+        <p class="legend" style="line-height:1.6">BA flies LHR → SJO five times a week in winter (Tue, Wed, Fri, Sat, Sun), so the 1 h 45 m connection out has no same-day backup — the next departure is two days later.</p>
       </div>
 
       <div class="pcard"><h3>⏱️ Drive times from Heredia</h3>
@@ -924,7 +948,10 @@ function flash(el,msg){if(!el)return;el.textContent=msg;setTimeout(()=>{if(el.te
 (function(){
   const el=$('cd');
   if(!el)return;
-  const DEP=new Date(2026,10,4);
+  // Touchdown at SJO: 4 Nov 2026, 16:40 Costa Rica time. Costa Rica keeps UTC-6 all year
+  // (no DST), so that instant is 22:40 UTC. Built from Date.UTC deliberately: the previous
+  // `new Date(2026,10,4)` meant local midnight, a different instant for every reader.
+  const DEP=new Date(Date.UTC(2026,10,4,22,40));
   function tick(){
     const d=Math.ceil((DEP-new Date())/864e5);
     el.textContent = d>1 ? d+' days' : d===1 ? 'tomorrow' : d>=0 ? 'today' : 'en route';
@@ -1209,6 +1236,9 @@ const PRIV={};
 const NOTES=[];
 let NOTES_ERR=false;
 let LODGING_LABEL='Lodging · Heredia, 21 nights';
+// Booked and ticketed, so a fixed figure rather than a lever. The real amount lives in
+// trip_private beside the lodging cost; 4000 is the public round number shown signed out.
+let FLIGHTS_PLN=4000;
 
 const Private=(function(){
   const adlg=$('authDlg'),btn=$('authBtn'),msg=$('authMsg');
@@ -1291,14 +1321,9 @@ const Private=(function(){
   function applyToBudget(){
     LODGING_LABEL=PRIV['budget.lodgingLabel']||'Lodging · Heredia, 21 nights';
     const q=parseFloat(PRIV['budget.flights']);
-    // Only pre-set the slider if it was never dragged, same rule as the FX rate.
-    // Read the value back afterwards: the input snaps to its step, and a model holding
-    // the unsnapped figure would disagree with the control until the next drag.
-    if(!isNaN(q)&&!flyTouched){
-      const el=$('s-fly');
-      el.value=q;
-      B.fly=parseFloat(el.value);
-    }
+    // The booked fare, or the public round number when signed out. Not a lever any more, so
+    // there is no step to snap to and no user edit that could be overwritten here.
+    FLIGHTS_PLN=isNaN(q)?4000:q;
     if(typeof calcBudget==='function')calcBudget();
   }
 
@@ -1347,11 +1372,11 @@ const Private=(function(){
 })();
 
 /* ================= BUDGET CONSOLE ================= */
-const BUDGET_DEFAULTS={fly:4000,food:80,km:1800,park:160,ins:false,fxr:3.75};
+const BUDGET_DEFAULTS={food:80,km:1800,park:160,ins:false,fxr:3.75};
 const B=Object.assign({},BUDGET_DEFAULTS);
 const TARGET=12000, INS_COST=361, GMIN=8000, GMAX=15000;
 const FUEL_L_100=7.5, FUEL_USD_L=1.25, NIGHTS=21;
-let CUR='PLN', fxTouched=false, flyTouched=false;
+let CUR='PLN', fxTouched=false;
 
 function money(pln){
   if(CUR==='USD')return '$'+Math.round(pln/B.fxr).toLocaleString('en-US');
@@ -1365,7 +1390,7 @@ function calcBudget(){
   const rows=[
     [LODGING_LABEL,parseFloat(PRIV['budget.lodging'])||3400,true],
     ['Car · Jimny 4×4, 21 days',1021,true],
-    ['Flights WAW ⇄ SJO',B.fly,false],
+    ['Flights WAW ⇄ SJO · BA via LHR',FLIGHTS_PLN,true],
     ['International driving permit',80,false],
     ['Food · 21 days',food,false],
     ['Fuel · '+B.km+' km',fuel,false],
@@ -1389,7 +1414,6 @@ function calcBudget(){
     .map(v=>`<span style="left:${pos(v)}%">${CUR==='USD'?'$'+Math.round(v/B.fxr).toLocaleString('en-US'):v.toLocaleString('en-US')}</span>`).join('');
 
   $('mf-budget').textContent=money(TARGET);
-  $('v-fly').textContent=money(B.fly);
   $('v-food').textContent=money(B.food)+'/day';
   $('v-km').textContent=B.km+' km';
   $('v-park').textContent='$'+B.park;
@@ -1397,14 +1421,13 @@ function calcBudget(){
   $('v-fxr').textContent=B.fxr.toFixed(2);
 
   // Screen readers otherwise announce the raw number with no unit.
-  $('s-fly').setAttribute('aria-valuetext',money(B.fly));
   $('s-food').setAttribute('aria-valuetext',money(B.food)+' per day');
   $('s-km').setAttribute('aria-valuetext',B.km+' km');
   $('s-park').setAttribute('aria-valuetext','$'+B.park);
   $('s-fxr').setAttribute('aria-valuetext',B.fxr.toFixed(2)+' PLN per USD');
 }
 
-function saveBudget(){sSet('cr26en:budget',{fly:B.fly,food:B.food,km:B.km,park:B.park,ins:B.ins,fxr:B.fxr,cur:CUR,fxTouched,flyTouched});}
+function saveBudget(){sSet('cr26en:budget',{food:B.food,km:B.km,park:B.park,ins:B.ins,fxr:B.fxr,cur:CUR,fxTouched});}
 
 function setFx(v){
   const el=$('s-fxr');
@@ -1414,13 +1437,12 @@ function setFx(v){
   B.fxr=c;el.value=c;
 }
 
-[['s-fly','fly'],['s-food','food'],['s-km','km'],['s-park','park'],['s-fxr','fxr']]
+[['s-food','food'],['s-km','km'],['s-park','park'],['s-fxr','fxr']]
 .forEach(([id,key])=>{
   const el=$(id);
   el.addEventListener('input',()=>{
     B[key]=parseFloat(el.value);
     if(key==='fxr')fxTouched=true;
-    if(key==='fly')flyTouched=true;
     calcBudget();saveBudget();
   });
 });
@@ -1439,8 +1461,8 @@ $('cur-usd').onclick=()=>setCur('USD');
 
 $('b-reset').onclick=()=>{
   Object.assign(B,BUDGET_DEFAULTS);
-  fxTouched=false;flyTouched=false;
-  $('s-fly').value=B.fly;$('s-food').value=B.food;$('s-km').value=B.km;
+  fxTouched=false;
+  $('s-food').value=B.food;$('s-km').value=B.km;
   $('s-park').value=B.park;$('s-ins').checked=B.ins;setFx(B.fxr);
   setCur('PLN');
 };
@@ -1448,12 +1470,12 @@ $('b-reset').onclick=()=>{
 (function restoreBudget(){
   const s=sGet('cr26en:budget');
   if(!s)return;
-  ['fly','food','km','park'].forEach(k=>{if(typeof s[k]==='number')B[k]=s[k];});
+  ['food','km','park'].forEach(k=>{if(typeof s[k]==='number')B[k]=s[k];});
   if(typeof s.ins==='boolean')B.ins=s.ins;
   if(typeof s.fxr==='number')B.fxr=s.fxr;
   if(s.cur==='USD'||s.cur==='PLN')CUR=s.cur;
-  fxTouched=!!s.fxTouched;flyTouched=!!s.flyTouched;
-  $('s-fly').value=B.fly;$('s-food').value=B.food;$('s-km').value=B.km;
+  fxTouched=!!s.fxTouched;
+  $('s-food').value=B.food;$('s-km').value=B.km;
   $('s-park').value=B.park;$('s-ins').checked=B.ins;setFx(B.fxr);
 })();
 setCur(CUR);
@@ -1474,9 +1496,9 @@ fetch('https://api.frankfurter.app/latest?from=USD&to=PLN')
 /* ================= CHECKLISTS ================= */
 const CHECK=[
   ['✈️ Flights and deadlines',[
-    ['Book flights WAW ⇄ SJO','British Airways via LHR, ~16 h · deadline end of August','req'],
-    ['Check the Skyscanner price alert','live results beat any estimate',''],
-    ['Add the Nov 4 landing time to the plan','it shapes the whole first day','']]],
+    ['Add passport data (API) to the BA booking','required before departure — advance passenger information','req'],
+    ['Confirm the 50 zł hold deposit was refunded','due back within 21 days of Aug 25, so check by Sep 15','req'],
+    ['Check in online','BA opens check-in 24 h before each leg','rec']]],
   ['🚗 Car and documents',[
     ["Check Jumbo Car's terms on the IDP",'before paying for the permit','req'],
     ['Get the IDP from PZM','if required · 60–100 zł · one day',''],
@@ -1493,7 +1515,7 @@ const CHECK=[
     ['Buy an eSIM (Kölbi / Claro)','signal disappears in Monteverde and on the coast',''],
     ['Download offline maps for all of Costa Rica','Google Maps + Waze','req'],
     ['Buy type A/B plug adapters','120 V, Polish plugs do not fit','req'],
-    ['Save the base address and booking code offline','in case there is no signal on landing','']]],
+    ['Save the base address and both booking references offline','lodging and the BA flight — private data is never cached','req']]],
   ['🎉 Gifts and coordination',[
     ['Buy stroopwafels for Nicole','promised in the group chat — non-negotiable','req'],
     ['Send Jonathan the itinerary','he asked for it',''],
