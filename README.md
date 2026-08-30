@@ -162,9 +162,9 @@ never receives them until someone is signed in, so the public source shows nothi
 ```sql
 create table if not exists public.private_notes (
   id       bigint   generated always as identity primary key,
-  note_key text     unique,
-  title    text     not null,
-  body     text     not null default '',
+  note_key text     unique   check (char_length(note_key) between 1 and 80),
+  title    text     not null check (char_length(title)    between 1 and 120),
+  body     text     not null default '' check (char_length(body) <= 4000),
   sort     smallint not null default 0
 );
 
@@ -202,6 +202,12 @@ on conflict (note_key) do update
 
 `sort` orders the list, `title` breaks ties. Number in tens so a note can be slipped
 between two others without renumbering. Blank lines inside `body` survive to the page.
+
+The `CHECK` constraints mirror the ones on `pachanga_board`. There they are the real
+abuse limit, because anyone can write to that table; here only you can, so they guard
+against a slip instead — a whole document pasted into `body` would be loaded on every
+visit. 120 characters for a title and 4000 for a body are generous against real notes;
+raise them with `alter table ... drop constraint` and re-add if you ever need to.
 
 `note_key` is a stable name for a note — `crew-poas-day`, say — and the page never reads
 it. It exists so a seed file can be re-run: with `on conflict` the second run updates the

@@ -79,9 +79,9 @@ real way to get this wrong.
 ```sql
 create table if not exists public.private_notes (
   id       bigint   generated always as identity primary key,
-  note_key text     unique,
-  title    text     not null,
-  body     text     not null default '',
+  note_key text     unique   check (char_length(note_key) between 1 and 80),
+  title    text     not null check (char_length(title)    between 1 and 120),
+  body     text     not null default '' check (char_length(body) <= 4000),
   sort     smallint not null default 0
 );
 
@@ -105,6 +105,13 @@ audit goes wrong.
 
 **Ordering.** `sort` drives the order of the list, `title` breaks ties. Nothing else
 depends on it.
+
+**Length `CHECK`s — added 2026-08-13.** `pachanga_board` had them from the start and this
+table did not, which was an asymmetry with no reason behind it. They are not an abuse
+control here — only the owner can write — but an unbounded `body` is loaded on every visit
+by anyone signed in, so one careless paste is a permanent page-weight problem. Verified by
+attempting violations rather than by trusting the DDL: over-long title, empty title,
+over-long body and empty key were all rejected, and a valid row still inserted.
 
 **`note_key` — added 2026-08-13, after the fact.** Not part of the original design and
 invisible to the page. Notes turned out to arrive as generated SQL batches, which without a
