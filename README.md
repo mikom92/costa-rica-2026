@@ -161,10 +161,11 @@ never receives them until someone is signed in, so the public source shows nothi
 
 ```sql
 create table if not exists public.private_notes (
-  id    bigint   generated always as identity primary key,
-  title text     not null,
-  body  text     not null default '',
-  sort  smallint not null default 0
+  id       bigint   generated always as identity primary key,
+  note_key text     unique,
+  title    text     not null,
+  body     text     not null default '',
+  sort     smallint not null default 0
 );
 
 alter table public.private_notes enable row level security;
@@ -191,13 +192,22 @@ public repository, and the note content is exactly the material that was taken o
 public page — pasting it below would put it straight back.
 
 ```sql
-insert into public.private_notes (title, body, sort) values
-  ('<note title>', '<first paragraph>' || chr(10) || chr(10) || '<second paragraph>', 10),
-  ('<note title>', '<body>', 20);
+insert into public.private_notes (note_key, title, body, sort) values
+  ('<stable-key>', '<note title>',
+   '<first paragraph>' || chr(10) || chr(10) || '<second paragraph>', 10),
+  ('<stable-key>', '<note title>', '<body>', 20)
+on conflict (note_key) do update
+  set title = excluded.title, body = excluded.body, sort = excluded.sort;
 ```
 
 `sort` orders the list, `title` breaks ties. Number in tens so a note can be slipped
 between two others without renumbering. Blank lines inside `body` survive to the page.
+
+`note_key` is a stable name for a note — `crew-poas-day`, say — and the page never reads
+it. It exists so a seed file can be re-run: with `on conflict` the second run updates the
+same rows instead of inserting a duplicate set. It is nullable, because Postgres allows
+many NULLs under a unique constraint, so a note typed straight into the Table Editor need
+not invent one; only notes you intend to re-seed require a key.
 
 Nothing appears until you are signed in. Signed in with an empty table the section says
 so, and a table that is missing or whose policy does not match your address reports that

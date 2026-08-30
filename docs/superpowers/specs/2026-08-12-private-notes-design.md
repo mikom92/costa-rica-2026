@@ -78,10 +78,11 @@ real way to get this wrong.
 
 ```sql
 create table if not exists public.private_notes (
-  id    bigint   generated always as identity primary key,
-  title text     not null,
-  body  text     not null default '',
-  sort  smallint not null default 0
+  id       bigint   generated always as identity primary key,
+  note_key text     unique,
+  title    text     not null,
+  body     text     not null default '',
+  sort     smallint not null default 0
 );
 
 alter table public.private_notes enable row level security;
@@ -104,6 +105,11 @@ audit goes wrong.
 
 **Ordering.** `sort` drives the order of the list, `title` breaks ties. Nothing else
 depends on it.
+
+**`note_key` — added 2026-08-13, after the fact.** Not part of the original design and
+invisible to the page. Notes turned out to arrive as generated SQL batches, which without a
+stable key cannot be re-run: a second run inserts a duplicate set rather than updating the
+first. Nullable, so hand-typed rows need not carry one.
 
 **No `category` column — decided 2026-08-13.** Notes render as one flat list. Grouping was
 offered and declined: at the expected volume, headings would cost a field on every row to
