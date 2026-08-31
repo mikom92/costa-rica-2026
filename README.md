@@ -135,13 +135,19 @@ insert into public.trip_private (key, value) values
   ('budget.lodgingLabel', 'Lodging · <town>, 21 nights'),
   ('budget.flights',      '<flight cost, PLN, digits only>'),
   ('flight.ref',          '<airline booking reference>'),
-  ('flight.cost',         '<amount> zł · fare + taxes')
+  ('flight.cost',         '<amount> zł · fare + taxes'),
+  ('car.ref',             '<rental booking reference>'),
+  ('car.policy',          '<excess-cover policy number>')
 on conflict (key) do update set value = excluded.value;
 ```
 
 `budget.lodging` and `budget.flights` are numbers in PLN — digits only, no currency and no
 thousands separator, because they are parsed. Signed out, the budget console shows round
 estimates (3,400 and 4,000) so it stays usable without revealing the actual booked amounts.
+
+`car.ref` and `car.policy` follow the same rule as the flight reference: a rental booking
+number identifies a booking that can be changed or cancelled by whoever holds it, so it
+stays out of the repository.
 
 `flight.ref` and `flight.cost` are display strings for the Flights card, and are separate
 from `budget.flights` on purpose: one is a number the console adds up, the other is text a
