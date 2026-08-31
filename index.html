@@ -323,7 +323,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
     <div class="day" data-days="4" data-ctx="arrival" data-ov-date="Wed Nov 4" data-ov-title="Arrival" data-ov-sub="SJO → Heredia" data-ov-cls="">
       <div class="dayhead"><h3>Wednesday, Nov 4 · arrival</h3>
         <div class="sub">Landing 16:40 · SJO → Heredia · ~30 min · check-in from 15:00</div>
-        <div class="note">Flights and car are both booked. Landing is 16:40 and the Avanti desk is reserved for 17:30 — fifty minutes to clear immigration, find the shuttle and sign the paperwork. That is tight rather than comfortable, and the booking warns that a late arrival can lose the car. Then Heredia after dark. No ambition on day one: car, check-in, groceries, dinner.</div></div>
+        <div class="note">Flights and car are both booked. Landing is 16:40, the Avanti desk is reserved for 17:30, and fifty minutes will not cover immigration, a checked bag, the shuttle and the paperwork — realistically it is 18:00 to 18:45 before the keys are in hand. That is normal: the booking carries flight BA0233 precisely so the supplier can track the real arrival. Phone them from the terminal anyway. Then Heredia after dark. No ambition on day one: car, check-in, groceries, dinner.</div></div>
       <div class="slot"><div class="t">07:20 – 16:40</div><div>
         <h4>Fly Warsaw → San José, via London</h4>
         <p><b>BA0851</b> · WAW 07:20 → London Heathrow T5 09:25.<br>
@@ -737,6 +737,8 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
         <div class="kv"><b>Full Coverage</b><span data-private="car.policy"></span></div>
         <div class="kv"><b>Extra driver</b><span>first one free</span></div>
         <div class="kv"><b>Deposit</b><span data-private="car.deposit"></span></div>
+        <div class="kv"><b>Their phone</b><span>+506 8519 8889 · +506 6138 7443</span></div>
+        <div class="kv"><b>Flight on file</b><span>BA0233 — they track the real arrival</span></div>
         <div class="kv"><b>Cost</b><span>1,799 zł for 21 days, cover included</span></div>
         <p class="legend" style="line-height:1.6">The return slot and the flight collide: the car is booked back at 17:30 and BA0232 leaves at 18:40. Hand it over by 15:00. Bring a credit card in the main driver's name — debit, prepaid and online-bank cards are refused for the deposit.</p>
       </div>
@@ -1511,6 +1513,8 @@ const CHECK=[
     ['Check in online','BA opens check-in 24 h before each leg','rec']]],
   ['🚗 Car and documents',[
     ["Check Avanti's terms on the IDP",'before paying for the permit','req'],
+      ["Check Avanti's opening hours",'landing 16:40 means reaching the desk nearer 18:30 — confirm they are still open','req'],
+      ['Consider moving the pick-up slot to 18:30','changes are free on this booking and the 17:30 slot is not realistic','rec'],
     ['Get the IDP from PZM','if required · 60–100 zł · one day',''],
     ['Verify travel insurance covers a 21-day trip','medical and baggage — the car excess is already handled by Full Coverage','rec'],
     ['Check the credit card limit for the deposit hold','placed at pick-up · credit only, debit and prepaid are refused','req'],
