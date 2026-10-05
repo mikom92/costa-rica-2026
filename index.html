@@ -9,10 +9,10 @@
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0E1F1C">
 <title>Costa Rica · Nov 4–25, 2026</title>
-<meta name="description" content="Trip manifest for Costa Rica, 4–25 November 2026: day-by-day itinerary, shared pachanga board, live budget console and pre-departure checklists.">
+<meta name="description" content="Trip manifest for Costa Rica, 4–25 November 2026: day-by-day itinerary, shared pachanga board and pre-departure checklists.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Costa Rica · Nov 4–25, 2026">
-<meta property="og:description" content="21 nights, one base in Heredia, a Jimny 4×4 and a crew lining up the weekends. Itinerary, budget and the pachanga board.">
+<meta property="og:description" content="21 nights, one base in Heredia, a Jimny 4×4 and a crew lining up the weekends. Itinerary, practical notes and the pachanga board.">
 <meta property="og:locale" content="en_GB">
 <meta property="og:image" content="https://mikom92.github.io/costa-rica-2026/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -170,7 +170,7 @@ dialog textarea{min-height:60px;resize:vertical}
 .gauge i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--jade),var(--yellow));border-radius:4px;transition:width .2s}
 .gauge .tgt{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--bone);opacity:.8;transform:translateX(-1px)}
 /* Ticks are positioned at their true position on the scale. Laying them out with
-   space-between would put 12,000 at 67% while the bar reaches it at 57%. */
+   space-between would put a tick at 67% while the bar reaches that value at 57%. */
 .gscale{position:relative;height:14px;font-family:var(--mono);font-size:11px;color:var(--dim)}
 .gscale span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
 .gscale span:first-child{transform:none}
@@ -187,6 +187,7 @@ input[type=range]:focus-visible{outline:2px solid var(--jade);outline-offset:2px
 .lines div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
 .lines span:last-child{font-family:var(--mono);font-size:12.5px;white-space:nowrap;color:rgba(244,237,223,.85)}
 .lines div.fixed span:last-child{color:var(--jade)}
+.lines div.missing span:last-child{color:var(--dim2)}
 .fx{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:10px;letter-spacing:.05em}
 
 .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
@@ -284,7 +285,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
     <div class="mf"><div class="k">Base</div><div class="v">Heredia</div><div class="s"><span data-private="base.short"></span></div></div>
     <div class="mf"><div class="k">Vehicle</div><div class="v">Jimny 4×4</div><div class="s">Jumbo Car · 21 days</div></div>
     <div class="mf"><div class="k">Check-in / out</div><div class="v">15:00 / 11:00</div><div class="s">Nov 4 / Nov 25</div></div>
-    <div class="mf hot"><div class="k">Budget target</div><div class="v" id="mf-budget">12,000 zł</div><div class="s">flights still open</div></div>
+    <div class="mf hot" id="mf-budget-tile" hidden><div class="k">Budget target</div><div class="v" id="mf-budget">—</div><div class="s">flights still open</div></div>
   </div></div>
 </header>
 
@@ -294,7 +295,7 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   <a href="#w2">Week 2</a>
   <a href="#w3">Week 3</a>
   <a href="#pachanga">Pachanga</a>
-  <a href="#budget">Budget</a>
+  <a href="#budget" hidden>Budget</a>
   <a href="#practical">Practical</a>
   <!-- Must stay in document order: the scrollspy builds its section list from the order of
        these links, not from the page, and picks the first visible one. -->
@@ -649,10 +650,10 @@ footer{padding:30px 0 54px;color:var(--dim);font-size:13px;text-align:center}
   </div>
 </section>
 
-<!-- BUDGET -->
-<section id="budget">
+<!-- BUDGET (owner only) -->
+<section id="budget" hidden>
   <div class="wrap">
-    <div class="shead"><h2>Budget console</h2><span class="tag">drag the sliders</span></div>
+    <div class="shead"><h2>Budget console</h2><span class="tag">visible only to you</span></div>
     <p class="sintro">Lodging and the car are locked and won't move. Flights, food, fuel and park fees are the levers that actually change the total. Amounts in Polish złoty by default — switch to USD if that reads better.</p>
     <div class="console">
       <div class="readout">
@@ -1227,7 +1228,20 @@ const Private=(function(){
       }
     });
     btn.textContent=email?'🔓 '+email+' · sign out':'🔒 Private details';
+    paintBudget();
     paintNotes();
+  }
+
+  // The whole budget is owner-only. Keyed on the session, like the notes. The figures that
+  // make it personal (target, lodging, car, flights) are not in this file at all — they
+  // arrive from `trip_private` — so hiding the section is presentation, not the protection.
+  function paintBudget(){
+    const show=!!email;
+    const sec=$('budget'),tile=$('mf-budget-tile');
+    const link=document.querySelector('#nav a[href="#budget"]');
+    if(sec)sec.hidden=!show;
+    if(tile)tile.hidden=!show;
+    if(link)link.hidden=!show;
   }
 
   // Three states, not two. An empty list and a broken table both produce zero notes, and
@@ -1349,7 +1363,11 @@ const Private=(function(){
 /* ================= BUDGET CONSOLE ================= */
 const BUDGET_DEFAULTS={fly:4000,food:80,km:1800,park:160,ins:false,fxr:3.75};
 const B=Object.assign({},BUDGET_DEFAULTS);
-const TARGET=12000, INS_COST=361, GMIN=8000, GMAX=15000;
+// Personal figures come from `trip_private` (budget.target, budget.lodging, budget.car,
+// budget.flights). A missing key renders as "not set" instead of a made-up number, so a
+// typo in the table is visible rather than quietly skewing the total.
+const INS_COST=361, GMIN=8000, GMAX=15000;
+function privNum(k){const v=parseFloat(PRIV[k]);return isNaN(v)?null:v;}
 const FUEL_L_100=7.5, FUEL_USD_L=1.25, NIGHTS=21;
 let CUR='PLN', fxTouched=false, flyTouched=false;
 
@@ -1362,9 +1380,11 @@ function pos(v){return Math.max(0,Math.min(100,((v-GMIN)/(GMAX-GMIN))*100));}
 function calcBudget(){
   const fuel=(B.km/100)*FUEL_L_100*FUEL_USD_L*B.fxr, food=B.food*NIGHTS, park=B.park*B.fxr;
   const ins=B.ins?INS_COST:0;
+  const TARGET=privNum('budget.target');
+  // [label, value or null when not set, locked]
   const rows=[
-    [LODGING_LABEL,parseFloat(PRIV['budget.lodging'])||3400,true],
-    ['Car · Jimny 4×4, 21 days',1021,true],
+    [LODGING_LABEL,privNum('budget.lodging'),true],
+    ['Car · Jimny 4×4, 21 days',privNum('budget.car'),true],
     ['Flights WAW ⇄ SJO',B.fly,false],
     ['International driving permit',80,false],
     ['Food · 21 days',food,false],
@@ -1372,23 +1392,31 @@ function calcBudget(){
     ['Park entry fees',park,false],
     ['Extra car coverage',ins,false],
     ['Buffer',500,false]];
-  const total=rows.reduce((a,r)=>a+r[1],0);
+  const total=rows.reduce((a,r)=>a+(r[1]||0),0);
 
-  $('lines').innerHTML=rows.filter(r=>r[1]>0)
-    .map(r=>`<div class="${r[2]?'fixed':''}"><span>${esc(r[0])}</span><span>${money(r[1])}</span></div>`).join('');
+  $('lines').innerHTML=rows.filter(r=>r[1]===null||r[1]>0)
+    .map(r=>r[1]===null
+      ?`<div class="missing"><span>${esc(r[0])}</span><span>not set</span></div>`
+      :`<div class="${r[2]?'fixed':''}"><span>${esc(r[0])}</span><span>${money(r[1])}</span></div>`).join('');
   $('total').textContent=money(total);
 
-  const d=TARGET-total,el=$('delta');
-  el.textContent=d>=0?money(d)+' under target':money(-d)+' over target';
-  el.className='delta '+(d>=0?'under':'over');
+  const el=$('delta');
+  if(TARGET===null){
+    el.textContent='No target set — add budget.target in trip_private';el.className='delta';
+  }else{
+    const d=TARGET-total;
+    el.textContent=d>=0?money(d)+' under target':money(-d)+' over target';
+    el.className='delta '+(d>=0?'under':'over');
+  }
 
   $('gfill').style.width=pos(total)+'%';
-  $('gtgt').style.left=pos(TARGET)+'%';
+  $('gtgt').hidden=TARGET===null;
+  if(TARGET!==null)$('gtgt').style.left=pos(TARGET)+'%';
   // Ticks sit at their real position on the scale, not at even spacing.
-  $('gscale').innerHTML=[GMIN,10000,TARGET,GMAX]
+  $('gscale').innerHTML=[GMIN,10000,TARGET,GMAX].filter(v=>v!==null)
     .map(v=>`<span style="left:${pos(v)}%">${CUR==='USD'?'$'+Math.round(v/B.fxr).toLocaleString('en-US'):v.toLocaleString('en-US')}</span>`).join('');
 
-  $('mf-budget').textContent=money(TARGET);
+  $('mf-budget').textContent=TARGET===null?'—':money(TARGET);
   $('v-fly').textContent=money(B.fly);
   $('v-food').textContent=money(B.food)+'/day';
   $('v-km').textContent=B.km+' km';

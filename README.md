@@ -1,7 +1,7 @@
 # Costa Rica · 4–25 November 2026
 
 A single-page trip manifest: day-by-day itinerary, a shared "pachanga" board the local
-crew can write to, a live budget console and pre-departure checklists.
+crew can write to, pre-departure checklists, and an owner-only budget console.
 
 Everything is one static `index.html` with no build step. Open the file, or serve the
 folder over HTTP:
@@ -131,15 +131,21 @@ insert into public.trip_private (key, value) values
   ('car.deposit',         '$<deposit hold>'),
   ('insurance.plan',      '<insurer and plan>'),
   ('insurance.bank',      '<bank / card>'),
+  ('budget.target',       '<total budget target, PLN, digits only>'),
   ('budget.lodging',      '<lodging cost, PLN, digits only>'),
+  ('budget.car',          '<car rental cost, PLN, digits only>'),
   ('budget.lodgingLabel', 'Lodging · <town>, 21 nights'),
   ('budget.flights',      '<flight quote, PLN, digits only>')
 on conflict (key) do update set value = excluded.value;
 ```
 
-`budget.lodging` and `budget.flights` are numbers in PLN. Signed out, the budget console
-shows round estimates (3,400 and 4,000) so it stays usable without revealing the actual
-booked amounts. `budget.flights` only pre-sets the slider if it has never been dragged.
+`budget.*` values are numbers in PLN. The whole budget console — the section, its nav
+link and the "Budget target" tile in the header — is shown only to the signed-in owner.
+Hiding the section is presentation only; what actually keeps the money private is that
+target, lodging, car and flight figures are not in `index.html` at all and arrive only from
+this table. A missing key renders as "not set" rather than a fallback number, so a typo in
+a key shows up instead of quietly skewing the total. `budget.flights` only pre-sets the
+slider if it has never been dragged.
 
 ### Sign-in
 
