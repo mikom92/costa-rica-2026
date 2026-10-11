@@ -128,6 +128,7 @@ insert into public.trip_private (key, value) values
   ('base.cost',           '<amount> zł · 21 nights'),
   ('base.charged',        '<date the card was charged>'),
   ('base.cancel',         'until <free cancellation deadline>'),
+  ('base.parking',        '<where to park overnight>'),
   ('car.deposit',         '$<deposit hold>'),
   ('insurance.plan',      '<insurer and plan>'),
   ('insurance.bank',      '<bank / card>'),
@@ -144,8 +145,8 @@ link and the "Budget target" tile in the header — is shown only to the signed-
 Hiding the section is presentation only; what actually keeps the money private is that
 target, lodging, car and flight figures are not in `index.html` at all and arrive only from
 this table. A missing key renders as "not set" rather than a fallback number, so a typo in
-a key shows up instead of quietly skewing the total. `budget.flights` only pre-sets the
-slider if it has never been dragged.
+a key shows up instead of quietly skewing the total. Lodging, car and flights are booked
+amounts, so they render as locked rows rather than sliders.
 
 ### Sign-in
 
