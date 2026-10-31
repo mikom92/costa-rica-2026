@@ -412,6 +412,7 @@ footer{font-size:14px}
     <p class="sintro">Every night is in Heredia. Anything further than a day trip happens only where friends offer a place to stay, so the plan is built from loops that end back at the loft: volcanoes, a day on each coast, and a road trip through the Caribbean lowlands. Week two is work from the loft. Days marked <span class="tbc tbc-inline">to be confirmed</span> are still being agreed with friends.</p>
     <div class="ov" id="ovGrid"></div>
     <div class="warnbox"><b>One road to respect:</b> Ruta 32 through Braulio Carrillo is the only way to the Caribbean side and it closes for landslides, fog and roadworks. Check it on the morning of Nov 7, and plan that day so the climb back happens before dark.</div>
+    <div class="tipbox"><b>Floating, no date yet:</b> the Caribbean coast — Cahuita and Puerto Viejo — with Esteban. It gets settled with him on the ground rather than pinned to the calendar now.</div>
   </div>
 </section>
 
@@ -534,6 +535,7 @@ footer{font-size:14px}
       <div class="slot"><div class="t">8:00 – 9:30</div><div>
         <h4>Parque Nacional Volcán Poás<span class="tg book">reserve ahead</span><span class="tg must">must</span></h4>
         <p>Entry is <b>online-only through the SINAC system</b> — nothing is sold at the gate. Timed entry slots, and time at the crater rim may be capped for gas-safety reasons. The crater is 1.3 km across with an acid lake at the bottom.</p>
+        <p style="margin-top:8px"><b>The volcano sets the rules:</b> since August 2026 the park runs at half capacity and helmets are mandatory, and it has closed at a day's notice before. Check SINAC the evening before — if it is shut, La Paz below is the plan and the rest of the day still works.</p>
         <div class="links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Parque+Nacional+Volcan+Poas+Costa+Rica" target="_blank" rel="noopener">📍 Poás</a><a href="https://waze.com/ul?q=Volcan+Poas+National+Park&navigate=yes" target="_blank" rel="noopener">🚗 Waze</a><a href="https://serviciosenlinea.sinac.go.cr/" target="_blank" rel="noopener">🎟️ SINAC tickets</a></div></div></div>
       <div class="slot"><div class="t">10:00 – 12:00</div><div>
         <h4>La Paz Waterfall Gardens<span class="tg">optional</span></h4>
@@ -789,7 +791,7 @@ footer{font-size:14px}
           <li><b>Addresses don't exist.</b> Directions run off landmarks: "200 metres north of the church, 50 east." Waze is the local standard and handles this better than Google Maps.</li>
           <li><b>Attended fuel stations</b> — you don't pump it yourself. State an amount or say "lleno", and check the meter is zeroed.</li>
           <li><b>Tolls</b> on Ruta 27 are cash only in colones. Keep coins in the car.</li>
-          <li><b>Police checkpoints</b> near national parks are routine, not a sign of trouble. Licence, IDP, passport or a copy.</li>
+          <li><b>Police checkpoints</b> near national parks are routine, not a sign of trouble. Licence and passport, or a copy with the entry stamp.</li>
           <li><b>Night driving</b> outside the highways is genuinely worse than the European equivalent: unlit, unshouldered, and shared with pedestrians and dogs. Worth building into the day plan rather than the driving.</li>
           <li><b>Ruta 32</b> is the one road that can be closed outright. Check before committing to it.</li>
         </ul>
@@ -799,7 +801,8 @@ footer{font-size:14px}
         <ul>
           <li><b>Visa:</b> not required for Polish citizens up to 90 days.</li>
           <li><b>Onward ticket</b> — immigration may ask for it, so carry a printout.</li>
-          <li><b>IDP: required by the rental company</b> — a physical booklet, not a digital one, issued under the <b>1949 Geneva convention</b> (the one Costa Rica recognises). A Polish licence is in neither Spanish nor English, so checkpoints expect it too. From PZM: 60–100 zł, one visit.</li>
+          <li><b>UK transit:</b> no ETA needed — the Heathrow connection stays airside in T5, both ways.</li>
+          <li><b>IDP: not needed.</b> Avanti confirmed in writing that the Polish licence is enough. Keep that email offline in case the counter asks.</li>
           <li><b>Insurance:</b> <span data-private="insurance.plan"></span> covers the rental excess; it excludes damage on unpaved roads. Glass, tyres, undercarriage and towing sit outside the excess and are covered by the Full Coverage booked with the car. The one real gap: the rental's third-party liability has a low limit, and personal liability cover normally excludes driving.</li>
           <li><b>Vaccinations:</b> none required when arriving from Europe.</li>
         </ul>
@@ -818,7 +821,7 @@ footer{font-size:14px}
       <div class="pcard"><h3>🔌 Tech</h3>
         <ul>
           <li><b>Type A/B sockets, 120 V</b> — Polish plugs don't fit. <b>Bring adapters</b>, ideally two. Most USB chargers handle 100–240 V, but check each device.</li>
-          <li><b>Data:</b> a travel eSIM set up before departure covers it. If a local number is ever needed, Kölbi (ICE) has the best coverage outside cities.</li>
+          <li><b>Data:</b> Revolut eSIM, 20 GB for 30 days, activated at home before departure. If a local number is ever needed, Kölbi (ICE) has the best coverage outside cities.</li>
           <li><b>Signal disappears</b> in Braulio Carrillo and in patches across the lowlands. Download offline maps for the whole country.</li>
           <li><b>Emergency number: 911</b>, English-capable.</li>
         </ul>
@@ -1545,14 +1548,10 @@ fetch('https://api.frankfurter.app/latest?from=USD&to=PLN')
 /* ================= CHECKLISTS ================= */
 const CHECK=[
   ['✈️ Flights and deadlines',[
-    ['Add passport (API) details to the BA booking','required before check-in','req'],
-    ['Funds on the card for the Airbnb charge','taken automatically on Oct 22','req'],
-    ['Last day for free Airbnb cancellation','Oct 30, 15:00 — after that it is locked in',''],
-    ['Last day for free car cancellation','Nov 2',''],
-    ['Online check-in + look at a paid upgrade on LHR → SJO','opens Nov 3, 07:20 Polish time','rec'],
+    ['Online check-in + look at a paid upgrade on LHR → SJO','opens Nov 3, 07:20 Polish time · fare class Q, so only a paid offer, not Avios','rec'],
     ['Online check-in for the flight home','opens Nov 24, 18:40 Costa Rica time','']]],
   ['🚗 Car and documents',[
-    ['Get the IDP from PZM','physical, 1949 Geneva convention · required by Avanti · 60–100 zł','req'],
+    ["Save Avanti's no-IDP email offline",'their written OK for the Polish licence, in case the counter asks','rec'],
     ['Credit card for the car deposit','physical, embossed number, your name, valid 6+ months past Nov 25, not an online-only bank','req'],
     ['Save the DiscoverCars voucher offline','shown at Meet & Greet, terminal signal is patchy','req'],
     ['Flight number BA0233 on the car booking','protects the 60-minute pick-up window if the flight is late','req'],
@@ -1564,7 +1563,7 @@ const CHECK=[
     ['Carara — check opening hours and tickets','for Sat Nov 14',''],
     ['La Paz Waterfall Gardens — only if Poás is clouded','~$48, decide on the day','']]],
   ['📱 Before flying',[
-    ['Install and activate the travel eSIM','20 GB / 30 days · do it at home, on Wi-Fi','req'],
+    ['Install and activate the Revolut eSIM','20 GB / 30 days · do it at home, on Wi-Fi','req'],
     ['Download offline maps for all of Costa Rica','Google Maps + Waze','req'],
     ['Buy type A/B plug adapters','120 V, Polish plugs do not fit','req'],
     ['Save the base address and booking code offline','in case there is no signal on landing','']]],
@@ -1574,7 +1573,7 @@ const CHECK=[
     ["Confirm the party date with Antonio",'Thu Nov 19 or Fri Nov 20, before his holiday','req'],
     ['Confirm the Nov 7 road trip and pick-up time','early start from San José','rec'],
     ["Bring something Polish for Antonio's party",'vodka, sweets, smoked cheese',''],
-    ["Check Costa Rica's import rules for the smalec",'animal products can be stopped at customs','req']]],
+    ['No pork products in the luggage','Costa Rica stops pork at customs (swine fever rules) — the smalec stays home','req']]],
   ['⚠️ Last minute and on the ground',[
     ['Check Ruta 32 status on the morning of Nov 7','landslides close the only road to the Caribbean','req'],
     ['Film the car at pick-up','all panels, roof, interior, fuel level','req'],
@@ -1611,14 +1610,14 @@ const PACK=[
     ['Personal medication + list in English','in case of a doctor visit','']]],
   ['📄 Documents',[
     ['Passport','valid at least through the stay','req'],
-    ['Driving licence + IDP','for the rental and checkpoints','req'],
+    ['Driving licence','the Polish one is enough · Avanti confirmed in writing','req'],
     ['Printed onward ticket','immigration may ask','rec'],
     ['Card with room for the deposit hold','for the rental hold','req'],
     ['BA, Airbnb and DiscoverCars/Avanti confirmations offline','','']]],
   ['🎁 Gifts to bring',[
     ['Stroopwafels for Nicole','entry condition','req'],
     ["Something Polish for Antonio's pachanga",'vodka, sweets, smoked cheese','rec'],
-    ['Smalec for Esteban','',''],
+    ['Something Polish for Esteban','sweets or chocolate — no pork, customs stop it',''],
     ['More as they come up','list keeps growing — add below','']]],
   ['🛍️ Room for the way back',[
     ['Leave ~5 kg spare in the luggage','coffee, chocolate, Lizano, guaro','rec'],
