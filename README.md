@@ -129,6 +129,7 @@ insert into public.trip_private (key, value) values
   ('base.charged',        '<date the card was charged>'),
   ('base.cancel',         'until <free cancellation deadline>'),
   ('base.parking',        '<where to park overnight>'),
+  ('base.coords',         '<lat,lng of the loft — rewrites the base map links when signed in>'),
   ('car.deposit',         '$<deposit hold>'),
   ('insurance.plan',      '<insurer and plan>'),
   ('insurance.bank',      '<bank / card>'),
